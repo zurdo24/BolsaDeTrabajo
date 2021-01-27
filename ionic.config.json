@@ -1,0 +1,7 @@
+{
+  "name": "BolsaTrabajoAppV2",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
