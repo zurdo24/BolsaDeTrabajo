@@ -1,0 +1,45 @@
+<app-header [backbutton]="false" [title]="'Certificaciones'"></app-header>
+
+<ion-content class="goldlow">
+  <ion-refresher
+    slot="fixed"
+    (ionRefresh)="doRefresh($event)"
+    pullFactor="0.8"
+    pullMin="60"
+    pullMax="60"
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card
+    color="light"
+    *ngFor="let certifications of certifications"
+    (click)="opcionesCertifications(certifications.id)"
+  >
+    <ion-card-header>
+      <ion-card-title>
+        <ion-text color="dark">
+          <strong> {{ certifications.name }} </strong>
+        </ion-text>
+      </ion-card-title>
+      <ion-card-subtitle>
+        de {{ certifications.organization }}
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <b> {{ certifications.subject_area_id }} </b> <br />
+      <b>Recibido: </b> {{ certifications.date_received }} <br /><b>Vence: </b>
+      {{ certifications.date_expire }}
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab
+    vertical="bottom"
+    routerLink="/agregar-certificacion"
+    horizontal="end"
+    slot="fixed"
+  >
+    <ion-fab-button class="blue-btn" >
+      <ion-icon name="add" color="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

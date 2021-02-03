@@ -1,0 +1,27 @@
+<ion-menu contentId="main" menuId="first" side="start">
+  <ion-menu-toggle auto-hide="false">
+    <div class="logo-section" class="gold" (click)="routeRoot()" >
+      <div class="logo-section__wrapper">
+        <img class="logo-section__logo" [src]="url" />
+        <h3 class="logo-section__title">
+          {{ candidate.firstname }} {{ candidate.lastname }}
+        </h3>
+      </div>
+    </div>
+  </ion-menu-toggle>
+
+  <ion-content>
+    <ion-list >
+      <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+        <ion-item  button  (click)="router(p.url)" detail>
+          <ion-icon slot="start" [name]="p.icon"></ion-icon>
+          <ion-label>
+            {{ p.title }}
+          </ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-list>
+  </ion-content>
+
+  <ion-button (click)="clear()" class="blue-btn">Cerrar Sesión</ion-button>
+</ion-menu>

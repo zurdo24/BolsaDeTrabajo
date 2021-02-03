@@ -1,0 +1,22 @@
+<ion-header mode="md" class="ion-no-border">
+  <ion-toolbar class="blue">
+    <ion-buttons *ngIf="!backbutton" class="ion-padding" (click)="toggleMenu()" slot="start">
+      <ion-icon color="light" slot="icon-only" name="menu"></ion-icon>
+    </ion-buttons>
+
+    <ion-buttons  *ngIf="backbutton" slot="start" color="light">
+      <ion-back-button (click)="backbuttonhreff()" defaultHref="/" text="" color="light"></ion-back-button>
+		</ion-buttons>
+		
+    <ion-title color="light"
+      ><strong>{{ title }}</strong></ion-title
+    >
+    <ion-buttons *ngIf="title === 'Resumen'" slot="end">
+      <ion-button (click)="routef()" style="width: 120%" color="light">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!-- <app-editar-perfil-basico></app-editar-perfil-basico> -->

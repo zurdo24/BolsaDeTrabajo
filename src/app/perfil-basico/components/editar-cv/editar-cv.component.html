@@ -1,0 +1,36 @@
+<app-header [title]="'Editar Curriculum'" [backbutton]="true"  [backbuttonhref]="'perfil-basico'"> </app-header>
+<ion-content class="goldlow ion-no-padding">
+
+  <ion-grid class="ion-no-padding" >
+    <ion-row>
+      <ion-col size="12">
+        <ion-item >
+          <ion-label class="size-item"><strong>Estado</strong> </ion-label>
+        <ion-select class="size-item" mode="ios" placeholder="Mostrar currículum?"
+          interface="popover"
+          [(ngModel)]="cv.status">
+          <ion-select-option    value="visible">Visible</ion-select-option>
+             <ion-select-option    value="hidden">Oculto</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+
+
+      <ion-col size="12">
+        <ion-card >
+          <ion-card-content>
+            <ion-item >
+              <ion-textarea autofocus="true"  position="floating"  placeholder="Escriba su currículum aqui..." auto-grow="true" [(ngModel)]="cv.summary"></ion-textarea>
+          </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-row>
+  <ion-col width-50 style="text-align: center">
+    <ion-button class="blue-btn"  type="submit" (click)= "savechanges()"  expand="block" size="large">Guardar</ion-button>    
+  </ion-col>
+</ion-row>

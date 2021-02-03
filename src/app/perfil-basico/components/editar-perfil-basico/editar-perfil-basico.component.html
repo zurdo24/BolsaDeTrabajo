@@ -1,0 +1,276 @@
+<app-header [title]="'Actualización de perfil'" [backbutton]="true" [backbuttonhref]="'perfil-basico'"></app-header>
+
+
+<ion-content class="transparent-bg">
+  <form [formGroup]=" updateData" (ngSubmit)="update()">
+      <ion-grid class="goldlow ">
+          <ion-row>
+              <ion-col class="fade-in" size="12">
+                  <ion-card  style="background-color: white;">
+                      <ion-card-header>
+                          <ion-card-title>
+                              <ion-text color="dark">
+                                  <strong>Datos Generales</strong>
+                              </ion-text>
+                          </ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                          <ion-list formGroupName="userData">
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text class=" font-italic " color="Dark">
+                                          <h1> Nombre del Usuario
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input inputmode="text" (ionChange)="advertenciaUserData()" placeholder="p. ej. nombre.apellido" formControlName="username" #username></ion-input>
+                              </ion-item>
+                              <ion-text color="danger" *ngIf="userNameminlength ">
+                                  <small>Nombre de Usuario debería contener al menos 4 letras.</small>
+                              </ion-text>
+                              <ion-text color="danger" *ngIf="userNamePattern ">
+                                  <small>El nombre de usuario sólo puede contener caracteres alfanuméricos, guiones y punto. El nombre de usuario no puede iniciar con guion o punto. Los guiones y el punto no se pueden usar varias veces de forma seguida.</small>
+                              </ion-text>
+                              <!-- <ion-text colo *ngIf="!updateData.controls.userData['controls']['username'].valid">
+                                  <small>Nombre de Usuario debería contener al menos 4 letras.</small>
+                              </ion-text> -->
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Correo Electronico
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input placeholder="Escribe tu correo electronico" formControlName="email"></ion-input>
+                              </ion-item>
+                              <ion-text color="danger" *ngIf="!updateData.controls.userData['controls']['email'].valid">
+                                  <small>Correo Electrónico no es una dirección de correo válida.</small>
+                              </ion-text>
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Contraseña
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input formControlName="password" type="password" (ionChange)="changePassword()" placeholder="Ingrese una contraseña"></ion-input>
+
+                              </ion-item>
+                              <ion-text color="danger" *ngIf="!updateData.controls.userData['controls']['password'].valid">
+                                  <small>La contraseña debe contener 3 de las 4 siguientes categorías de caracteres: <br>
+                                          1) al menos 1 mayúscula, <br>
+                                          2) al menos 1 minúscula, <br>
+                                          3) al menos un carácter numérico, <br>
+                                          4) 6 caracteres como mínimo, <br>
+                                          4) al menos un carácter especial.</small>
+                              </ion-text>
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Confimar Contraseña
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input formControlName="password_confirm" type="password" placeholder="Ingrese una contraseña"></ion-input>
+                              </ion-item>
+                              <ion-text color="danger" *ngIf="!updateData.controls.userData['controls']['password_confirm'].valid">
+                                  <small>Confirmar contraseña debe ser igual a "Contraseña".</small>
+                              </ion-text>
+                          </ion-list>
+                      </ion-card-content>
+                  </ion-card>
+              </ion-col>
+
+              <ion-col size="12">
+                  <ion-card style="background-color: white;">
+                      <ion-card-header>
+                          <ion-card-title><strong>Datos Del Candidato</strong></ion-card-title>
+                      </ion-card-header>
+                      <ion-card-content>
+                          <ion-list>
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Nombres
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input formControlName="firstname" inputmode="text" placeholder="Escribe tu(s) nombre(s)"></ion-input>
+                              </ion-item>
+                              <ion-text color="danger" *ngIf="!updateData.controls['firstname'].valid">
+                                  <small>Nombres no puede estar vacío.</small>
+                              </ion-text>
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Apellidos
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input formControlName="lastname" inputmode="email" placeholder="Escribe tu(s) apellidos(s)"></ion-input>
+                              </ion-item>
+                              <ion-text color="danger" *ngIf="!updateData.controls['lastname'].valid">
+                                  <small>Apellidos no puede estar vacío.</small>
+                              </ion-text>
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Sexo
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-select mode="ios" formControlName="sex" placeholder="Seleccione tu Sexo" interface="popover">
+                                      <ion-select-option value="female">Mujer</ion-select-option>
+                                      <ion-select-option value="male">Hombre</ion-select-option>
+                                  </ion-select>
+                              </ion-item>
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1>Fecha de Nacimiento
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-datetime formControlName="birth_date" placeholder="yyyy-mm-dd" display-format="YYYY MMMM DD" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" min="1950-01-01" max="2015-12-31"> </ion-datetime>
+                              </ion-item>
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1>Estado civil
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-select mode="ios" formControlName="marital_status" placeholder="Seleciona tu estado civil" interface="popover">
+                                      <ion-select-option value="married">Casado(a)</ion-select-option>
+                                      <ion-select-option value="unmarried">Soltero(a)</ion-select-option>
+                                  </ion-select>
+                              </ion-item>
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Teléfono
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input formControlName="phone" placeholder="p. ej. (999) 999 9999"></ion-input>
+                              </ion-item>
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Teléfono Celular
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input formControlName="cellphone" placeholder="p. ej. (+52) 999 999 99 99"></ion-input>
+                              </ion-item>
+
+                              <ion-item lines="none">
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> País
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-select  mode="md" formControlName="country_id" (ionChange)=" onChangeCountry($event)" interface="action-sheet" placeholder="seleccionar Pais">
+
+                                      <ion-select-option *ngFor="let country of countries" [value]="country.id"> {{country.name}} </ion-select-option>
+                                  </ion-select>
+                              </ion-item>
+
+                              <ion-item lines="none">
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Estado
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-select  mode="md"  formControlName="state_id" interface="action-sheet" (ionChange)=" onChangeState($event)" placeholder="seleccionar Estado">
+
+                                      <ion-select-option *ngFor="let state of states" [value]="state.id"> {{state.name}} </ion-select-option>
+                                  </ion-select>
+                              </ion-item>
+
+                              <ion-item lines="none">
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Ciudad
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-select  mode="md" formControlName="city_id"   interface="action-sheet" placeholder="seleccionar la ciudad">
+                                      <ion-select-option *ngFor="let city of cities" [value]="city.id"> {{city.name}} </ion-select-option>
+                                  </ion-select>
+                              </ion-item>
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Curp
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input readonly="true" mode="ios" formControlName="curp"   placeholder=" CURP"></ion-input>
+                              </ion-item>
+
+                              <ion-item>
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Matricula
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-input mode="ios" readonly="true" formControlName="student_id_number"  placeholder=" Matrícula"></ion-input>
+                              </ion-item>
+
+                              <ion-item lines="none">
+                                  <ion-label position="stacked">
+                                      <ion-text color="Dark">
+                                          <h1> Dependencia
+                                              <ion-text color="danger">*</ion-text>
+                                          </h1>
+                                      </ion-text>
+                                  </ion-label>
+                                  <ion-select mode="md" formControlName="organization_unit_id" interface="action-sheet" placeholder="seleccionar la ciudad">
+                                      <ion-select-option *ngFor="let orgUnit of organizationUnit" [value]="orgUnit.id"> {{orgUnit.name}} </ion-select-option>
+                                  </ion-select>
+                              </ion-item>
+
+
+                          </ion-list>
+
+                      </ion-card-content>
+                  </ion-card>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col  style="text-align: center" size="12">
+                  <!-- <ion-button color="boton" type="submit" (click)= "savechanges()"  expand="block" size="large">Guardar</ion-button> -->
+                  <ion-button class="blue-btn btn-size"   routerLink="/perfil-basico"  [ngClass]="{'button-disabled': updateData.invalid}" type="submit"  >
+                      Guardar
+                  </ion-button>
+              </ion-col>
+          </ion-row>
+      </ion-grid>
+  </form>
+
+
+</ion-content>

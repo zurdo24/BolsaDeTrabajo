@@ -1,0 +1,28 @@
+<app-header [backbutton]="false" [title]="'Formación Académica'"  ></app-header>
+
+<ion-content class="goldlow ">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="60" >
+    <ion-refresher-content ></ion-refresher-content>
+  </ion-refresher>
+<ion-card button color="light" (click)=opcionesformAcademic(edc.education_id) *ngFor="let edc of academicTraining; let i=index">
+    <ion-card-header>
+        <ion-card-title>
+            <ion-text color="dark">
+                <strong>{{edc.studyProgrameName}}</strong>
+            </ion-text>
+        </ion-card-title>
+        <ion-card-subtitle>en {{edc.institutionName}} </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+        <b>Grado de estudio:</b> {{edc.degree}} <br>
+        <b>Ingreso: </b> {{edc.start}} <br><b *ngIf="edc.end != null">Egreso: </b> {{edc.end}}
+    </ion-card-content>
+</ion-card>
+
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="blue-btn"  (click)="onClick()">
+    <ion-icon  name="add" color ="light"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
+
+</ion-content>

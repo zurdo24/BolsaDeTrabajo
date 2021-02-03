@@ -1,0 +1,61 @@
+/* menu styling */
+//side menu
+ion-menu {
+  ion-item,
+  ion-list,
+  .list-md,
+  ion-content {
+      --background: var(--dark-color);
+      /*color de fondo*/
+      --ion-background-color: var(--dark-color);
+  }
+  ion-item {
+      color: var(--text-color);
+      /*color de los nombres de las listas*/
+  }
+  ion-icon {
+      color: #042b59;
+      // #042b59
+      /*color de los iconos*/
+  }
+}
+//fin de side menu
+
+.logo-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--ion-color-gold);
+  padding: 2em 0;
+  min-height: 200px;
+  
+}
+.logo-section__wrapper {
+  padding-top: 10%;
+  padding-bottom: 10%;
+  text-align: center;
+
+}
+.logo-section__logo {
+  display: block;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  border-radius: 100%;
+}
+.logo-section__title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: normal;
+  color: white;
+}
+
+ion-menu{
+  --width: 74vw;
+}
+ion-item{
+  height: 7vh;
+}
+ion-label{
+  font-size: 2.3vh !important;
+}

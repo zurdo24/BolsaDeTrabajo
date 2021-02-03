@@ -1,0 +1,80 @@
+<app-header [title]="title" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/courses'" [miPerfil]="true"> </app-header>
+
+<ion-content>
+  <form [formGroup]="data"  >
+    <ion-item>
+        <ion-label  position="stacked"><font size=5>Nombre del curso </font><ion-text color="danger">*<br></ion-text></ion-label>
+        <ion-input placeholder="Ingrese el nombre del curso" formControlName="name"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="data.get('name').errors && data.get('name').dirty">
+        <p color="danger" ion-text *ngIf="data.get('name').hasError('required')">campo requerido</p>
+        <p color="danger" ion-text *ngIf="data.get('name').hasError('maxlength')">el maximo de caracteres es de 175</p>
+      </ion-item>
+
+
+    <ion-item>
+        <ion-label  position="stacked" ><font size=5>Horas</font></ion-label>
+        <ion-input placeholder="Ingrese la duracion del curso en horas" formControlName="hours" >
+        </ion-input>
+    </ion-item>
+  <ion-item *ngIf="data.get('hours').errors && data.get('hours').dirty">
+        <p color="danger" ion-text *ngIf="data.get('hours').hasError('pattern')">el dato debe de ser numerico</p>
+        <p color="danger" ion-text *ngIf="data.get('hours').hasError('maxlength')">el maximo de digitos es de 3</p>
+      </ion-item>    
+      
+
+    <ion-item>
+        <ion-label  position="stacked"><font size=5>Instituto</font></ion-label>
+        <ion-input placeholder="Ingrese el nombre de la institución" formControlName="institution"></ion-input>
+    </ion-item>
+
+
+<ion-list >
+  <ion-radio-group formControlName="mode">
+
+    <ion-list-header>
+      <ion-label>Modo</ion-label>
+    </ion-list-header>
+
+    <ion-item>
+      <ion-label>En linea</ion-label>
+      <ion-radio slot="start" value="1" checked="false" ></ion-radio>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Presencial</ion-label>
+      <ion-radio slot="start" value="2" checked="false" ></ion-radio>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Semipresencial</ion-label>
+      <ion-radio slot="start" value="3" checked="false" ></ion-radio>
+    </ion-item>
+
+  </ion-radio-group>
+</ion-list>
+
+  <ion-item>
+        <ion-label  position="stacked"><font size=5>Fecha de inicio</font></ion-label>
+        
+        <ion-datetime  min="1970" max={{maxDate1}} displayFormat='YYYY-MMMM-DD' placeholder="Seleccione el año" 
+        formControlName="start" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" (ionChange)=" onChangeStart($event)" >	  </ion-datetime>
+    </ion-item>    
+
+    <ion-item>
+        <ion-label  position="stacked"><font size=5>Fecha de término</font></ion-label>
+         <ion-datetime  min={{minDate2}} max={{maxDate2}} displayFormat='YYYY-MMMM-DD' placeholder="Seleccione el año" formControlName="end" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" (ionChange)=" onChangeEnd($event)"  >  
+        </ion-datetime>
+    </ion-item>    
+    
+    
+  
+</form>
+</ion-content>
+
+<ion-row>
+  <ion-col width-50 style="text-align: center">
+    <ion-button  [ngClass]="{'button-disabled': data.invalid}" class="blue-btn" type="submit"  expand="block"
+       (click)= "addCourse()" size="large">Guardar</ion-button>		
+</ion-col>
+</ion-row>

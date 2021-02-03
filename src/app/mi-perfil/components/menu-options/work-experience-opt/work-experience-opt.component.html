@@ -1,0 +1,116 @@
+<app-header
+  [miPerfil]="true"
+  [title]="headerTitle"
+  [backbutton]="true"
+  [backbuttonhref]="'/mi-perfil/home/work-experience'"
+>
+</app-header>
+
+<ion-content>
+  <form [formGroup]="data" (ngSubmit)="imprimir()">
+    <div class="ion-padding" >
+	   <!-- <ion-item> -->
+      <ion-list formGroupName="wexperienceData" ><!-- formGroupName="wexperienceData" -->
+        <ion-label  position="stacked"><font size=5>Empleador</font><ion-text color="danger">*<br></ion-text></ion-label>
+
+        <ion-input inputmode="text" placeholder="Ingrese el nombre de la empresa" formControlName="company"></ion-input>
+        <!-- <ion-textarea></ion-textarea> -->
+          <!-- <ion-input formControlName="company"></ion-input> -->
+        </ion-list>
+      <!-- </ion-item> -->
+      <ion-item *ngIf="data.get('wexperienceData').get('company').errors && data.get('wexperienceData').get('company').dirty">
+          <p color="danger" ion-text *ngIf="data.get('wexperienceData').get('company').hasError('required')">campo requerido</p>
+          <p color="danger" ion-text *ngIf="data.get('wexperienceData').get('company').hasError('maxlength')">el maximo de caracteres es de 175</p>
+      </ion-item>
+
+
+      <ion-list formGroupName="wexperienceData"><!--  -->
+  
+    	<ion-item>
+        <ion-label><font >Giro del negocio</font></ion-label>
+          <ion-select  okText="seleccionar" cancel-text="cancelar" interface="action-sheet" formControlName="line_business_id" placeholder="seleccionar Giro">
+            <ion-select-option  value= "null"> No se encuentra mi giro de negocio</ion-select-option>
+          	<ion-select-option *ngFor="let lBusiness of lineBusiness" [value]="lBusiness.id" > {{lBusiness.name | lowercase}}</ion-select-option>
+          </ion-select>
+
+      </ion-item>
+
+        <!-- formgrouo dentro del formfroup -->
+        
+          <ion-item>
+              <ion-label position="stacked"><font size=5>Puesto</font><ion-text color="danger">*<br></ion-text></ion-label>
+              <ion-input placeholder="Ingrese el nombre de tu puesto"  formControlName="job_title"></ion-input>
+          </ion-item>
+          <ion-item *ngIf="data.get('wexperienceData').get('job_title').errors && data.get('wexperienceData').get('job_title').dirty">
+            <p color="danger" ion-text *ngIf="data.get('wexperienceData').get('job_title').hasError('required')">campo requerido</p>
+            <p color="danger" ion-text *ngIf="data.get('wexperienceData').get('job_title').hasError('maxlength')">el maximo de caracteres es de 175</p>
+          </ion-item>
+
+        
+	        <ion-item>
+  		      <ion-label position="floating">Descripción</ion-label>
+      		  <ion-textarea rows="4" formControlName="description" ></ion-textarea>
+	        </ion-item>
+        
+
+    <ion-text>
+ 	    <h4>De<ion-text color="danger">*<br></ion-text></h4>
+    </ion-text>	
+   
+
+    <ion-item>
+      <ion-label>Año de inicio</ion-label>
+        <ion-datetime  min="1970"  displayFormat='YYYY-MMMM' placeholder="Seleccione el año" formControlName="date_start" 
+        month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre"
+        (ionChange)=" onChangeStart($event)" value={{maxDate}}> </ion-datetime>
+    </ion-item>
+<!-- Fin formgroup   dentro del formfroup -->
+
+    
+    
+    </ion-list>
+
+
+
+
+ <ion-text>
+ 	<h4>Hasta<ion-text color="danger">*<br></ion-text></h4>
+ </ion-text>	
+
+</div>
+
+<ion-list formGroupName="wexperienceData">
+  <ion-item>
+    <ion-label>Es mi empleo actual</ion-label>
+    <ion-checkbox  formControlName="is_current_job" slot="start" (click)="clickbox()" ></ion-checkbox>    
+  </ion-item>
+
+  <div *ngIf = "!data.get('wexperienceData').get('is_current_job').value">
+    <ion-item>
+        <ion-label>Año de término</ion-label>
+          <ion-datetime  min={{minDate}}  displayFormat='YYYY-MMMM' placeholder="Seleccione el año" 
+          formControlName="date_end" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" (ionChange)=" onChangeEnd($event)" value={{maxDate}}>  </ion-datetime>
+    </ion-item>  
+  </div>
+</ion-list>
+<!-- NUEVO -->
+
+
+<!--   <div class="ion-padding">
+    <ion-button  color="blue" size="large" (click)="imprimir()" > imprimir</ion-button>
+  </div> -->
+
+  
+  
+   <!-- <ion-button routerLink="/mi-perfil/mp-exp-laboral" >prueba</ion-button> -->
+
+</form>
+</ion-content>
+
+<ion-row>
+    <ion-col width-50 style="text-align: center">
+           <ion-button [ngClass]="{'button-disabled': data.invalid}"  class="blue-btn" type="submit" (click)= "updateWorkExperience()"  size="large" expand="block"> Guardar </ion-button>
+    </ion-col>
+  </ion-row>
+
+  <!-- [ngClass]="{'button-disabled': data.invalid}" -->

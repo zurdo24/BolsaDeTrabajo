@@ -1,0 +1,61 @@
+<app-header [backbutton]="false" [title]="'Cursos'"  ></app-header>
+
+
+<ion-content class="goldlow ">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="60" >
+    <ion-refresher-content ></ion-refresher-content>
+  </ion-refresher>
+
+  
+  <div  *ngIf = "course==null">
+    <ion-card *ngFor="let i of [1,1,1,1]" color="light" >
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text animated style="width: 60%; height: 20px"></ion-skeleton-text>
+        </ion-card-title>
+        <ion-card-subtitle>
+          <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content style="text-align: justify;">
+        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 65%"></ion-skeleton-text>
+       
+      </ion-card-content>
+    </ion-card>
+
+  
+  </div>
+
+  <div  *ngIf = "course!=null">
+ <ion-card *ngFor="let i of course" color="light" (click)=opcionesCursos(i.id)>
+      
+    <ion-card-header>
+        <ion-card-title><b>{{i.name}} </b>
+          <font size=2> 
+            <span  *ngIf=" i.institution != ''"> en {{i.institution}}</span >
+          </font>
+        </ion-card-title>
+     </ion-card-header>
+
+    <ion-card-content>
+        <span  *ngIf=" i.hours != null">  {{i.hours}} horas</span ><br>
+        <span  *ngIf=" i.mode != null"><b>Modo:</b> 
+          <span *ngIf=" i.mode == 1"> En línea</span> 
+          <span *ngIf=" i.mode == 2"> Presencial</span>
+          <span *ngIf=" i.mode == 3"> Semipresencial</span>
+        </span ><br>
+        <span  *ngIf=" i.start != null"><b>Fecha de inicio: </b>{{i.start}} </span><br>
+        <span  *ngIf=" i.end != null"><b>Fecha de término: </b>{{i.end}}</span><br>
+    </ion-card-content>
+  </ion-card>
+   </div>
+   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="blue-btn"  (click)="onClick()">
+    <ion-icon  name="add" color ="light"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
+</ion-content>

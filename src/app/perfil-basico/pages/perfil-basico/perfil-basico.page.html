@@ -1,0 +1,172 @@
+<app-header [title]="'Resumen'" [route]="'/perfil-basico/editar-perfil-basico'" [backbutton]="false"></app-header>
+	<!-- ======================ESKELETON=========================== -->
+	<ion-list  *ngIf="country.name == null">
+ 
+	
+    <h3 style="text-align: center;"><ion-skeleton-text  style="width: 160px; height: 160px;margin-left:auto;  margin-right:auto;  display:block; "></ion-skeleton-text></h3>
+     <h3 style="text-align: center;"><ion-skeleton-text animated style="width: 90%; height: 20px; margin-left:auto;  margin-right:auto;  display:block;"></ion-skeleton-text></h3>
+    
+   
+    <ion-list>
+      <ion-item  >
+        <ion-label>
+          <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>	
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+         </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-list >
+      <ion-skeleton-text animated style="width: 40%; height: 20px"></ion-skeleton-text>
+      <ion-item >
+                <ion-skeleton-text  slot="start" style="width: 25px; height: 25px"></ion-skeleton-text>
+                <ion-label>
+                  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                </ion-label>
+          </ion-item>
+          <ion-item >
+                <ion-skeleton-text  slot="start" style="width: 25px; height: 25px"></ion-skeleton-text>
+                <ion-label>
+                   <ion-skeleton-text animated style="width: 65%"></ion-skeleton-text>
+                </ion-label>
+          </ion-item>
+          <ion-item >
+                <ion-skeleton-text  slot="start" style="width: 25px; height: 25px"></ion-skeleton-text>
+                <ion-label>
+                  <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </ion-label>
+          </ion-item>
+    </ion-list>
+  
+    <ion-list >
+      <ion-skeleton-text animated style="width: 40%; height: 20px"></ion-skeleton-text>
+      <ion-item >
+                <ion-skeleton-text  slot="start" style="width: 25px; height: 25px"></ion-skeleton-text>
+                <ion-label>
+                  <ion-skeleton-text animated style="width: 70%"></ion-skeleton-text>
+                </ion-label>
+          </ion-item>
+          <ion-item >
+                <ion-skeleton-text  slot="start" style="width: 25px; height: 25px"></ion-skeleton-text>
+                <ion-label>
+                   <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                </ion-label>
+          </ion-item>
+          <ion-item >
+                <ion-skeleton-text  slot="start" style="width: 25px; height: 25px"></ion-skeleton-text>
+                <ion-label>
+                  <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </ion-label>
+          </ion-item>
+    </ion-list>
+  
+  
+   
+       <ion-card color="light" >
+            <ion-card-header>
+              <ion-card-title><ion-skeleton-text animated style="width: 60%"> </ion-skeleton-text> </ion-card-title>
+              <ion-card-subtitle><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></ion-card-subtitle>
+            </ion-card-header>
+  
+            <ion-card-content>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 65%"></ion-skeleton-text>
+            </ion-card-content>
+        </ion-card>
+        </ion-list>
+  
+  <!-- ======================FIN ESKELETON=========================== -->
+
+
+
+  
+<ion-content class="ion-padding">
+  <ion-grid *ngIf="country.name != null">
+    <ion-row>
+      <ion-col size="12">
+        <img
+          src="{{photoRout}}"
+          class="img-profile"
+        />
+      </ion-col>
+
+      <ion-col  size="12">
+        <div class="ion-text-center">
+          <h3 >
+            <b> {{candidate.firstname}} {{candidate.lastname}}</b>
+          </h3>
+        </div>
+      </ion-col>
+      
+      <ion-col size="12">
+        <ion-list>
+          <ion-item>
+            <ion-text class="text-info">
+              <b> Nombre de usuario: </b> {{user.username}}<br />
+              <b> Matrícula: </b> {{candidate.student_id_number}}<br />
+              <b> Dependencia: </b>{{organizationunit.name}}
+            </ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+
+      <ion-col size="12">
+        <ion-list>
+          <h2>GENERALES</h2>
+          <ion-item>
+            <ion-icon color="primary" slot="start" name="person-circle-outline"></ion-icon>
+            <ion-label class="text-info">
+              {{candidate.sex}}, {{candidate.marital_status}}, {{edad}} años
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="globe"color="primary"></ion-icon>
+            <ion-label class="text-info"> {{city.name}}, {{state.name}}, {{country.name}} </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="card"color="primary"></ion-icon>
+            <ion-label class="text-info"> <b>CURP:</b> {{candidate.curp}} </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      
+      <ion-col size="12">
+        <ion-list>
+          <h2>CONTACTO</h2>
+          <ion-item>
+            <ion-icon slot="start" name="mail"color="primary"></ion-icon>
+            <ion-label class="text-info"> <b>email: </b> {{user.email}} <br /> </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="call"color="primary"></ion-icon>
+            <ion-label class="text-info"> <b>Telefono: </b> {{candidate.phone}}<br /> </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-icon slot="start" name="phone-portrait"color="primary"></ion-icon>
+            <ion-label class="text-info">
+              <b>Telefono celular: </b> {{candidate.cellphone}}<br />
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+        <ion-col size="12">
+          <ion-card button color="light" (click)="opcionesCv()">
+            <ion-card-header>
+              <ion-card-title
+                >Currículum Vítae <ion-icon mode="md" name="create"></ion-icon
+              ></ion-card-title>
+      
+              <ion-card-subtitle class="text-info">({{cv.status}})</ion-card-subtitle>
+            </ion-card-header>
+      
+            <ion-card-content> 
+              <p class="text-info">{{cv.summary}}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

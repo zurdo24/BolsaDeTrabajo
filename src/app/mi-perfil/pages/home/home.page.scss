@@ -1,0 +1,22 @@
+ion-tab-bar{
+	height:8vh;
+	// width: 10000px;
+	overflow-x:scroll;
+	justify-content: left;
+	background:#f6c84c; //fondo de las tabs
+	box-shadow: 0 0 10px 0 #535353;
+}
+// 
+
+ion-tab-button[aria-selected=true] { //color del fondo seleccionado
+    background-color: #f6c84c;
+    // weight:1110px;
+ }
+ion-tab-button {
+	height:8vh;
+	min-width: 110px;
+
+	--background:#d39b04; // fondo de la pestaña
+	--color-selected: #003A7F;//color cuando se selecciona ICONO
+	--color:#0b284a; //color de los demas ICONO
+}

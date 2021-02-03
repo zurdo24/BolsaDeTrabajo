@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Candidate } from './shared/interfaces';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +12,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+  candidate: Candidate = {firstname: '', lastname: '', photo: ''};
+  URL = environment.urlPhotos;
+  photoRoutbase = this.URL + '/btuady/public_html/files/photo/';
+  photoRout = '';
+  confirm = false;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -23,5 +31,12 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  setphotoRout(url: string){
+    this.photoRout = url;
+  }
+  setCandidateInfo(candidate: Candidate){
+    this.candidate = candidate;
   }
 }

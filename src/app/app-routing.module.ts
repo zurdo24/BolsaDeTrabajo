@@ -2,20 +2,29 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
+
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/pages/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'perfil-basico',
+    loadChildren: () => import('./perfil-basico/pages/perfil-basico/perfil-basico.module').then( m => m.PerfilBasicoPageModule)
+  },
+  {
+    path: 'mi-perfil/home',
+    loadChildren: () => import('./mi-perfil/pages/home/home.module').then( m => m.HomePageModule)
   },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules, relativeLinkResolution: 'legacy' })
   ],
   exports: [RouterModule]
 })

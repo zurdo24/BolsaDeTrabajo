@@ -24,3 +24,103 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+/**=========OPCIONES PARA EL FONDO DE LAS VISTAS ============= **/
+ /** amarillo debil **/
+.goldlow {
+  --background:#f2e2b3;
+  background-color: #f2e2b3;
+}
+
+  /** azul fuerte **/
+.blue {
+  --background: #042b59;
+}
+/** amarillo fuerte **/
+.gold{
+  --background: #c1950e;
+  background-color: #c1950e;
+}
+/**fonod transparente **/
+.transparent-bg{
+  --background: transparent !important;
+}
+/**=========================================== **/
+
+/**==========opciones para el uiService================= **/
+.card-alert-img{
+  width: 25%;
+  height: 25%;
+  display:block;
+  margin:auto;
+  // justify-text: center;
+}
+.alertCancel .alert-wrapper{
+  min-width: 60vw !important;
+  min-height: 15vh !important;
+  --background: white;
+    button.alertButton{
+      width: 50%;
+      height: 6vh;
+        background-color: #042b59;
+        color: #FFFFFF;
+    }
+    .alert-sub-title{
+      font-size: 2vh;
+    }
+}
+.loading {
+  --background:#c1940efd;
+  --spinner-color: #042b59;
+  color: #fff;
+  font-size: 3vh;
+}
+.delete-btn .sc-ion-action-sheet-md{
+  color: red !important;
+}
+ /**====================Opciones para los botones======================**/
+.blue-btn {
+  --background: #042b59;
+  // border-radius: 12px;
+}
+.btn-size {
+  width: 50vw;
+  height: 8vh;
+}
+/** =============000opcion para los tabs ==========================**/
+.hidden {
+	position: absolute;
+	width: 1px;
+		/* Setting this to 0 make it invisible for VoiceOver */
+	height: 1px;
+		/* Setting this to 0 make it invisible for VoiceOver */
+	padding: 0;
+	margin: -1px;
+	border: 0;
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+}
+.scale-out-center {
+	-webkit-animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+}
+.refresherMP {
+  background: #f2e3b4;
+ --color:#000!important;
+}
+
+/**==========================Animaciones==============================**/
+.fade-in {
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	        animation: fade-in 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+
+.animated{
+  --webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+}
+.animated.fast{
+  -webkit-animation-duration: 800ms;
+  animation-duration: 800ms;
+}

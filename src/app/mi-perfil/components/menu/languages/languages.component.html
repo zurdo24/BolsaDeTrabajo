@@ -1,0 +1,44 @@
+<app-header [backbutton]="false" [title]="'Idiomas'"></app-header>
+
+<ion-content class="goldlow ">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="60">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="languages==null">
+    <ion-card *ngFor="let i of [1,1,1,1]">
+      <ion-item color="light">
+
+        <ion-skeleton-text slot="start" style="width: 25px; height: 25px"></ion-skeleton-text>
+        <ion-label>
+
+          <ion-skeleton-text animated style="width: 25%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 32%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+
+  </div>
+  <div *ngIf="languages!=null">
+    <ion-card (click)=opcionesIdioma(i.id) *ngFor="let i of languages" color="light">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img *ngIf="i.language_list_id == '1'" src="./assets/image/Español.png">
+          <img *ngIf="i.language_list_id == '2'" src="./assets/image/Inglés.png">
+          <img *ngIf="i.language_list_id == '3'" src="./assets/image/Francés.png">
+          <img *ngIf="i.language_list_id == '4'" src="./assets/image/Maya.png">
+        </ion-avatar>
+        <ion-label>
+          <b>{{i.language}}</b>
+          <p>{{i.level}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </div>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="onClick()" class="blue-btn">
+      <ion-icon name="add" color="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

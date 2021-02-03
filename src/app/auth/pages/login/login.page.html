@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-img src="./assets/image/Login_Edificio_Central.jpg"></ion-img>
+</ion-header>
+
+<ion-content scroll-y="false"  class="ion-padding goldlow">
+
+  <form (ngSubmit)="login(form)" #form="ngForm">
+      <ion-grid>
+          <ion-row  class="ion-justify-content-center">
+
+              <ion-col class="ion-align-self-center" size-md="6" size-lg="5" size-xs="12">
+                  <div class="ion-text-center">
+                      <h3>Iniciar sesión</h3>
+                  </div>
+
+                  <div class="ion-padding">
+                      <ion-item>
+                          <ion-input name="usuario" type="username" placeholder="Usuario" [(ngModel)]="loginUser.username" required></ion-input>
+                      </ion-item>
+                      <ion-item>
+
+                          <ion-input name="contraseña" type="password" placeholder="contraseña" [(ngModel)]="loginUser.password" required></ion-input>
+                      </ion-item>
+                  </div>
+
+                  <div class="ion-padding">
+                      <ion-button class="blue" size="large" (click)="login(form)" expand="block">Ingresar
+                      </ion-button>
+                  </div>
+
+                  <div class="ion-text-center">
+                      <a mode="ios" routerLink='/olvido-contrasenia'>
+           Olvidé mi contraseña</a>
+                  </div>
+                  <!--
+    <div padding>
+          <ion-button size="large" type="submit" [disabled]="form.invalid" expand="block">Login 
+          </ion-button>
+        </div>
+-->
+
+
+
+              </ion-col>
+          </ion-row>
+
+      </ion-grid>
+  </form>
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar class="gold">
+
+      <ion-buttons slot="start">
+          <ion-text color="light">
+              <H5>
+                  Contáctanos también por:
+              </H5>
+          </ion-text>
+
+          <ion-button href="https://www.facebook.com/BolsadeTrabajoUADY/">
+              <ion-icon slot="icon-only" name="logo-facebook" color="primary"></ion-icon>
+          </ion-button>
+
+          <ion-button href="https://twitter.com/BT_UADY">
+              <ion-icon slot="icon-only" name="logo-twitter" color="primary"></ion-icon>
+          </ion-button>
+
+      </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

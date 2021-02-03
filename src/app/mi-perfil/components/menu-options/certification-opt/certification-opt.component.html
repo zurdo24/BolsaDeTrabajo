@@ -1,0 +1,83 @@
+<app-header [title]="'title'" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/certification'" [miPerfil]="true"> </app-header>
+
+<ion-content>
+  <form class="ion-padding" [formGroup]=" createCertication" (ngSubmit)="submit()">
+    <ion-grid class="ion-padding-top">
+      <ion-row>
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked"
+              ><font size="5">Nombre de la certificación</font
+              ><ion-text color="danger">*<br /></ion-text
+            ></ion-label>
+            <ion-input
+              formControlName="name"
+              placeholder="Ingrese el nombre de la certificación"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked"
+              ><font size="5">Organización</font></ion-label
+            >
+            <ion-input
+              formControlName="organization"
+              placeholder="Ingrese el nombre de la organización"
+            ></ion-input>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label><font>Área de estudio</font></ion-label>
+            <ion-select
+              ok-text="seleccionar"
+              formControlName="subject_area_id"
+              interface="popover"
+              mode="ios"
+              cancel-text="cancelar"
+              ><!--<ion-select ok-text="Okay" cancel-text="Nah">-->
+              <ion-select-option selected value=""
+                >selecciona el área de estudio</ion-select-option
+              >
+              <ion-select-option  value="{{subAreas.id}}" *ngFor="let subAreas of subjectAreas"
+                >{{subAreas.name}}</ion-select-option
+              >
+            </ion-select>
+          </ion-item>
+        </ion-col>
+
+        <ion-col size="12">
+          <ion-item>
+            <ion-label position="stacked"
+              ><font size="5">Fecha de inicio</font></ion-label
+            >
+            <ion-input formControlName="date_received" [max]="DateMax" (ionChange)=" minDate($event, date_Expire)" type="date"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked"
+              ><font size="5">Fecha de término</font></ion-label
+            >
+            <ion-input [readonly]="readOnly" [min]="DateMin" [max]="DateMax" formControlName="date_expire" type="date" (ionChange)="validendDate($event)" #date_Expire></ion-input>
+          </ion-item>
+        </ion-col>
+			</ion-row>
+			
+			<ion-row>
+				<ion-col size="6">
+						<ion-button [ngClass]="{'button-disabled': createCertication.invalid}" class="blue-btn" type="submit" expand="block" shape="round">
+              Aceptar
+						</ion-button>
+				</ion-col>
+				<ion-col size="6">
+						<ion-button routerLink="/mi-perfil/mp-certificaciones" color="danger" expand="block" shape="round">
+              Cancelar
+						</ion-button>
+				</ion-col>
+		</ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

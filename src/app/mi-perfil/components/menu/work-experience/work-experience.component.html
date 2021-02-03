@@ -1,0 +1,65 @@
+<app-header [backbutton]="false" [title]="'Experiencia Laboral'"  ></app-header>
+
+<ion-content class="goldlow ">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="120" id="refreshh">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+  <div *ngIf = "workexperience == null">
+    <ion-card *ngFor="let i of [1,1,1,1]" color="light" >
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text animated style="width: 60%; height: 20px"></ion-skeleton-text>
+        </ion-card-title>
+        <ion-card-subtitle>
+          <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content style="text-align: justify;">
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        <br>
+        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        
+        <br>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+
+  
+  </div>
+
+  <div  *ngIf = "workexperience != null">
+   
+
+    <ion-card button class="animated fade-in fast" *ngFor="let i of workexperience" color="light" (click)=opcionesExpLab(i.id)>
+      <ion-card-header>
+        <ion-card-title>
+         <strong>{{i.company}}</strong>
+       </ion-card-title>
+        <ion-card-subtitle>{{i.job_title}}</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content style="text-align: justify;">
+        {{i.description}}
+        <br>
+        <b>Periodo:</b><p> De {{i.start}} a  <span  *ngIf=" i.end == null">la fecha</span > <span  *ngIf=" i.end != null">{{i.end}}</span ></p>
+        <br>
+        <b>Giro del negocio:</b> {{i.name}}
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
+    <ion-fab-button (click)="onClick()" class ="blue-btn">
+      <ion-icon  name="add" color ="light"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+</ion-content>

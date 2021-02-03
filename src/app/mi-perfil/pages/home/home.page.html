@@ -1,0 +1,35 @@
+
+<ion-tabs overflow-scroll="false"  #tabss>
+  <ion-tab-bar selected-tab="work-experience" id="tabs" slot="bottom">
+  
+    <ion-tab-button (click)="onClick(tabss)" tab="work-experience">
+      <ion-icon name="briefcase"></ion-icon>
+      <ion-label>Experiencia<br />Laboral</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="academic-training">
+      <ion-icon name="school"></ion-icon>
+      <ion-label>Formación<br />Academica</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="courses">
+      <ion-icon name="bookmarks"></ion-icon>
+      <ion-label>Cursos<br /></ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="certification">
+      <ion-icon name="ribbon"></ion-icon>
+      <ion-label>Certificaciones<br /></ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="languajes">
+      <ion-icon name="globe"></ion-icon>
+      <ion-label>Idiomas<br /></ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="aptitudes">
+      <ion-icon name="happy"></ion-icon>
+      <ion-label>Aptitudes<br /></ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
