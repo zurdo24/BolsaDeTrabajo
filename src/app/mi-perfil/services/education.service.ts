@@ -25,4 +25,9 @@ export class EducationService {
   DeleteEducation(id: string): Observable <object> {
     return this.http.delete(`${this.URL}/api/educations/${id}`);
   }
+
+  getEducationVacants(id: string) {
+    return this.http.get<AcademicTraining[]>(`${this.URL}/api/education/get-form-academic/?id=${id}`);
+  }
+
 }

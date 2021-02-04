@@ -22,4 +22,10 @@ export class StudyProgrammeService {
   getStudyProgrammeByOrgDegree(idOrg: string, idDegree: string) {
     return this.http.get<StudyPrograme>(`${this.URL}/api/study-programme/search-by-org-degree?idOrg=${idOrg}&idDegree=${idDegree}`);
   }
+  getallStudyProgramme() {
+    return this.http.get<StudyPrograme>(`${this.URL}/api/study-programme/std-programme-list`);
+  }
+  getStudyProgrammeBySubjectArea(id: string) {
+    return this.http.get<StudyPrograme>(`${this.URL}/api/study-programme/search-by-area/?id=${id}`);
+  }
 }

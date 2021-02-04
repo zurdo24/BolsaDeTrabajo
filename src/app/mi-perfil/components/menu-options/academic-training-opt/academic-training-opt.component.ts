@@ -42,6 +42,7 @@ export class AcademicTrainingOptComponent implements OnInit {
   // objeto para crear e inyectar en la bd -- tambien para llenar el form del html
   data: FormGroup;
   title = '';
+  btnText = '';
   constructor(private route: ActivatedRoute, private educationService: EducationService,
               private studyProgrammeService: StudyProgrammeService,
               private degreeService: DegreeService, private statusEducationService: StatusEducationService,
@@ -73,6 +74,7 @@ export class AcademicTrainingOptComponent implements OnInit {
     this.idParam = this.route.snapshot.paramMap.get('id');
     const idCandidate = JSON.parse(localStorage.getItem('_cap_id'));
     if (this.idParam != null) {
+      this.btnText = 'Actualizar';
       this.title = 'Editar formación Académica';
       this.isUpdate = true;
       // ============= datos para la opcion Editar =======================
@@ -97,6 +99,8 @@ export class AcademicTrainingOptComponent implements OnInit {
       });
     } else {
       // =========== Datos para la opcion Agregar ==============
+      this.btnText = 'Guardar';
+      this.title = 'Añadir formación Académica';
       this.dataAddEducation(idCandidate);
     }
   }
@@ -166,8 +170,16 @@ export class AcademicTrainingOptComponent implements OnInit {
     }
   }
   async update() {
-    const mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">  `;
-    const alert = await this.uiService.presentAlert('', 'Desea guardar los cambios', mssg, 'alertCancel', 'alertButton', 'ios');
+    let header = '';
+    let mssg = '';
+    if (this.isUpdate){
+      mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">`;
+      header = '¿Desea guardar los cambios?';
+    } else {
+      mssg = `<img src="./assets/alerts/info.png" class="card-alert-img">`;
+      header = '¿Desea guardar esta formación académica?';
+    }
+    const alert = await this.uiService.presentAlert('', header, mssg, 'alertCancel', 'alertButton', 'ios');
     const data = await alert.onDidDismiss();
 
     if (data.role === 'ok') {

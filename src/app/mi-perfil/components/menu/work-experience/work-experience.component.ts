@@ -17,11 +17,11 @@ export class WorkExperienceComponent implements OnInit {
                private navCtrl: NavController) { }
 
   ngOnInit() {
-
+    document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     const id = JSON.parse(localStorage.getItem('_cap_id'));
     this.workExperienceService.getWorkExComplete (id).subscribe( workexperience => {
       this.workexperience = workexperience;
-      });
+    });
   }
   ionViewDidEnter(){
   }
@@ -68,7 +68,7 @@ export class WorkExperienceComponent implements OnInit {
     }
   }
   onClick(){
-    this.navCtrl.navigateForward('/mi-perfil/home/work-experience/add', { animationDirection: 'forward' });
+    this.navCtrl.navigateRoot('/mi-perfil/home/work-experience/add', { animationDirection: 'forward' });
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
   }
 }

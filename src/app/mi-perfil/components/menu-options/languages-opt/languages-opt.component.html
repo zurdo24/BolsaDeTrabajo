@@ -1,3 +1,30 @@
-<app-header [title]="'title'" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/languajes'" [miPerfil]="true"> </app-header>
+<app-header [title]="title" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/languajes'" [miPerfil]="true"> </app-header>
 <ion-content>
+  <form [formGroup]="data"  >
+    <ion-list>
+        <ion-list-header> <h1>Datos del idioma</h1> </ion-list-header>
+  
+        <ion-item >
+          <ion-label>Idioma</ion-label>
+          <ion-select mode="ios" interface="popover" placeholder="Seleccione su idioma" formControlName="language_list_id" [value]="languagestart">
+  
+            <ion-select-option *ngFor="let i of list" color="light" [value]="i.id">{{i.language}} </ion-select-option>
+          </ion-select>
+        </ion-item>
+  
+        <ion-item >
+          <ion-label>Nivel</ion-label>
+          <ion-select mode="ios" interface="popover" placeholder="Seleccione el nivel" formControlName="level_list_id" [value]="levelstart"  >
+            <ion-select-option *ngFor="let x of level" color="light" [value]="x.id">{{x.level}}</ion-select-option>
+          </ion-select>
+        </ion-item>
+    </ion-list>
+    </form>
+
+    <ion-row>
+      <ion-col width-50 style="text-align: center">
+        <ion-button  [ngClass]="{'button-disabled': data.invalid}" class="blue-btn"  
+           (click)= "submit()" size="large"> {{btnText}} </ion-button>		
+    </ion-col>
+</ion-row>
 </ion-content>

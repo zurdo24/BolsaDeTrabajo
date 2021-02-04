@@ -18,22 +18,22 @@ export class MenuComponent implements OnInit {
     },
     {
       title: 'Mis Oportunidades',
-      url: '/oportunidades',
+      url: '/opportunities',
       icon: 'git-network'
     },
     {
       title: 'Mis Postulaciones',
-      url: '/postulaciones',
+      url: '/postulations',
       icon: 'paper-plane'
     },
     {
       title: 'Buscar Vacantes',
-      url: '/vacantes',
+      url: '/vacants',
       icon: 'search'
     },
     {
       title: 'Mensajes',
-      url: '/chats',
+      url: '/messages',
       icon: 'chatbubbles'
     }
 

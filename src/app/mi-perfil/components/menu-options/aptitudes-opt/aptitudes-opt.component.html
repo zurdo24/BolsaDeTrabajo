@@ -1,0 +1,39 @@
+
+<app-header [title]="'Añadir Aptitud'" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/aptitudes'" [miPerfil]="true"> </app-header>
+<ion-content>
+  <div *ngIf="skills==null">
+    <ion-list>
+      <ion-item  >
+        <ion-label>
+          <ion-skeleton-text animated style="width: 70%; height: 30px;"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  
+    <h3 style="text-align: center;"><ion-skeleton-text  style="width: 160px; height: 30px;margin-left:auto;  margin-right:auto;  display:block; "></ion-skeleton-text></h3>
+  </div>
+  
+  <div *ngIf="skills!=null">
+    
+     
+  
+    <ion-item >
+     <ion-textarea  (ionChange)="find($event)" value={{textFinder}}  placeholder="Ingrese su aptitud
+     "  auto-grow=true></ion-textarea>
+    </ion-item>
+  
+    <ion-list *ngIf="textFinder!=''">
+      <ion-item *ngFor=" let i of skills| filtro : textFinder : 'skill'|slice:0:valend" (click)="asignar(i.skill,i.id)">
+        {{i.skill}}
+      </ion-item>
+    </ion-list>
+  
+    <ion-row  class="ion-align-items-end" fixed=true>
+        <ion-col width-50 style="text-align: center">
+          <ion-button  [ngClass]="{'button-disabled': addData.invalid}" class="blue-btn" type="submit" 
+            (click)= "add(textFinder)" size="large">Aceptar</ion-button>    
+      </ion-col>
+    </ion-row>
+  
+  </div>
+</ion-content>

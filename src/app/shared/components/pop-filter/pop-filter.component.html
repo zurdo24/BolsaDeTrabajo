@@ -1,0 +1,69 @@
+<ion-toolbar>
+  <ion-title>Filtros
+  </ion-title>
+</ion-toolbar>
+<ion-list>
+
+<form [formGroup]="findData">
+<ion-item>
+    <ion-label>Años de experiencia</ion-label>
+    <ion-select placeholder="Select One" formControlName="year_Experience">
+      <ion-select-option value="" >0</ion-select-option>
+      <ion-select-option *ngFor="let i of years" [value]="i">{{i}}</ion-select-option>
+     </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Tipo de trabajo</ion-label>
+    <ion-select placeholder="Seleccionar" formControlName="job_Type">
+      <ion-select-option value="" >Cualquier tipo</ion-select-option>
+      <ion-select-option *ngFor="let type of jobType " [value]="type.id">{{type.type}}</ion-select-option>
+     </ion-select>
+  </ion-item>
+
+<ion-item >
+  <ion-label>Ciudad: </ion-label>
+    <ion-input placeholder="ejemplo: Mérida" formControlName="city"></ion-input>
+</ion-item>
+
+
+<ion-item >
+  <ion-label>Área de estudios</ion-label>
+  <ion-select placeholder="Seleccionar" formControlName="subject_Area" (ionChange)="changeProgramme($event)">
+    <ion-select-option value="" >Cualquier tipo</ion-select-option>
+    <ion-select-option *ngFor="let subjet of subjectArea" [value]="subjet.id">{{subjet.name}}</ion-select-option>
+  </ion-select>
+</ion-item>
+
+<ion-item>
+  <ion-label>Plan de estudios</ion-label>
+  <ion-select placeholder="Seleccionar" formControlName="study_Programe" interface="action-sheet"  >
+      <ion-select-option value="" >Cualquier plan</ion-select-option>
+      <ion-select-option *ngFor="let programe of studyPrograme" [value]="programe.id" ><p>{{programe.name}}</p></ion-select-option>
+  </ion-select>
+</ion-item> 
+ 
+  <ion-item >
+  <ion-label>Sueldo Mensual: </ion-label>
+    <ion-input placeholder="Cantidad igual o mayor" formControlName="sueldo"></ion-input>
+</ion-item>
+<ion-item *ngIf="findData.get('sueldo').errors && findData.get('sueldo').dirty">
+      <p color="danger" ion-text *ngIf="findData.get('sueldo').hasError('pattern')">el dato debe de ser numerico</p>
+  </ion-item>
+  
+  <ion-row>
+      <ion-col width-50 style="text-align: center">
+        <ion-button  [ngClass]="{'button-disabled': findData.invalid}" class="blue-btn" type="submit" 
+           (click)= "find()" size="large">Buscar</ion-button>		
+    </ion-col>
+    <ion-col width-50 style="text-align: center">
+        <ion-button   class="blue-btn" type="submit" 
+          (click)= "cancel()" size="large">Limpiar</ion-button>    
+    </ion-col>
+  </ion-row>
+
+
+</form>
+
+
+</ion-list>

@@ -1,3 +1,4 @@
+import { AptitudesOptComponent } from './components/menu-options/aptitudes-opt/aptitudes-opt.component';
 import { LanguagesOptComponent } from './components/menu-options/languages-opt/languages-opt.component';
 import { CertificationOptComponent } from './components/menu-options/certification-opt/certification-opt.component';
 import { NgModule } from '@angular/core';
@@ -14,6 +15,7 @@ import { WorkExperienceOptComponent } from './components/menu-options/work-exper
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AcademicTrainingOptComponent } from './components/menu-options/academic-training-opt/academic-training-opt.component';
 import { CoursesOptComponent } from './components/menu-options/courses-opt/courses-opt.component';
+import { PipesModule } from './pipes/pipes.module';
 
 
 
@@ -29,13 +31,15 @@ import { CoursesOptComponent } from './components/menu-options/courses-opt/cours
     AcademicTrainingOptComponent,
     CoursesOptComponent,
     CertificationOptComponent,
-    LanguagesOptComponent
+    LanguagesOptComponent,
+    AptitudesOptComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
     SharedModule,
     FormsModule,
+    PipesModule,
     ReactiveFormsModule
   ]
 })

@@ -273,4 +273,28 @@ export class UiService {
     await alert.present();
     return alert;
   }
+
+  async presentAlert2(header: string, subHeader: string, message: string, cssClass: string, cssClassBtn: string, mode: any) {
+    const alert = await this.alertController.create({
+      header,
+      subHeader,
+      message,
+      cssClass,
+      mode,
+      buttons: [
+        {
+          text: 'Aceptar',
+          cssClass: 'alertButton',
+          role: 'ok',
+          handler: () => {
+            alert.dismiss({
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+    return alert;
+  }
 }

@@ -23,17 +23,20 @@ export class CoursesOptComponent implements OnInit {
   // --------------------------------------------------------------
   isUpdate = false;
   title: string;
+  btnText = '';
   constructor(private route: ActivatedRoute,  private uiService: UiService,
               private courseService: CourseService, private navCtrl: NavController ) {
                 this.initForm();
                }
 
   ngOnInit() {
+    document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
     const id = this.route.snapshot.paramMap.get('id');
     this.maxDate1  = this.maxDate2 = this.getNowDate();
     this.minDate2 = ('1970');
     if (id){
       this.title = 'Editar Curso';
+      this.btnText = 'Actualizar';
       this.courseService.getCourse(id).subscribe( course => {
         this.course = course;
         this.initdataEdit();
@@ -41,18 +44,26 @@ export class CoursesOptComponent implements OnInit {
       this.isUpdate = true;
     } else {
       this.title = 'Añadir Curso';
+      this.btnText = 'Guardar';
       const cvId = JSON.parse( localStorage.getItem('_cap_id'));
       this.data.get('cv_id').setValue(cvId);
     }
   }
   async addCourse(){
-    const mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">  `;
-    const alert = await this.uiService.presentAlert('', 'Desea guardar los cambios', mssg, 'alertCancel', 'alertButton', 'ios');
+    let header = '';
+    let mssg = '';
+    if (this.isUpdate){
+        mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">`;
+        header = '¿Desea guardar los cambios?';
+      } else {
+        mssg = `<img src="./assets/alerts/info.png" class="card-alert-img">`;
+        header = '¿Desea agregar el nuevo curso?';
+      }
+    const alert = await this.uiService.presentAlert('', header, mssg, 'alertCancel', 'alertButton', 'ios');
     const data = await alert.onDidDismiss();
-
     if (data.role === 'ok') {
       if (this.isUpdate) {
-        const loading = await this.uiService.presentLoading('Guardando...', 'loading', false);
+        const loading = await this.uiService.presentLoading('Actualizando...', 'loading', false);
         this.courseService.updateCourse(
           this.data.get('id').value,
             this.data.get('name').value,
@@ -131,7 +142,7 @@ export class CoursesOptComponent implements OnInit {
     this.data = new FormGroup({
     id : new FormControl(''),
     cv_id: new FormControl(''),
-    name: new FormControl(''),
+    name: new FormControl('', Validators.required),
     hours: new FormControl(''),
     institution: new FormControl(''),
     mode: new FormControl(''),

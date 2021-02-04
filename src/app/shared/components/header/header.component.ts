@@ -18,7 +18,9 @@ export class HeaderComponent implements OnInit {
   @Input() miPerfil: false;
   constructor(private menuCtrl: MenuController, private navCtrl: NavController, private uiService: UiService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.miPerfil = false;
+  }
 
   toggleMenu(){
     this.menuCtrl.toggle();

@@ -19,6 +19,7 @@ export class CertificationComponent implements OnInit {
               private uiService: UiService, private navCtrl: NavController) { }
 
   ngOnInit() {
+    document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     this.subjectAreaService.getSubjectAreas().subscribe(subjectAreas => {
       this.subjectAreas = subjectAreas;
     });
@@ -67,6 +68,10 @@ export class CertificationComponent implements OnInit {
     ).subscribe(certifications => {
       this.certifications = certifications;
     });
+  }
+  onClick() {
+    this.navCtrl.navigateRoot('/mi-perfil/home/certification/add', { animationDirection: 'forward' });
+    document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
   }
 }
 

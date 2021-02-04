@@ -1,7 +1,7 @@
-<app-header [title]="'title'" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/certification'" [miPerfil]="true"> </app-header>
+<app-header [title]="title" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/certification'" [miPerfil]="true"> </app-header>
 
 <ion-content>
-  <form class="ion-padding" [formGroup]=" createCertication" (ngSubmit)="submit()">
+  <form class="ion-padding" [formGroup]=" createCertication">
     <ion-grid class="ion-padding-top">
       <ion-row>
         <ion-col size="12">
@@ -61,23 +61,16 @@
             <ion-label position="stacked"
               ><font size="5">Fecha de término</font></ion-label
             >
-            <ion-input [readonly]="readOnly" [min]="DateMin" [max]="DateMax" formControlName="date_expire" type="date" (ionChange)="validendDate($event)" #date_Expire></ion-input>
+            <ion-input  [min]="DateMin"  formControlName="date_expire" type="date" (ionChange)="validendDate($event)" #date_Expire></ion-input>
           </ion-item>
         </ion-col>
 			</ion-row>
-			
-			<ion-row>
-				<ion-col size="6">
-						<ion-button [ngClass]="{'button-disabled': createCertication.invalid}" class="blue-btn" type="submit" expand="block" shape="round">
-              Aceptar
-						</ion-button>
-				</ion-col>
-				<ion-col size="6">
-						<ion-button routerLink="/mi-perfil/mp-certificaciones" color="danger" expand="block" shape="round">
-              Cancelar
-						</ion-button>
-				</ion-col>
-		</ion-row>
     </ion-grid>
   </form>
 </ion-content>
+<ion-row>
+  <ion-col width-50 style="text-align: center">
+    <ion-button  [ngClass]="{'button-disabled': createCertication.invalid}" class="blue-btn" type="submit"  expand="block"
+       (click)= "submit()" size="large">{{btnText}}</ion-button>		
+</ion-col>
+</ion-row>

@@ -38,8 +38,8 @@
 }
 /** amarillo fuerte **/
 .gold{
-  --background: #c1950e;
-  background-color: #c1950e;
+  --background: #c1950e ;
+  background-color: #c1950e !important;
 }
 /**fonod transparente **/
 .transparent-bg{
@@ -78,6 +78,12 @@
 .delete-btn .sc-ion-action-sheet-md{
   color: red !important;
 }
+
+.my-pop-over-style .popover-content {
+  --min-width: 320px !important;
+  /*--min-height: 500px !important;*/
+}
+
  /**====================Opciones para los botones======================**/
 .blue-btn {
   --background: #042b59;

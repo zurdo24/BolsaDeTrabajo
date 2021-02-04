@@ -1,3 +1,5 @@
+import { VacantesModule } from './vacantes/vacantes.module';
+import { MisPostulacionesModule } from './mis-postulaciones/mis-postulaciones.module';
 import { PerfilBasicoModule } from './perfil-basico/perfil-basico.module';
 import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
@@ -14,6 +16,8 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { MiPerfilModule } from './mi-perfil/mi-perfil.module';
+import { MisOportunidadesModule } from './mis-oportunidades/mis-oportunidades.module';
+import { MensajesModule } from './mensajes/mensajes.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +29,11 @@ import { MiPerfilModule } from './mi-perfil/mi-perfil.module';
     AuthModule,
     SharedModule,
     PerfilBasicoModule,
+    MisOportunidadesModule,
     MiPerfilModule,
+    MisPostulacionesModule,
+    VacantesModule,
+    MensajesModule,
     HttpClientModule
   ],
   providers: [

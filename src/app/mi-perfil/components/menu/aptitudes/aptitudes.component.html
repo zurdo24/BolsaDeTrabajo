@@ -1,5 +1,19 @@
 <app-header [backbutton]="false" [title]="'Aptitudes'"  ></app-header>
 
 
-<ion-content class="goldlow ">
+<ion-content class="goldlow ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" pullFactor="0.8" pullMin="60" pullMax="60">
+    <ion-refresher-content ></ion-refresher-content>
+  </ion-refresher>
+
+    <ion-list class="ion-no-padding" *ngFor="let i of cvSkill " >
+      <ion-item button (click)=opcionesAptitud(i.cv_id,i.skill_list_id)>
+          <p>{{i.skill | uppercase }}  </p>
+      </ion-item>
+  </ion-list>
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="blue-btn"  (click)="onClick()">
+    <ion-icon  name="add" color ="light"></ion-icon>
+    </ion-fab-button>
+</ion-fab>
 </ion-content>

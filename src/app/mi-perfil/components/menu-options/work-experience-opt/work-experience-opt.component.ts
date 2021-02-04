@@ -28,6 +28,7 @@ export class WorkExperienceOptComponent implements OnInit {
   data: FormGroup;
   // --------------------------------------------------------------
   headerTitle = '';
+  btnText = '';
   constructor(private navCtrl: NavController, private route: ActivatedRoute, private workExperienceService: WorkExperienceService,
               private linebusinessService: LineBusinessService, private uiService: UiService) {
     this.initForm();
@@ -44,6 +45,7 @@ export class WorkExperienceOptComponent implements OnInit {
     // recupera la id enviada como parametro (app-routing)
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
+      this.btnText = 'Actualizar';
       this.headerTitle = 'Editar Experiencia Laboral';
       this.workExperienceService.getWorkExperience(this.id).subscribe(workexperience => {
         this.workExperience = workexperience;
@@ -80,6 +82,7 @@ export class WorkExperienceOptComponent implements OnInit {
       });
 
     } else {
+      this.btnText = 'Guardar';
       this.headerTitle = 'Añadir Experiencia Laboral';
       const id = JSON.parse(localStorage.getItem('_cap_id'));
       this.data = new FormGroup({
@@ -144,21 +147,26 @@ export class WorkExperienceOptComponent implements OnInit {
     if (this.data.get('wexperienceData').get('company').value.trim() === '' || this.data.get('wexperienceData').get('job_title').value.trim() === '') {
       if (this.data.get('wexperienceData').get('company').value.trim() === '') {
         this.data.get('wexperienceData').get('company').setValue('');
-        // this.uiService.AlertaOK("El campo Empleador no puede estar vacio","war","")
       } else {
         this.data.get('wexperienceData').get('job_title').setValue('');
-        // this.uiService.AlertaOK("El campo Puesto no puede estar vacio","war","")
       }
 
     } else {
-      const mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">  `;
-      const alert = await this.uiService.presentAlert('', 'Desea guardar los cambios', mssg, 'alertCancel', 'alertButton', 'ios');
+      let header = '';
+      let mssg = '';
+      if (this.id){
+        mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">`;
+        header = '¿Desea guardar los cambios?';
+      } else {
+        mssg = `<img src="./assets/alerts/info.png" class="card-alert-img">`;
+        header = '¿Desea guardar la nueva experencia de trabajo?';
+      }
+      const alert = await this.uiService.presentAlert('', header, mssg, 'alertCancel', 'alertButton', 'ios');
       const data = await alert.onDidDismiss();
 
       if (data.role === 'ok') {
         if (!this.id) {
           const loading = await this.uiService.presentLoading('Guardando...', 'loading', false);
-          console.log( this.data.controls);
           this.workExperienceService.addWorkExperience(
             this.data.get('wexperienceData').get('cv_id').value ,
             this.data.get('wexperienceData').get('company').value,
@@ -182,7 +190,7 @@ export class WorkExperienceOptComponent implements OnInit {
           return;
         }
         console.log('ejecuta');
-        const load = await this.uiService.presentLoading('Guardando...', 'loading', false);
+        const load = await this.uiService.presentLoading('Actualizando...', 'loading', false);
         this.workExperienceService.updateWorkExperience(
           this.id,
           this.data.get('wexperienceData').get('company').value,

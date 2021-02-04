@@ -16,6 +16,7 @@ export class LanguagesComponent implements OnInit {
   constructor(private languageService: LanguageService, private uiService: UiService, private navCtrl: NavController) { }
 
   ngOnInit() {
+    document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     const candidateId = JSON.parse(localStorage.getItem('_cap_id'));
     this.languageService.getLanguagesComplete(candidateId).subscribe(languages => {
       this.languages = languages;
@@ -62,7 +63,7 @@ export class LanguagesComponent implements OnInit {
     });
   }
   onClick(){
-    this.navCtrl.navigateForward('/mi-perfil/home/languajes/add', { animationDirection: 'forward' });
+    this.navCtrl.navigateRoot('/mi-perfil/home/languajes/add', { animationDirection: 'forward' });
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
   }
 }

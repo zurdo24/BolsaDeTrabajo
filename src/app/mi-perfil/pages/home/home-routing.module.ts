@@ -13,6 +13,7 @@ import { CertificationComponent } from '../../components/menu/certification/cert
 import { LanguagesComponent } from '../../components/menu/languages/languages.component';
 import { AptitudesComponent } from '../../components/menu/aptitudes/aptitudes.component';
 import { AcademicTrainingOptComponent } from '../../components/menu-options/academic-training-opt/academic-training-opt.component';
+import { AptitudesOptComponent } from '../../components/menu-options/aptitudes-opt/aptitudes-opt.component';
 
 const routes: Routes = [
   {
@@ -87,6 +88,14 @@ const routes: Routes = [
       {
         path: 'languajes/add',
         component: LanguagesOptComponent
+      },
+      {
+        path: 'aptitudes/edit/:id',
+        component: AptitudesOptComponent
+      },
+      {
+        path: 'aptitudes/add',
+        component: AptitudesOptComponent
       },
 
     ]

@@ -1,0 +1,172 @@
+<app-header [title]="'Postulaciones'" [backbutton]="false"></app-header>
+
+<ion-content class="goldlow">
+  <div *ngIf="!applications">
+    <ion-list>
+      <ion-item>
+        <ion-skeleton-text
+          slot="start"
+          style="width: 25px; height: 25px"
+        ></ion-skeleton-text>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 55%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text
+          slot="start"
+          style="width: 25px; height: 25px"
+        ></ion-skeleton-text>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-skeleton-text
+          slot="start"
+          style="width: 25px; height: 25px"
+        ></ion-skeleton-text>
+        <ion-label>
+          <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <div *ngIf="applications">
+    <span *ngIf="applications[0]==''">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col>
+            <ion-item color="gold" class="hiring">
+              <ion-label color="light">
+                <h1 style="text-align: center">
+                  <b>No tienes postulaciones</b>
+                </h1>
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </span>
+  </div>
+
+  <div *ngIf="applications && applications[0] !=''">
+    <ion-item tappable color="light" (click)="expand(0)" color="{{color0}}">
+      <ion-icon name="arrow-down" slot="start" *ngIf="open0 == true"></ion-icon>
+      <ion-icon
+        name="arrow-forward"
+        slot="start"
+        *ngIf="open0 != true"
+      ></ion-icon>
+      <ion-label>Vacantes obtenidas</ion-label>
+    </ion-item>
+
+    <div *ngIf="applications != null && open0 == true">
+      <ion-card
+        *ngFor="let i of applications | filtro : 'hiring' : 'type'"
+        class="ion-card-vacante"
+        (click)="goSeeVacant(i.id_vacant)"
+      >
+        <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" class="img" />
+        <ion-card-header>
+          <ion-card-title>{{i.job_title}}</ion-card-title>
+          <ion-card-subtitle>en {{i.commercial_name}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p *ngIf="fun(i.skills) != 0">
+            <b>Aptitudes: </b>
+            <ion-text *ngFor="let j of i.skills">
+              <ion-text *ngIf="islast(i.skills,j)==false"
+                >{{j.skill}},
+              </ion-text>
+              <ion-text *ngIf="islast(i.skills,j)==true"
+                >{{j.skill}}.
+              </ion-text>
+            </ion-text>
+          </p>
+          <ion-item color="hiring" class="hiring">
+            <ion-label color="light">
+              <h1 style="text-align: center"><b>Contratado</b></h1>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ion-item tappable color="light" (click)="expand(1)" color="{{color1}}">
+      <ion-icon name="arrow-down" slot="start" *ngIf="open1 == true"></ion-icon>
+      <ion-icon
+        name="arrow-forward"
+        slot="start"
+        *ngIf="open1 != true"
+      ></ion-icon>
+      <ion-label>Mis Postulaciones</ion-label>
+    </ion-item>
+
+    <div *ngIf="applications != null && open1 == true">
+      <ion-card
+        *ngFor="let i of applications | filtro : 'application' : 'type'"
+        class="ion-card-vacante"
+        (click)="goSeeVacant(i.id_vacant)"
+      >
+        <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" class="img" />
+        <ion-card-header>
+          <ion-card-title>{{i.job_title}}</ion-card-title>
+          <ion-card-subtitle>en {{i.commercial_name}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p *ngIf="fun(i.skills) != 0">
+            <b> Aptitudes: </b>
+            <ion-text *ngFor="let j of i.skills">
+              <ion-text *ngIf="islast(i.skills,j)==false"
+                >{{j.skill}},
+              </ion-text>
+              <ion-text *ngIf="islast(i.skills,j)==true"
+                >{{j.skill}}.
+              </ion-text>
+            </ion-text>
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ion-item tappable color="light" (click)="expand(2)" color="{{color2}}">
+      <ion-icon name="arrow-down" slot="start" *ngIf="open2 == true"></ion-icon>
+      <ion-icon
+        name="arrow-forward"
+        slot="start"
+        *ngIf="open2 != true"
+      ></ion-icon>
+      <ion-label>Mis Invitaciones</ion-label>
+    </ion-item>
+    <div *ngIf="applications != null && open2 == true">
+      <ion-card
+        *ngFor="let i of applications| filtro : 'invitation' : 'type' "
+        (click)="goSeeVacant(i.id_vacant)"
+        class="ion-card-vacante"
+      >
+        <!-- <span >{{F}}</span> -->
+        <!-- <span *ngIf="i == null"> aqui no hay nada</span> -->
+        <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" class="img" />
+        <ion-card-header>
+          <ion-card-title>{{i.job_title}}</ion-card-title>
+          <ion-card-subtitle>en {{i.commercial_name}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+          <p *ngIf="fun(i.skills) != 0">
+            <b>Aptitudes: </b>
+            <ion-text *ngFor="let j of i.skills">
+              <ion-text *ngIf="islast(i.skills,j)==false"
+                >{{j.skill}},
+              </ion-text>
+              <ion-text *ngIf="islast(i.skills,j)==true"
+                >{{j.skill}}.
+              </ion-text>
+            </ion-text>
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+</ion-content>

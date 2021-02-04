@@ -15,6 +15,7 @@ export class AcademicTrainingComponent implements OnInit {
   constructor(private educationService: EducationService, private uiService: UiService, private navCtrl: NavController) { }
 
   ngOnInit() {
+    document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     const id = JSON.parse(localStorage.getItem('_cap_id'));
     this.educationService.getEducation(id).subscribe(academicTraining => {
       this.academicTraining = academicTraining;
@@ -62,7 +63,7 @@ export class AcademicTrainingComponent implements OnInit {
   }
 
   onClick(){
-    this.navCtrl.navigateForward('/mi-perfil/home/academic-training/add', { animationDirection: 'forward' });
+    this.navCtrl.navigateRoot('/mi-perfil/home/academic-training/add', { animationDirection: 'forward' });
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
   }
 

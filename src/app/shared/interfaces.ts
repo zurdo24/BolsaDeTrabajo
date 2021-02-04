@@ -216,7 +216,7 @@ export interface JobsOpening {
   salary?: string;
   date_post?: string;
   date_expire?: string;
-  status_id?: string;
+  status_id?: number;
   close_reminder?: string;
 }
 

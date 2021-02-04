@@ -17,6 +17,7 @@ export class CoursesComponent implements OnInit {
   constructor(private courseService: CourseService, private uiService: UiService, private navCtrl: NavController) { }
 
   ngOnInit() {
+    document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     const candId = JSON.parse( localStorage.getItem('_cap_id'));
     this.courseService.getCoursesComplete(candId).subscribe( course => {
       this.course = course;
@@ -64,7 +65,7 @@ export class CoursesComponent implements OnInit {
     }
   }
   onClick() {
-    this.navCtrl.navigateForward('/mi-perfil/home/courses/add', { animationDirection: 'forward' });
+    this.navCtrl.navigateRoot('/mi-perfil/home/courses/add', { animationDirection: 'forward' });
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
   }
 }
