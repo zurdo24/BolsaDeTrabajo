@@ -1,3 +1,4 @@
+import { ChatComponent } from './../../components/chat/chat.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -7,6 +8,10 @@ const routes: Routes = [
   {
     path: '',
     component: MessagesPage
+  },
+  {
+    path: 'chat/:id',
+    component: ChatComponent
   }
 ];
 

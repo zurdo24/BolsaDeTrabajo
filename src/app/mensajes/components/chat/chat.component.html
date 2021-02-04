@@ -1,0 +1,51 @@
+<ion-header >
+  <ion-toolbar class="blue">
+    <app-header *ngIf="organization != null" [title]="organization.commercial_name" [backbuttonhref]="'/messages'"  [backbutton]="true"></app-header>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding goldlow">
+    
+  <ion-grid>
+    <ion-row *ngFor="let i of messages">
+      <!-- recibido -->
+      <ion-col size="9" *ngIf="i.type != 'send'" class="message other-message">
+        <span>{{i.text}} </span>
+        <span *ngIf="i.html_text != null && i.html_text != ''" > <br> 
+        <br>
+        Ver Vacante: <a (click)=goLinkVacant(i.html_vacant_id)>{{i.html_name}}</a>
+        </span>
+        <div  class="ion-text-right" class ="time"><br>{{i.date_sent|date:'short'}}</div>
+      </ion-col>
+      <!-- enviado -->
+      <ion-col offset="3" *ngIf="i.type == 'send'" class="message my-message">
+        <span>{{i.text}} </span>
+          <span *ngIf="i.html_text != null && i.html_text != ''"> <br> 
+          Ver CV: <a  (click)=goLinkUser(i.html_vacant_id)>{{i.html_name}}</a>
+        </span>
+        <div >
+          <span  class="ion-text-left" *ngIf="i.date_read!= null "  > <br><ion-icon name="eye"></ion-icon> </span>
+          <span  class="ion-text-left" *ngIf="i.date_read == null "  > <br> <ion-icon name="eye-off"></ion-icon> </span>
+          <span  class="ion-text-right" class ="time"> {{i.date_sent|date:'short'}}</span>
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="light">
+    <ion-row  >
+      <ion-col size="10">
+        <ion-textarea mode="ios" position="stacked"  autofocus="true" auto-grow class="message-input" rows="1" [(ngModel)] ="newMessage" placeholder="Escribe un mensaje"></ion-textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button expand="block"   [disabled]="newMessage === ''" class="msg-btn blue-btn"
+          (click)="sendMessage()">
+          <ion-icon name="send" slot="icon-only" color ="light"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

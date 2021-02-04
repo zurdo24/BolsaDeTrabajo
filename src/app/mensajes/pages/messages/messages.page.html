@@ -1,9 +1,20 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>messages</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header [title]="'Mensajes'" [backbutton]="false"></app-header>
 
 <ion-content>
-
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-item *ngFor="let i of chats" (click)="gotoChat(i.contact_id,i.read)">
+    <ion-avatar slot="start">
+      <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" />
+    </ion-avatar>
+    <!-- <ion-label><ion-text>{{i.commercial_name}}</ion-text></ion-label> -->
+    <ion-text><b>{{i.commercial_name}}</b></ion-text>
+    <ion-icon
+      name="mail"
+      slot="end"
+      *ngIf="i.read == '1'"
+      color="danger"
+    ></ion-icon>
+  </ion-item>
 </ion-content>

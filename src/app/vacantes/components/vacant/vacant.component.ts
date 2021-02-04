@@ -72,61 +72,11 @@ export class VacantComponent implements OnInit {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.from = this.route.snapshot.paramMap.get('from');
-    switch (this.from) {
-      case 'c':
-        console.warn(this.from);
-        if (this.organization !== '' && this.organization != null) {
-              this.navCtrl.navigateRoot('/chat/' + this.organization.contact_id);
-        } else {
-              this.navCtrl.navigateRoot('/chats');
-        }
-        break;
-      case 'v':
-        this.backbuttonhref = '/vacants';
-        break;
-      case 'o':
-        this.navCtrl.navigateRoot('/oportunidades');
-        break;
-      case 'p':
-        this.backbuttonhref = '/postulations';
-        break;
-
-      default:
-            this.navCtrl.navigateRoot('/vacantes');
-            break;
-    }
     this.jobOpeningService.getJobOpening(this.id).subscribe (job => {
       this.job_opening = job;
       this.initForm();
       this.getData();
     });
-  }
-
-  back(){
-    switch (this.from) {
-      case 'c':
-        console.warn(this.from);
-        if (this.organization !== '' && this.organization != null) {
-              this.navCtrl.navigateRoot('/chat/' + this.organization.contact_id);
-        } else {
-              this.navCtrl.navigateRoot('/chats');
-        }
-        break;
-      case 'v':
-        this.backbuttonhref = '/vacants';
-        break;
-      case 'o':
-        this.navCtrl.navigateRoot('/oportunidades');
-        break;
-      case 'p':
-        this.backbuttonhref = '/postulaciones';
-        break;
-
-      default:
-            this.navCtrl.navigateRoot('/vacantes');
-            break;
-    }
-
   }
 
   getData() {
@@ -159,6 +109,28 @@ export class VacantComponent implements OnInit {
 
     this.organizationService.getOrganization(this.job_opening.contact_id).subscribe(organization => {
       this.organization = organization;
+      switch (this.from) {
+        case 'c':
+          if (this.organization != null) {
+              this.backbuttonhref = `/messages/chat/${this.organization.contact_id}`;
+          } else {
+            this.backbuttonhref = '/messages';
+            // this.navCtrl.navigateRoot('/messages');
+          }
+          break;
+        case 'v':
+          this.backbuttonhref = '/vacants';
+          break;
+        case 'o':
+          this.navCtrl.navigateRoot('/oportunidades');
+          break;
+        case 'p':
+          this.backbuttonhref = '/postulations';
+          break;
+        default:
+              this.navCtrl.navigateRoot('/vacants');
+              break;
+      }
       this.jobApplicationStatusLogService.getJobASLShow(this.addMessage.get('from_user_id').value, this.id).subscribe(jab => {
         this.chipStatus = jab[0];
         // preguntar si esta contratado o esta postulado y mostrar la caja de texto
@@ -170,7 +142,6 @@ export class VacantComponent implements OnInit {
 
       this.jobTypeService.getJobType(this.job_opening.job_type_id).subscribe(type => {
         this.job_type = type;
-        // console.log(this.job_type)
         if (this.job_opening.city_id != null) {
           this.cityService.getCity(this.job_opening.city_id).subscribe(city => {
             this.city = city;
@@ -241,7 +212,6 @@ export class VacantComponent implements OnInit {
   
   imprimir() {
 		this.addMessage.get('date_sent').setValue(this.getNowDate())
-		console.log(this.addMessage.value)
 	}
   
   initForm() {
@@ -271,8 +241,6 @@ export class VacantComponent implements OnInit {
 		var HHH
 		var MMM
 		var SSS
-		console.log(date)
-
 		//horas
 		if (HH < 10)
 			HHH = '0' + HH.toString(); //agrega cero si el menor de 10
@@ -302,7 +270,6 @@ export class VacantComponent implements OnInit {
 		else
 			month = monthN
 
-		console.log(year + '-' + month + '-' + day + ' ' + HHH + ':' + MMM + ':' + SSS)
 		return year + '-' + month + '-' + day + ' ' + HHH + ':' + MMM + ':' + SSS;
 	}
 

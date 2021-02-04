@@ -47,7 +47,7 @@ export class MenuComponent implements OnInit {
   }
   async clear(){
     const message = `<img src="./assets/alerts/info.png" class="card-alert-img">  `;
-    const alert = await this.uiService.presentAlert('', '¿Desea cerrar su sesión?', message, 'alertCancel','alertButton','ios');
+    const alert = await this.uiService.presentAlert('', '¿Desea cerrar su sesión?', message, 'alertCancel', 'alertButton', 'ios');
     const data = await alert.onDidDismiss();
     if (data.role === 'ok') {
       localStorage.clear();
