@@ -30,7 +30,7 @@ export class LanguagesComponent implements OnInit {
     }
 
     if (data.role === 'edit'){
-      this.navCtrl.navigateForward(`/mi-perfil/home/languajes/edit/${id}`, { animationDirection: 'forward' });
+      this.navCtrl.navigateRoot(`/mi-perfil/home/languajes/edit/${id}`, { animationDirection: 'forward' });
       document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
     }
 
