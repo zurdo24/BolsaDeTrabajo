@@ -20,15 +20,13 @@ export class OpportunitiesPage implements OnInit {
                private navCtrl: NavController) { }
 
   ngOnInit() {
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
+    const candidateId = JSON.parse(localStorage.getItem('_cap_id'));
     this.cvService.matchCv(candidateId).subscribe((response) => {
-
-
       if (response.ok === true) {
         this.ismatch = true;
         this.jobOpeningService.jobsMatch(response.match).subscribe((match) => {
         this.Match = match;
-      });
+        });
       } else { this.ismatch = false; }
 
     });

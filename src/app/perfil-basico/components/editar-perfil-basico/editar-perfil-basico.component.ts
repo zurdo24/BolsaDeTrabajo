@@ -96,6 +96,14 @@ export class EditarPerfilBasicoComponent implements OnInit {
 
   //  esta funcion se usa para hacer los cambios en la bd
   async update() {
+    const mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">`;
+    const header = '¿Desea guardar los cambios?';
+    const alert = await this.uiService.presentAlert('', header, mssg, 'alertCancel', 'alertButton', 'ios');
+    const data = await alert.onDidDismiss();
+
+    if (data.role !== 'ok') {
+      return;
+    }
     this.load = await this.uiService.presentLoading('Guardando...', 'loading', false);
     const dat = moment(this.updateData.controls.birth_date.value).format('YYYY-MM-DD');
     this.updateData.controls.birth_date.setValue(dat);

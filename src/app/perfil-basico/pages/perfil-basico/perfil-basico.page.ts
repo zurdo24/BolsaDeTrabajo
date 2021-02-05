@@ -46,23 +46,20 @@ export class PerfilBasicoPage implements OnInit {
               private navCtrl: NavController, private appComponent: AppComponent) { }
 
   ngOnInit() {
-    getStorage('id').then(id => {
-      this.userService.getUser(id).subscribe(user => {
-        this.user = user;
-        this.candService.getCandidate(id).subscribe(candidate => {
-          this.candidate = candidate;
-          this.appComponent.setCandidateInfo(candidate);
-          this.translateInfo();
-          // carga del curriculum
-          this.cvService.getCv(this.candidate.user_id).subscribe(cv => {
-            this.cv = cv;
-          });
+    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
+    this.userService.getUser(candidateId).subscribe(user => {
+      this.user = user;
+      this.candService.getCandidate(candidateId).subscribe(candidate => {
+        this.candidate = candidate;
+        this.appComponent.setCandidateInfo(candidate);
+        this.translateInfo();
+        // carga del curriculum
+        this.cvService.getCv(this.candidate.user_id).subscribe(cv => {
+          this.cv = cv;
         });
       });
     });
-
   }
-
   calculateAge(birthday) {
     // tslint:disable-next-line: variable-name
     const birthday_arr = birthday.split('-');

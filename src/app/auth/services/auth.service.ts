@@ -15,28 +15,27 @@ export class AuthService {
   URL = environment.url;
   constructor(private http: HttpClient, private userService: UserService, private candidateService: CandidateService) { }
 
-  login(username: string, password: string){
-    const data = {username, password};
+  login(username: string, password: string) {
+    const data = { username, password };
 
-    return new Promise( resolve => {
-      this.http.post(`${this.URL}/api/user/login`, data).subscribe( resp => {
-        if (resp['login'] ) {
+    return new Promise(resolve => {
+      this.http.post(`${this.URL}/api/user/login`, data).subscribe(resp => {
+        if (resp['login']) {
           if (!resp['user'].match('candidate')) {
             resolve('no es candidato');
-            return ;
+            return;
           }
+          setStorage('id', resp['id']);
+          setStorage('token', resp['token']);
           this.userService.getUser(resp['id']).subscribe(user => {
             setStorage('user', user);
-
-            this.candidateService.getCandidate(resp['id']).subscribe(candidate => {
-              setStorage('candidate', candidate);
-
-              setStorage('id', resp['id']);
-              setStorage('token', resp['token']);
-              resolve(true);
+            // this.candidateService.getCandidate(resp['id']).subscribe(candidate => {
+            //   setStorage('candidate', candidate);
+            //   setStorage('id', resp['id']);
+            //   resolve(true);
+            // });
+            resolve(true);
           });
-          });
-          resolve(true);
         } else {
           localStorage.clear();
           resolve(false);

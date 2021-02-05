@@ -52,7 +52,7 @@
   </div>
 
   <div *ngIf="applications && applications[0] !=''">
-    <ion-item tappable color="light" (click)="expand(0)" color="{{color0}}">
+    <ion-item (click)="expand(0)" class="{{color0}}">
       <ion-icon name="arrow-down" slot="start" *ngIf="open0 == true"></ion-icon>
       <ion-icon
         name="arrow-forward"
@@ -94,7 +94,7 @@
       </ion-card>
     </div>
 
-    <ion-item tappable color="light" (click)="expand(1)" color="{{color1}}">
+    <ion-item   (click)="expand(1)" class="{{color1}}">
       <ion-icon name="arrow-down" slot="start" *ngIf="open1 == true"></ion-icon>
       <ion-icon
         name="arrow-forward"
@@ -131,7 +131,7 @@
       </ion-card>
     </div>
 
-    <ion-item tappable color="light" (click)="expand(2)" color="{{color2}}">
+    <ion-item  (click)="expand(2)" class="{{color2}}">
       <ion-icon name="arrow-down" slot="start" *ngIf="open2 == true"></ion-icon>
       <ion-icon
         name="arrow-forward"

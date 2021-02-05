@@ -10,6 +10,36 @@
   >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <div *ngIf = "certifications == null">
+    <ion-card *ngFor="let i of [1,1,1,1]" color="light" >
+      <ion-card-header>
+        <ion-card-title>
+          <ion-skeleton-text animated style="width: 60%; height: 20px"></ion-skeleton-text>
+        </ion-card-title>
+        <ion-card-subtitle>
+          <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content style="text-align: justify;">
+        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 90%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        <br>
+        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        
+        <br>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+
+  
+  </div>
+
+
   <ion-card
     color="light"
     *ngFor="let certifications of certifications"

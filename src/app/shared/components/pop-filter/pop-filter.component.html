@@ -37,7 +37,7 @@
 
 <ion-item>
   <ion-label>Plan de estudios</ion-label>
-  <ion-select placeholder="Seleccionar" formControlName="study_Programe" interface="action-sheet"  >
+  <ion-select placeholder="Seleccionar" formControlName="study_Programe" mode="md" interface="action-sheet"  >
       <ion-select-option value="" >Cualquier plan</ion-select-option>
       <ion-select-option *ngFor="let programe of studyPrograme" [value]="programe.id" ><p>{{programe.name}}</p></ion-select-option>
   </ion-select>

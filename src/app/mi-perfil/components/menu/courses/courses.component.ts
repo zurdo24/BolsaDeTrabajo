@@ -42,7 +42,7 @@ export class CoursesComponent implements OnInit {
     }
 
     if (data.role === 'edit'){
-      this.navCtrl.navigateForward(`/mi-perfil/home/courses/edit/${id}`, { animationDirection: 'forward' });
+      this.navCtrl.navigateRoot(`/mi-perfil/home/courses/edit/${id}`, { animationDirection: 'forward' });
       document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
     }
 

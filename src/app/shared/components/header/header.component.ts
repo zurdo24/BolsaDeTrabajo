@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
   backbuttonhreff(){
     if (this.miPerfil){
       document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
-      this.navCtrl.navigateBack(this.backbuttonhref, { animationDirection: 'back' });
+      this.navCtrl.navigateRoot(this.backbuttonhref, { animationDirection: 'back' });
       return;
     }
     this.navCtrl.navigateBack(this.backbuttonhref, { animationDirection: 'back' });

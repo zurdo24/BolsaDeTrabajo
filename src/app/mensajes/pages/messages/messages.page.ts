@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
 import { contactsChat } from 'src/app/shared/interfaces';
 import { JobApplicationStatusLogService } from 'src/app/vacantes/services/job-application-status-log.service';
 import { environment } from 'src/environments/environment';
@@ -27,10 +28,14 @@ export class MessagesPage implements OnInit {
 
   }
   doRefresh( event ){
-    setTimeout(() => {
-      this.ngOnInit();
-      event.target.complete();
-    }, 2000);
+    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
+    this.jobApplicationStatusLogService.getContacts(candidateId).pipe(
+      finalize(async () => {
+        event.target.complete();
+      })
+    ).subscribe(chats => {
+      this.chats = chats;
+    });
   }
 
 }

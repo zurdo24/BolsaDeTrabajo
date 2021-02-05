@@ -49,30 +49,33 @@ export class PostulationsPage implements OnInit {
   }
   expand(num: number){
     if (num === 1) {
-      this.open1 = !this.open1;
       if (this.open1 === true) {
-        this.color1 = 'gold';
+        this.open1 = false;
+        this.color1 = 'white';
       }
       else {
-        this.color1 = 'light';
+        this.open1 = true;
+        this.color1 = 'gold';
       }
     }
     if (num === 2) {
-      this.open2 = !this.open2;
       if (this.open2 === true) {
-        this.color2 = 'gold';
+        this.open2 = false;
+        this.color2 = 'white';
       }
       else {
-        this.color2 = 'light';
+        this.open2 = true;
+        this.color2 = 'gold';
       }
     }
     if (num === 0) {
-      this.open0 = !this.open0;
       if (this.open0 === true) {
-        this.color0 = 'gold';
+        this.open0 = false;
+        this.color0 = 'white';
       }
       else {
-        this.color0 = 'light';
+        this.open0 = true;
+        this.color0 = 'gold';
       }
     }
   }

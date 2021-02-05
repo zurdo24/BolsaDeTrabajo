@@ -1,3 +1,4 @@
+import { InterceptorService } from './interceptors/interceptor.service';
 import { VacantesModule } from './vacantes/vacantes.module';
 import { MisPostulacionesModule } from './mis-postulaciones/mis-postulaciones.module';
 import { PerfilBasicoModule } from './perfil-basico/perfil-basico.module';
@@ -14,7 +15,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MiPerfilModule } from './mi-perfil/mi-perfil.module';
 import { MisOportunidadesModule } from './mis-oportunidades/mis-oportunidades.module';
 import { MensajesModule } from './mensajes/mensajes.module';
@@ -39,7 +40,12 @@ import { MensajesModule } from './mensajes/mensajes.module';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
