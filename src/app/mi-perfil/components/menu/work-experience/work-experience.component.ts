@@ -69,6 +69,6 @@ export class WorkExperienceComponent implements OnInit {
   }
   onClick(){
     this.navCtrl.navigateRoot('/mi-perfil/home/work-experience/add', { animationDirection: 'forward' });
-    document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
+    document.getElementById('tabs').classList.add('hidden');
   }
 }

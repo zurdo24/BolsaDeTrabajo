@@ -8,7 +8,7 @@
 
   
   <div  *ngIf = "course==null">
-    <ion-card *ngFor="let i of [1,1,1,1]" color="light" >
+    <ion-card   *ngFor="let i of [1,1,1,1]" color="light" >
       <ion-card-header>
         <ion-card-title>
           <ion-skeleton-text animated style="width: 60%; height: 20px"></ion-skeleton-text>
@@ -31,7 +31,7 @@
   </div>
 
   <div  *ngIf = "course!=null">
- <ion-card *ngFor="let i of course" color="light" (click)=opcionesCursos(i.id)>
+ <ion-card class="slide-in-bottom" *ngFor="let i of course" color="light" (click)=opcionesCursos(i.id)>
       
     <ion-card-header>
         <ion-card-title><b>{{i.name}} </b>

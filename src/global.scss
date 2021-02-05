@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -26,56 +26,56 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 /**=========OPCIONES PARA EL FONDO DE LAS VISTAS ============= **/
- /** amarillo debil **/
+/** amarillo debil **/
 .goldlow {
-  --background:#f2e2b3;
+  --background: #f2e2b3;
   background-color: #f2e2b3;
 }
 
-  /** azul fuerte **/
+/** azul fuerte **/
 .blue {
   --background: #042b59;
 }
 /** amarillo fuerte **/
-.gold{
-  --background: #c1950e ;
+.gold {
+  --background: #c1950e;
   background-color: #c1950e !important;
 }
 /**fonod transparente **/
-.transparent-bg{
+.transparent-bg {
   --background: transparent !important;
 }
 /**=========================================== **/
 
 /**==========opciones para el uiService================= **/
-.card-alert-img{
+.card-alert-img {
   width: 25%;
   height: 25%;
-  display:block;
-  margin:auto;
+  display: block;
+  margin: auto;
   // justify-text: center;
 }
-.alertCancel .alert-wrapper{
+.alertCancel .alert-wrapper {
   min-width: 60vw !important;
   min-height: 15vh !important;
   --background: white;
-    button.alertButton{
-      width: 50%;
-      height: 6vh;
-        background-color: #042b59;
-        color: #FFFFFF;
-    }
-    .alert-sub-title{
-      font-size: 2vh;
-    }
+  button.alertButton {
+    width: 50%;
+    height: 6vh;
+    background-color: #042b59;
+    color: #ffffff;
+  }
+  .alert-sub-title {
+    font-size: 2vh;
+  }
 }
 .loading {
-  --background:#c1940efd;
+  --background: #c1940efd;
   --spinner-color: #042b59;
   color: #fff;
   font-size: 3vh;
 }
-.delete-btn .sc-ion-action-sheet-md{
+.delete-btn .sc-ion-action-sheet-md {
   color: red !important;
 }
 
@@ -84,7 +84,7 @@
   /*--min-height: 500px !important;*/
 }
 
- /**====================Opciones para los botones======================**/
+/**====================Opciones para los botones======================**/
 .blue-btn {
   --background: #042b59;
   // border-radius: 12px;
@@ -95,38 +95,52 @@
 }
 /** =============000opcion para los tabs ==========================**/
 .hidden {
-	position: absolute;
-	width: 1px;
-		/* Setting this to 0 make it invisible for VoiceOver */
-	height: 1px;
-		/* Setting this to 0 make it invisible for VoiceOver */
-	padding: 0;
-	margin: -1px;
-	border: 0;
-	clip: rect(0 0 0 0);
-	overflow: hidden;
-}
-.scale-out-center {
-	-webkit-animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-	        animation: scale-out-center 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
-}
-.refresherMP {
-  background: #f2e3b4;
- --color:#000!important;
+  position: absolute;
+  width: 1px;
+  /* Setting this to 0 make it invisible for VoiceOver */
+  height: 1px;
+  /* Setting this to 0 make it invisible for VoiceOver */
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 /**==========================Animaciones==============================**/
-.fade-in {
-	-webkit-animation: fade-in 5.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	        animation: fade-in 5.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+.slide-in-bottom {
+  -webkit-animation: slide-in-bottom 0.5s cubic-bezier(0.175, 0.5, 0.32, 1.275);
+  animation: slide-in-bottom 0.5s cubic-bezier(0.175, 0.5, 0.32, 1.275);
+}
+@keyframes slide-in-bottom {
+  0% {
+    transform: translateY(200px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-.animated{
-  --webkit-animation-duration: 2s;
-  animation-duration: 2s;
-  animation-fill-mode: both;
+// ============================================
+.fade-in {
+  -webkit-animation: fade-in 0.5s ease-in forwards;
+  animation: fade-in 0.5s ease-in forwards;
 }
-.animated.fast{
-  -webkit-animation-duration: 800ms;
-  animation-duration: 800ms;
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

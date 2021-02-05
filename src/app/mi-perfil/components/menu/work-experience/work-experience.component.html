@@ -37,7 +37,7 @@
   <div  *ngIf = "workexperience != null">
    
 
-    <ion-card button class="animated fade-in fast" *ngFor="let i of workexperience" color="light" (click)=opcionesExpLab(i.id)>
+    <ion-card button class="slide-in-bottom" *ngFor="let i of workexperience" color="light" (click)=opcionesExpLab(i.id) id="card" >
       <ion-card-header>
         <ion-card-title>
          <strong>{{i.company}}</strong>

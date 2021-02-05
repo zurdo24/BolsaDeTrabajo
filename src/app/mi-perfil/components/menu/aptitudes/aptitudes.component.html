@@ -20,7 +20,7 @@
     <ion-refresher-content ></ion-refresher-content>
   </ion-refresher>
 
-    <ion-list class="ion-no-padding" *ngFor="let i of cvSkill " >
+    <ion-list  class="ion-no-padding fade-in" *ngFor="let i of cvSkill " >
       <ion-item button (click)=opcionesAptitud(i.cv_id,i.skill_list_id)>
           <p>{{i.skill | uppercase }}  </p>
       </ion-item>

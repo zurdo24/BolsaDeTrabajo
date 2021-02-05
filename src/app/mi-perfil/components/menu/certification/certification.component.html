@@ -12,7 +12,7 @@
   </ion-refresher>
 
   <div *ngIf = "certifications == null">
-    <ion-card *ngFor="let i of [1,1,1,1]" color="light" >
+    <ion-card  *ngFor="let i of [1,1,1,1]" color="light" >
       <ion-card-header>
         <ion-card-title>
           <ion-skeleton-text animated style="width: 60%; height: 20px"></ion-skeleton-text>
@@ -41,6 +41,7 @@
 
 
   <ion-card
+  class="slide-in-bottom"
     color="light"
     *ngFor="let certifications of certifications"
     (click)="opcionesCertifications(certifications.id)"

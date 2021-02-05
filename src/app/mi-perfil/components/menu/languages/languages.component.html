@@ -20,7 +20,7 @@
 
   </div>
   <div *ngIf="languages!=null">
-    <ion-card (click)=opcionesIdioma(i.id) *ngFor="let i of languages" color="light">
+    <ion-card  class="slide-in-bottom" (click)=opcionesIdioma(i.id) *ngFor="let i of languages" color="light">
       <ion-item>
         <ion-avatar slot="start">
           <img *ngIf="i.language_list_id == '1'" src="./assets/image/Español.png">
