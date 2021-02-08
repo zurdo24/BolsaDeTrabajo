@@ -5,8 +5,8 @@
   <form [formGroup]=" updateData" (ngSubmit)="update()">
       <ion-grid class="goldlow ">
           <ion-row>
-              <ion-col class="fade-in" size="12">
-                  <ion-card  style="background-color: white;">
+              <ion-col  size="12">
+                  <ion-card   style="background-color: white;">
                       <ion-card-header>
                           <ion-card-title>
                               <ion-text color="dark">
@@ -24,7 +24,7 @@
                                           </h1>
                                       </ion-text>
                                   </ion-label>
-                                  <ion-input inputmode="text" (ionChange)="advertenciaUserData()" placeholder="p. ej. nombre.apellido" formControlName="username" #username></ion-input>
+                                  <ion-input  inputmode="text" (ionChange)="advertenciaUserData()" placeholder="p. ej. nombre.apellido" formControlName="username" #username></ion-input>
                               </ion-item>
                               <ion-text color="danger" *ngIf="userNameminlength ">
                                   <small>Nombre de Usuario debería contener al menos 4 letras.</small>

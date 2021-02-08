@@ -23,7 +23,7 @@
 
 <ion-content fullscreen class="ion-padding goldlow">
   <div *ngIf="jobsOpening==null && showVacants == true">
-    <ion-card *ngFor="let i of [1,1,1]" color="light">
+    <ion-card  *ngFor="let i of [1,1,1]" color="light">
       <ion-card-header>
         <h3 style="text-align: center">
           <ion-skeleton-text
@@ -74,7 +74,7 @@
     <ion-card
       *ngFor="let i of jobsOpening | filtrosVacant : textFinder : findData.get('year_Experience').value : findData.get('job_Type').value :        findData.get('city').value : findData.get('study_Programe').value : findData.get('subject_Area').value : findData.get('sueldo').value|slice:0:end"
       (click)="goSeeVacant(i.id)"
-      class="ion-card-vacante"
+      class="ion-card-vacante fade-in"
     >
       <img  *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" />
 
