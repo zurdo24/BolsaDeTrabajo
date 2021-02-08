@@ -122,17 +122,12 @@ export class PerfilBasicoPage implements OnInit {
   }
 
   async opcionesCv() {
-    const actionSheet = await this.uiService.presentActionSheet();
-    const { data } = await actionSheet.onDidDismiss();
-
+    const aSheet = await this.uiService.presentActionSheet2('Opciones', 'Editar', 'edit', 'create', '');
+    const { data } = await aSheet.onDidDismiss();
     if (!data) {
       return;
     }
-
-    if (data.role === 'edit') {
-      this.navCtrl.navigateRoot('/perfil-basico/editar-cv', { animated: true });
-      return;
-    }
+    this.navCtrl.navigateRoot('/perfil-basico/editar-cv', { animated: true });
   }
 
 

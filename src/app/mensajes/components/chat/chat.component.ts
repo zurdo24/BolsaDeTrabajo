@@ -50,7 +50,6 @@ export class ChatComponent implements OnInit {
       this.messageService.addMessage(this.cv_id, this.contact_id, this.newMessage.trim(), '', this.getNowDate()).subscribe(message => {
         this.ngOnInit();
       });
-      console.log(this.cv_id, this.contact_id, this.newMessage.trim(), this.getNowDate());
       this.newMessage = '';
     }
   }
@@ -58,9 +57,7 @@ export class ChatComponent implements OnInit {
   seeMessage(){
     for (const i in this.messages) {
       if (this.messages[i].date_read == null && this.messages[i].type === 'received'){
-        console.log('mensaje ' + i + ' =   id:  ' + this.messages[i].id + '  date_sent: ' + this.messages[i].date_sent );
         this.messageService.seeMessages(this.messages[i].id, this.getNowDate()).subscribe(message => {
-          console.log(message);
         });
       }
     }
@@ -71,12 +68,12 @@ export class ChatComponent implements OnInit {
   }
 
   goLinkVacant(id: string){
-            this.navCtrl.navigateRoot('/vacants/vacant/c/' + id);
-            console.log(id + ' = vacante');
+            this.navCtrl.navigateForward('/vacants/vacant/c/' + id);
+           
   }
   goLinkUser(id: string){
-            this.navCtrl.navigateRoot('/inicio-perfil-basico');
-            console.log(id + ' = vacante');
+            this.navCtrl.navigateRoot('/perfil-basico');
+           
   }
 
 getNowDate(){

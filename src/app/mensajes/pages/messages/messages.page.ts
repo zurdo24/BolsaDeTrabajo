@@ -24,7 +24,7 @@ export class MessagesPage implements OnInit {
     });
   }
   gotoChat(id: string){
-    this.navCtrl.navigateRoot('/messages/chat/' + id, {animated: true});
+    this.navCtrl.navigateForward('/messages/chat/' + id, {animated: true});
 
   }
   doRefresh( event ){
