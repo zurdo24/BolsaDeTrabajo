@@ -269,7 +269,7 @@
           <!-- <ion-row> -->
               <!-- <ion-col  style="text-align: center" size="12"> -->
                   <!-- <ion-button color="boton" type="submit" (click)= "savechanges()"  expand="block" size="large">Guardar</ion-button> -->
-                  <ion-button class="blue-btn"   routerLink="/perfil-basico"  [ngClass]="{'button-disabled': updateData.invalid}" type="submit"  >
+                  <ion-button class="blue-btn" (click)="update()"   size="large" expand="block"    [ngClass]="{'button-disabled': updateData.invalid}"  >
                       Guardar
                   </ion-button>
               <!-- </ion-col> -->

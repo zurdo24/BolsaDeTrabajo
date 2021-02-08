@@ -120,7 +120,7 @@ export class EditarPerfilBasicoComponent implements OnInit {
         // Hide the loading spinner on success or error
         await this.load.dismiss();
         setTimeout(() => {
-          this.navCtrl.navigateBack('/perfil-basico', {animated: true});
+          this.navCtrl.navigateForward('/perfil-basico', {animated: true});
         }, 500);
       })
     ).subscribe(candidate => {
