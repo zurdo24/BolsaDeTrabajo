@@ -261,16 +261,16 @@
                   </ion-card>
               </ion-col>
           </ion-row>
-          <ion-row>
-              <ion-col  style="text-align: center" size="12">
-                  <!-- <ion-button color="boton" type="submit" (click)= "savechanges()"  expand="block" size="large">Guardar</ion-button> -->
-                  <ion-button class="blue-btn btn-size"   routerLink="/perfil-basico"  [ngClass]="{'button-disabled': updateData.invalid}" type="submit"  >
-                      Guardar
-                  </ion-button>
-              </ion-col>
-          </ion-row>
       </ion-grid>
   </form>
 
 
 </ion-content>
+          <!-- <ion-row> -->
+              <!-- <ion-col  style="text-align: center" size="12"> -->
+                  <!-- <ion-button color="boton" type="submit" (click)= "savechanges()"  expand="block" size="large">Guardar</ion-button> -->
+                  <ion-button class="blue-btn"   routerLink="/perfil-basico"  [ngClass]="{'button-disabled': updateData.invalid}" type="submit"  >
+                      Guardar
+                  </ion-button>
+              <!-- </ion-col> -->
+          <!-- </ion-row> -->
