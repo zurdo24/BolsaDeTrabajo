@@ -12,7 +12,7 @@
     <ion-row>
       <ion-col width-50  align= "center" >
         <span  align="center" *ngFor="let i of chipStatus" >
-        <ion-chip color="primary"   *ngIf="i.type == 'invitation'" (click)="presentToast(i.type)">
+        <ion-chip color="blue"   *ngIf="i.type == 'invitation'" (click)="presentToast(i.type)">
           <ion-label>Invitado</ion-label>
         </ion-chip>
         <ion-chip color="secondary"   *ngIf="i.type == 'application'" (click)="presentToast(i.type)">
@@ -34,13 +34,13 @@
 	    	 <ion-list-header> <h2> DATOS DE LA ORGANIZACION</h2> </ion-list-header>
 			
 	    	<ion-item *ngIf="organization.commercial_name != null && organization.commercial_name != undefined">
-            	<ion-icon slot="start" name="people-outline" color="primary"></ion-icon>
+            	<ion-icon slot="start" name="people-outline" color="blue"></ion-icon>
               	<p>
 	                <b>Organizacón:</b> {{organization.commercial_name}}
     	        </p>
         	</ion-item>
         	<ion-item *ngIf="organization.description != null && organization.description != undefined">
-              	<ion-icon slot="start" align= "justify" name="newspaper-outline" color="primary"></ion-icon>
+              	<ion-icon slot="start" align= "justify" name="newspaper-outline" color="blue"></ion-icon>
               	<p  *ngIf="organization.description != null">
 	                {{organization.description}}
               	</p>
@@ -51,35 +51,35 @@
         	<ion-list-header> <h2>DATOS DEL EMPLEO</h2> </ion-list-header>
 			 
 	    	<ion-item *ngIf="job_type.type != null && job_type.type != undefined" >
-              	<ion-icon slot="start" name="time-outline" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="time-outline" color="blue"></ion-icon>
               	<p >
 	                <b>Tipo de empleo:</b> {{job_type.type}}
     	        </p>
         	</ion-item>
         	<ion-item >
-              	<ion-icon slot="start" name="newspaper-outline" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="newspaper-outline" color="blue"></ion-icon>
               	<p  align= "justify">
 	                <b>Descripción:</b> {{job_opening.description}}
               	</p>
         	</ion-item> 
         	<ion-item *ngIf="country != null">
-              	<ion-icon slot="start" name="pin" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="pin" color="blue"></ion-icon>
               	<p>
 	                <b>Ubicación:</b> {{city.name}}, {{state.name}}, {{country.name}}
               	</p>
         	</ion-item> 
         	<ion-item >
-              	<ion-icon slot="start" name="people" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="people" color="blue"></ion-icon>
               	<p>
 	                <b>Número de vacantes:</b> {{job_opening.openings}}
               	</p>
         	</ion-item> 
         	<ion-item *ngIf="job_opening.social_benefits != null">
-              	<ion-icon slot="start" name="clipboard" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="clipboard" color="blue"></ion-icon>
               	<p><b>Prestaciones:</b> {{job_opening.social_benefits}}</p>
         	</ion-item> 
         	<ion-item *ngIf="job_opening.salary != null">
-              	<ion-icon slot="start" name="logo-usd" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="logo-usd" color="blue"></ion-icon>
               	<p>
 	                <b>Sueldo mensual:</b> {{job_opening.salary}}
               	</p>
@@ -90,14 +90,14 @@
         	<ion-list-header> <h2>REQUISITOS</h2> </ion-list-header>
 			
 	    	<ion-item *ngIf="subjectArea != null">
-              	<!-- <ion-icon slot="start" name="md-contact" color="primary"></ion-icon> -->
+              	<!-- <ion-icon slot="start" name="md-contact" color="blue"></ion-icon> -->
               	<p>
 	                <b>Área de estudio:</b> {{subjectArea.name}}
     	        </p>
         	</ion-item>
         	<div *ngIf="openingProgramme != undefined && openingProgramme[0] !=null">
         	<ion-item >
-             	<ion-icon name="book" color="primary"></ion-icon>
+             	<ion-icon name="book" color="blue"></ion-icon>
         		<h4><b>&nbsp;&nbsp;Planes de estudio </b></h4>
         	</ion-item>
         	<p  *ngFor="let i of openingProgramme; let indice=index" class="ion-no-padding">
@@ -107,7 +107,7 @@
 
         	<div *ngIf="openingSkill != undefined && openingSkill[0] != null">
         		<ion-item >
-            		<ion-icon  name="happy" color="primary"></ion-icon>
+            		<ion-icon  name="happy" color="blue"></ion-icon>
 	        		<h4><b>&nbsp;&nbsp;Actitudes </b> </h4>
         		</ion-item>
         		<p  *ngFor="let i of openingSkill; let indice=index">
@@ -117,7 +117,7 @@
 
         	<div *ngIf="openingLanguage != undefined && openingLanguage[0] != null ">
         	<ion-item >
-            	<ion-icon  name="chatboxes" color="primary"></ion-icon>
+            	<ion-icon  name="chatboxes" color="blue"></ion-icon>
         		<h4><b>&nbsp;&nbsp;Idiomas </b> </h4>
         	</ion-item>
         	<p  *ngFor="let i of openingLanguage; let indice=index">
@@ -126,14 +126,14 @@
         	</div>
 
         	<ion-item >
-              	<ion-icon slot="start" name="calendar" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="calendar" color="blue"></ion-icon>
               	<span *ngIf="job_opening.years_experience != null"><b>Años de experiencia:</b> {{job_opening.years_experience}}</span>
 				<span *ngIf="job_opening.years_experience == null"><b>Años de experiencia:</b> 0</span>	                
         	</ion-item> 
 
         	<div *ngIf="job_opening.comments != null">
         	<ion-item>
-              	<ion-icon slot="start" name="text" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="text" color="blue"></ion-icon>
               	<b>comentarios:</b>
         	</ion-item> 
         	<p  align= "left"> {{job_opening.comments}}
@@ -146,17 +146,17 @@
 	 
         	
         	<ion-item >
-              	<ion-icon slot="start" name="calendar" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="calendar" color="blue"></ion-icon>
               	<span *ngIf="job_opening.date_post != null"><b>Fecha de publicación:</b>  <br>{{job_opening.date_post}}
               	</span>
         	</ion-item> 
         	<ion-item >
-              	<ion-icon slot="start" name="calendar" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="calendar" color="blue"></ion-icon>
               	<span *ngIf="job_opening.date_expire != null"><b>Fecha de vencimiento:</b>  <br>{{job_opening.date_expire}}
               	</span>
         	</ion-item> 
         	<ion-item >
-              	<ion-icon slot="start" name="calendar" color="primary"></ion-icon>
+              	<ion-icon slot="start" name="calendar" color="blue"></ion-icon>
               	<span *ngIf="job_opening.status_id == 1"><b>Estado de la vacante:</b> <br>abierto</span>
               	<span *ngIf="job_opening.status_id == 2"><b>Estado de la vacante:</b> <br>cerrado</span>
               	<span *ngIf="job_opening.status_id == 3"><b>Estado de la vacante:</b> <br>ocupado</span>
@@ -178,7 +178,7 @@ Ocupado fuera</span>
 	  		<ion-textarea auto-grow=true rows="6" cols="20"  formControlName="text" placeholder="Escribe un mensaje..."></ion-textarea>
 		</ion-item>
 </form>
-<!-- <ion-button  [ngClass]="{'button-disabled': addData.invalid}" color="primary" type="submit" 
+<!-- <ion-button  [ngClass]="{'button-disabled': addData.invalid}" color="blue" type="submit" 
 	    	 		(click)= "addCourse()" size="large">Aceptar</ion-button> -->
 
  		<ion-row>

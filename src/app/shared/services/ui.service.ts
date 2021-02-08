@@ -42,7 +42,7 @@ export class UiService {
         }
       },
       {
-        text: 'Delete',
+        text: 'Eliminar',
         role: 'destructive',
         icon: 'trash',
         cssClass: 'delete-btn',
@@ -53,7 +53,7 @@ export class UiService {
         }
       },
        {
-        text: 'Cancel',
+        text: 'Cancelar',
         icon: 'close',
         role: 'cancel',
         handler: () => {
@@ -82,7 +82,7 @@ export class UiService {
         }
       },
        {
-        text: 'Cancel',
+        text: 'Cancelar',
         icon: 'close',
         role: 'cancel',
         handler: () => {

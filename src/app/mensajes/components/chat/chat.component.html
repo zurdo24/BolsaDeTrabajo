@@ -1,10 +1,10 @@
 <ion-header >
-  <ion-toolbar class="blue">
+  <ion-toolbar color="blue">
     <app-header *ngIf="organization != null" [title]="organization.commercial_name" [backbuttonhref]="'/messages'"  [backbutton]="true"></app-header>
     </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding goldlow">
+<ion-content class="ion-padding " color="goldlow">
     
   <ion-grid>
     <ion-row *ngFor="let i of messages">

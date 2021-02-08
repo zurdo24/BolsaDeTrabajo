@@ -116,17 +116,17 @@
         <ion-list>
           <h2>GENERALES</h2>
           <ion-item>
-            <ion-icon color="primary" slot="start" name="person-circle-outline"></ion-icon>
+            <ion-icon color="blue" slot="start" name="person-circle-outline"></ion-icon>
             <ion-label class="text-info">
               {{candidate.sex}}, {{candidate.marital_status}}, {{edad}} años
             </ion-label>
           </ion-item>
           <ion-item>
-            <ion-icon slot="start" name="globe"color="primary"></ion-icon>
+            <ion-icon slot="start" name="globe"color="blue"></ion-icon>
             <ion-label class="text-info"> {{city.name}}, {{state.name}}, {{country.name}} </ion-label>
           </ion-item>
           <ion-item>
-            <ion-icon slot="start" name="card"color="primary"></ion-icon>
+            <ion-icon slot="start" name="card"color="blue"></ion-icon>
             <ion-label class="text-info"> <b>CURP:</b> {{candidate.curp}} </ion-label>
           </ion-item>
         </ion-list>
@@ -136,26 +136,26 @@
         <ion-list>
           <h2>CONTACTO</h2>
           <ion-item>
-            <ion-icon slot="start" name="mail"color="primary"></ion-icon>
+            <ion-icon slot="start" name="mail"color="blue"></ion-icon>
             <ion-label class="text-info"> <b>email: </b> {{user.email}} <br /> </ion-label>
           </ion-item>
           <ion-item>
-            <ion-icon slot="start" name="call"color="primary"></ion-icon>
+            <ion-icon slot="start" name="call"color="blue"></ion-icon>
             <ion-label class="text-info"> <b>Telefono: </b> {{candidate.phone}}<br /> </ion-label>
           </ion-item>
           <ion-item>
-            <ion-icon slot="start" name="phone-portrait"color="primary"></ion-icon>
+            <ion-icon slot="start" name="phone-portrait"color="blue"></ion-icon>
             <ion-label class="text-info">
               <b>Telefono celular: </b> {{candidate.cellphone}}<br />
             </ion-label>
           </ion-item>
         </ion-list>
-
+</ion-col>
         <ion-col size="12">
           <ion-card button color="light" (click)="opcionesCv()">
             <ion-card-header>
               <ion-card-title
-                >Currículum Vítae <ion-icon mode="md" name="create"></ion-icon
+                >CURRÍCULUM VÍTAE <ion-icon mode="md" name="create" color="blue"></ion-icon
               ></ion-card-title>
       
               <ion-card-subtitle class="text-info">({{cv.status}})</ion-card-subtitle>
@@ -166,7 +166,7 @@
             </ion-card-content>
           </ion-card>
         </ion-col>
-      </ion-col>
+      
     </ion-row>
   </ion-grid>
 </ion-content>
