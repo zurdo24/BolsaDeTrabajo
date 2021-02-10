@@ -43,7 +43,7 @@ export class EditarPerfilBasicoComponent implements OnInit {
   load: any;
   constructor(private countryService: CountryService, private cityService: CityService, private stateService: StateService,
               private organizationUnitService: OrganizationUnitService, private userService: UserService,
-              private candidateService: CandidateService, private loadingCtrl: LoadingController, private uiService: UiService,
+              private candidateService: CandidateService, private uiService: UiService,
               private navCtrl: NavController) {
     this.initForm();
   }
@@ -107,13 +107,13 @@ export class EditarPerfilBasicoComponent implements OnInit {
     this.load = await this.uiService.presentLoading('Guardando...', 'loading', false);
     const dat = moment(this.updateData.controls.birth_date.value).format('YYYY-MM-DD');
     this.updateData.controls.birth_date.setValue(dat);
-    this.userService.updateUser(this.user.id, this.updateData.controls.userData.value).then((user) => {
-      this.user = user;
-      setStorage('user', this.user);
+    // this.userService.updateUser(this.user.id, this.updateData.controls.userData.value).then((user) => {
+    //   this.user = user;
+    //   setStorage('user', this.user);
 
-    }, (err) => {
-      console.log(err);
-    });
+    // }, (err) => {
+    //   console.log(err);
+    // });
     this.candidateService.updateCandidate(this.user.id, this.updateData.value)
     .pipe(
       finalize(async () => {

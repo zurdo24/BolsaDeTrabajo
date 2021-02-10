@@ -18,8 +18,9 @@
                           <ion-input name="usuario" type="username" placeholder="Usuario" [(ngModel)]="loginUser.username" required></ion-input>
                       </ion-item>
                       <ion-item>
-
-                          <ion-input name="contraseña" type="password" placeholder="contraseña" [(ngModel)]="loginUser.password" required></ion-input>
+                          <ion-input name="contraseña"  [type]="getType()" placeholder="contraseña" [(ngModel)]="loginUser.password" required></ion-input>
+                          <ion-icon  [hidden]="isActiveToggleTextPassword"  (click)="toggleTextPassword()" name="eye-outline"></ion-icon>
+                        <ion-icon  [hidden]="!isActiveToggleTextPassword" (click)="toggleTextPassword()" name="eye-off-outline"></ion-icon>
                       </ion-item>
                   </div>
 

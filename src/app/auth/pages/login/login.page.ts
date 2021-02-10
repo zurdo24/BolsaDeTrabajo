@@ -18,6 +18,9 @@ export class LoginPage implements OnInit {
     password: ''
   };
   loginb = false;
+
+    // show password
+    isActiveToggleTextPassword = true;
   constructor(private authService: AuthService, private uiService: UiService, private navCtrl: NavController,
               private menuCtrl: MenuController, private candidateService: CandidateService ) { }
 
@@ -54,5 +57,13 @@ export class LoginPage implements OnInit {
       }
 
     });
+  }
+
+  // === show/hide password
+  public toggleTextPassword(): void {
+    this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword === true) ? false : true;
+  }
+  getType() {
+    return this.isActiveToggleTextPassword ? 'password' : 'text';
   }
 }

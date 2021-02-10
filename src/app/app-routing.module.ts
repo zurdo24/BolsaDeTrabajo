@@ -45,6 +45,10 @@ const routes: Routes = [
     loadChildren: () => import('./mensajes/pages/messages/messages.module').then( m => m.MessagesPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'access',
+    loadChildren: () => import('./acceso/pages/access/access.module').then( m => m.AccessPageModule)
+  },
 ];
 
 @NgModule({

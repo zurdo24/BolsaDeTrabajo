@@ -35,6 +35,6 @@ export class HeaderComponent implements OnInit {
     this.navCtrl.navigateForward(this.backbuttonhref, { animationDirection: 'back' });
   }
   routef(){
-    this.navCtrl.navigateForward(this.route);
+    this.navCtrl.navigateRoot (this.route);
   }
 }

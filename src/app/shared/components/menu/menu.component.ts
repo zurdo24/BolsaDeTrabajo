@@ -35,6 +35,11 @@ export class MenuComponent implements OnInit {
       title: 'Mensajes',
       url: '/messages',
       icon: 'chatbubbles'
+    },
+    {
+      title: 'Acceso',
+      url: '/access',
+      icon: 'settings-sharp'
     }
 
 

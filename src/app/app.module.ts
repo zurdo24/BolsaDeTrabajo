@@ -1,3 +1,4 @@
+import { AccesoModule } from './acceso/acceso.module';
 import { InterceptorService } from './interceptors/interceptor.service';
 import { VacantesModule } from './vacantes/vacantes.module';
 import { MisPostulacionesModule } from './mis-postulaciones/mis-postulaciones.module';
@@ -35,6 +36,7 @@ import { MensajesModule } from './mensajes/mensajes.module';
     MisPostulacionesModule,
     VacantesModule,
     MensajesModule,
+    AccesoModule,
     HttpClientModule
   ],
   providers: [

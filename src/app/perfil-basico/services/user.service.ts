@@ -16,12 +16,6 @@ export class UserService {
   }
 
   updateUser(id: string, data: any) {
-    return new Promise((resolve, reject) => {
-      this.http.put(`${this.URL}/api/users/${id}`, data).subscribe(res => {
-        resolve(res);
-      }, (err) => {
-        reject(err);
-      });
-    });
+    return this.http.put(`${this.URL}/api/users/${id}`, data);
   }
 }

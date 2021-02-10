@@ -1,0 +1,98 @@
+<app-header [title]="'Actualización de Acceso'" [backbutton]="false"></app-header>
+
+<ion-content  class="goldlow">
+  <form [formGroup]=" userData">
+    <ion-grid >
+      <ion-row>
+        <ion-col size="12">
+          <ion-card   style="background-color: white;">
+            <ion-card-header>
+                <ion-card-title>
+                    <ion-text color="dark">
+                        <strong>Datos De Acceso </strong>
+                    </ion-text>
+                </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-label position="stacked">
+                            <ion-text class=" font-italic " color="Dark">
+                                <h1> Nombre del Usuario
+                                    <ion-text color="danger">*</ion-text>
+                                </h1>
+                            </ion-text>
+                        </ion-label>
+                        <ion-input  inputmode="text" (ionChange)="advertenciaUserData()" placeholder="p. ej. nombre.apellido" formControlName="username" #username></ion-input>
+                    </ion-item>
+                    <ion-text color="danger" *ngIf="userNameminlength ">
+                        <small>Nombre de Usuario debería contener al menos 4 letras.</small>
+                    </ion-text>
+                    <ion-text color="danger" *ngIf="userNamePattern ">
+                        <small>El nombre de usuario sólo puede contener caracteres alfanuméricos, guiones y punto. El nombre de usuario no puede iniciar con guion o punto. Los guiones y el punto no se pueden usar varias veces de forma seguida.</small>
+                    </ion-text>
+                    <!-- <ion-text colo *ngIf="!updateData.controls.userData['controls']['username'].valid">
+                        <small>Nombre de Usuario debería contener al menos 4 letras.</small>
+                    </ion-text> -->
+
+                    <ion-item>
+                        <ion-label position="stacked">
+                            <ion-text color="Dark">
+                                <h1> Correo Electrónico
+                                    <ion-text color="danger">*</ion-text>
+                                </h1>
+                            </ion-text>
+                        </ion-label>
+                        <ion-input placeholder="Escribe tu correo electronico" formControlName="email"></ion-input>
+                    </ion-item>
+                    <ion-text color="danger" *ngIf="!userData.controls['email'].valid">
+                        <small>Correo Electrónico no es una dirección de correo válida.</small>
+                    </ion-text>
+
+                    <ion-item lines="none">
+                      <ion-label position="stacked">
+                        <ion-text color="Dark">
+                            <h1> Contraseña
+                                <ion-text color="danger">*</ion-text>
+                            </h1>
+                        </ion-text>
+                    </ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input  [type]="getType()" formControlName="password"  (ionChange)="changePassword()" placeholder="Ingrese una contraseña"></ion-input>
+                        <ion-icon  [hidden]="isActiveToggleTextPassword"  (click)="toggleTextPassword()" name="eye-outline"></ion-icon>
+                        <ion-icon  [hidden]="!isActiveToggleTextPassword" (click)="toggleTextPassword()" name="eye-off-outline"></ion-icon>
+                    </ion-item>
+                    <ion-text color="danger" *ngIf="!userData.controls['password'].valid">
+                        <small>La contraseña debe contener 3 de las 4 siguientes categorías de caracteres: <br>
+                                1) al menos 1 mayúscula, <br>
+                                2) al menos 1 minúscula, <br>
+                                3) al menos un carácter numérico, <br>
+                                4) 6 caracteres como mínimo, <br>
+                                4) al menos un carácter especial.</small>
+                    </ion-text>
+
+                    <ion-item>
+                        <ion-label position="stacked">
+                            <ion-text color="Dark">
+                                <h1> Confimar Contraseña
+                                    <ion-text color="danger">*</ion-text>
+                                </h1>
+                            </ion-text>
+                        </ion-label>
+                        <ion-input formControlName="password_confirm"  [type]="getType()" placeholder="Ingrese una contraseña"></ion-input>
+                    </ion-item>
+                    <ion-text color="danger" *ngIf="!userData.controls['password_confirm'].valid">
+                        <small>Confirmar contraseña debe ser igual a "Contraseña".</small>
+                    </ion-text>
+                </ion-list>
+            </ion-card-content>
+        </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>
+<ion-button class="blue-btn" (click)="update()"   size="large" expand="block"    [ngClass]="{'button-disabled': userData.invalid}"  >
+  Guardar
+</ion-button>
