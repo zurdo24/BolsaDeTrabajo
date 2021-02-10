@@ -18,12 +18,14 @@ export class PruebPage implements OnInit {
 	}
 
 	change(){
-		// console.log
+		if (this.n1.trim() != '') {
 		environment.url=this.n1
+		}
+		if (this.n2.trim() != '') {
 		environment.urlPhotos=this.n2
+		}
 		this.url = environment.url
 		this.urlphotos = environment.urlPhotos
-		// console.log(environment)
 
 		this.navCtrl.navigateForward('/login', {animated: true});
 	}
