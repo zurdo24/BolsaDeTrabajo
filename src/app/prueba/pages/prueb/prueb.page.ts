@@ -14,9 +14,7 @@ export class PruebPage implements OnInit {
 	n2=""
   	constructor(private navCtrl: NavController) { }
 
-	ngOnInit() {
-		console.log(environment)
-	
+	ngOnInit() {	
 	}
 
 	change(){
@@ -25,7 +23,7 @@ export class PruebPage implements OnInit {
 		environment.urlPhotos=this.n2
 		this.url = environment.url
 		this.urlphotos = environment.urlPhotos
-		console.log(environment)
+		// console.log(environment)
 
 		this.navCtrl.navigateForward('/login', {animated: true});
 	}

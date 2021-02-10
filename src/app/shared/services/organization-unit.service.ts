@@ -8,7 +8,8 @@ import { OrganizationUnit } from '../interfaces';
 })
 export class OrganizationUnitService {
   URL = environment.url;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+   }
 
   getOrganizationUnit(id: string){
     return this.http.get<OrganizationUnit>(`${this.URL}/api/organization-units/${id}`);

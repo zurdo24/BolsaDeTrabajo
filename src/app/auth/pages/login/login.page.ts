@@ -3,9 +3,9 @@ import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MenuController, NavController } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
 import { CandidateService } from 'src/app/perfil-basico/services/candidate.service';
 import { setStorage } from 'src/app/shared/services/storage.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +31,8 @@ export class LoginPage implements OnInit {
     this.menuCtrl.enable(true);
   }
   ngOnInit() {
+    this.authService.setUrl( environment.url);
+    this.candidateService.setUrl(environment.url);
   }
 
   async login(form: NgForm){
@@ -65,5 +67,8 @@ export class LoginPage implements OnInit {
   }
   getType() {
     return this.isActiveToggleTextPassword ? 'password' : 'text';
+  }
+  onClick(){
+    this.navCtrl.navigateRoot('/prueb');
   }
 }

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CandidateService {
-  URL = environment.url;
+  URL = '';
   photoRoutbase: string = this.URL + '/btuady/public_html/files/photo/';
   photoRout= '';
   constructor(private http: HttpClient) { }
@@ -40,5 +40,8 @@ export class CandidateService {
     } else {
       this.photoRout = this.photoRoutbase + candidate.photo;
     }
+  }
+  setUrl(url: string){
+    this.URL = url;
   }
 }

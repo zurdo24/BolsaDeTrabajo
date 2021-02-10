@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  URL = environment.url;
+  URL = '';
   constructor(private http: HttpClient) { }
 
   getUser(id: string) {
@@ -17,5 +17,8 @@ export class UserService {
 
   updateUser(id: string, data: any) {
     return this.http.put(`${this.URL}/api/users/${id}`, data);
+  }
+  setUrl(url: string){
+    this.URL = url;
   }
 }

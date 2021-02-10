@@ -12,10 +12,13 @@ import { Observable } from 'rxjs';
 })
 
 export class AuthService {
-  URL = environment.url;
-  constructor(private http: HttpClient, private userService: UserService, private candidateService: CandidateService) { }
+  URL = '';
+  constructor(private http: HttpClient, private userService: UserService, private candidateService: CandidateService) {
+  }
 
   login(username: string, password: string) {
+    this.userService.setUrl(this.URL);
+    console.log('gdf', this.URL);
     const data = { username, password };
 
     return new Promise(resolve => {
@@ -29,11 +32,6 @@ export class AuthService {
           setStorage('token', resp['token']);
           this.userService.getUser(resp['id']).subscribe(user => {
             setStorage('user', user);
-            // this.candidateService.getCandidate(resp['id']).subscribe(candidate => {
-            //   setStorage('candidate', candidate);
-            //   setStorage('id', resp['id']);
-            //   resolve(true);
-            // });
             resolve(true);
           });
         } else {
@@ -43,5 +41,8 @@ export class AuthService {
 
       });
     });
+  }
+  setUrl(url: string){
+    this.URL = url;
   }
 }

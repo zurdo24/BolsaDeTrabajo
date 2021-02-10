@@ -9,7 +9,6 @@ import { CountryService } from 'src/app/shared/services/country.service';
 import { CvService } from 'src/app/shared/services/cv.service';
 import { OrganizationUnitService } from 'src/app/shared/services/organization-unit.service';
 import { StateService } from 'src/app/shared/services/state.service';
-import { getStorage } from 'src/app/shared/services/storage.service';
 import { environment } from 'src/environments/environment';
 import { CandidateService } from '../../services/candidate.service';
 import { NavController } from '@ionic/angular';
@@ -46,7 +45,6 @@ export class PerfilBasicoPage implements OnInit {
               private navCtrl: NavController, private appComponent: AppComponent) { }
 
   ngOnInit() {
-    console.log(environment)
     const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
     this.userService.getUser(candidateId).subscribe(user => {
       this.user = user;
