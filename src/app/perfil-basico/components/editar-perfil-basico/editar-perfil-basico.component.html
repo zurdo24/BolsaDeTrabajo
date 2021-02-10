@@ -5,89 +5,6 @@
   <form [formGroup]=" updateData" (ngSubmit)="update()">
       <ion-grid class="goldlow ">
           <ion-row>
-              <ion-col  size="12">
-                  <ion-card   style="background-color: white;">
-                      <ion-card-header>
-                          <ion-card-title>
-                              <ion-text color="dark">
-                                  <strong>Datos Generales</strong>
-                              </ion-text>
-                          </ion-card-title>
-                      </ion-card-header>
-                      <ion-card-content>
-                          <ion-list formGroupName="userData">
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text class=" font-italic " color="Dark">
-                                          <h1> Nombre del Usuario
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input  inputmode="text" (ionChange)="advertenciaUserData()" placeholder="p. ej. nombre.apellido" formControlName="username" #username></ion-input>
-                              </ion-item>
-                              <ion-text color="danger" *ngIf="userNameminlength ">
-                                  <small>Nombre de Usuario debería contener al menos 4 letras.</small>
-                              </ion-text>
-                              <ion-text color="danger" *ngIf="userNamePattern ">
-                                  <small>El nombre de usuario sólo puede contener caracteres alfanuméricos, guiones y punto. El nombre de usuario no puede iniciar con guion o punto. Los guiones y el punto no se pueden usar varias veces de forma seguida.</small>
-                              </ion-text>
-                              <!-- <ion-text colo *ngIf="!updateData.controls.userData['controls']['username'].valid">
-                                  <small>Nombre de Usuario debería contener al menos 4 letras.</small>
-                              </ion-text> -->
-
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Correo Electrónico
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input placeholder="Escribe tu correo electronico" formControlName="email"></ion-input>
-                              </ion-item>
-                              <ion-text color="danger" *ngIf="!updateData.controls.userData['controls']['email'].valid">
-                                  <small>Correo Electrónico no es una dirección de correo válida.</small>
-                              </ion-text>
-
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Contraseña
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input formControlName="password" type="password" (ionChange)="changePassword()" placeholder="Ingrese una contraseña"></ion-input>
-
-                              </ion-item>
-                              <ion-text color="danger" *ngIf="!updateData.controls.userData['controls']['password'].valid">
-                                  <small>La contraseña debe contener 3 de las 4 siguientes categorías de caracteres: <br>
-                                          1) al menos 1 mayúscula, <br>
-                                          2) al menos 1 minúscula, <br>
-                                          3) al menos un carácter numérico, <br>
-                                          4) 6 caracteres como mínimo, <br>
-                                          4) al menos un carácter especial.</small>
-                              </ion-text>
-
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Confimar Contraseña
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input formControlName="password_confirm" type="password" placeholder="Ingrese una contraseña"></ion-input>
-                              </ion-item>
-                              <ion-text color="danger" *ngIf="!updateData.controls.userData['controls']['password_confirm'].valid">
-                                  <small>Confirmar contraseña debe ser igual a "Contraseña".</small>
-                              </ion-text>
-                          </ion-list>
-                      </ion-card-content>
-                  </ion-card>
-              </ion-col>
-
               <ion-col size="12">
                   <ion-card style="background-color: white;">
                       <ion-card-header>
@@ -177,7 +94,7 @@
                                           </h1>
                                       </ion-text>
                                   </ion-label>
-                                  <ion-input formControlName="cellphone" placeholder="p. ej. (+52) 999 999 99 99"></ion-input>
+                                  <ion-input formControlName="cellphone" inputmode="tel" placeholder="p. ej. (+52) 999 999 99 99"></ion-input>
                               </ion-item>
 
                               <ion-item lines="none">
@@ -216,7 +133,7 @@
                                           </h1>
                                       </ion-text>
                                   </ion-label>
-                                  <ion-select  mode="md" formControlName="city_id"   interface="action-sheet" placeholder="seleccionar la ciudad">
+                                  <ion-select  mode="md" formControlName="city_id"  (ionChange)=" onChangeCity($event)" interface="action-sheet" placeholder="seleccionar la ciudad">
                                       <ion-select-option *ngFor="let city of cities" [value]="city.id"> {{city.name}} </ion-select-option>
                                   </ion-select>
                               </ion-item>
