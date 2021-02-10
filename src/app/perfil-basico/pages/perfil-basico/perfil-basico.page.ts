@@ -46,6 +46,7 @@ export class PerfilBasicoPage implements OnInit {
               private navCtrl: NavController, private appComponent: AppComponent) { }
 
   ngOnInit() {
+    console.log(environment)
     const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
     this.userService.getUser(candidateId).subscribe(user => {
       this.user = user;

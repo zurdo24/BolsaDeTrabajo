@@ -49,6 +49,11 @@ const routes: Routes = [
     path: 'access',
     loadChildren: () => import('./acceso/pages/access/access.module').then( m => m.AccessPageModule)
   },
+  {
+    path: 'prueb',
+    loadChildren: () => import('./prueba/pages/prueb/prueb.module').then( m => m.PruebPageModule)
+  },
+
 ];
 
 @NgModule({
