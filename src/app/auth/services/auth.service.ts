@@ -17,8 +17,9 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
+    console.log('antes', this.URL);
     this.userService.setUrl(this.URL);
-    console.log('gdf', this.URL);
+    console.log('despues', this.URL);
     const data = { username, password };
 
     return new Promise(resolve => {

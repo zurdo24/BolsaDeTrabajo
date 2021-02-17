@@ -26,6 +26,7 @@ export class InterceptorService implements HttpInterceptor {
     );
   }
   manejarError(error: HttpErrorResponse) {
+    console.log(error)
     return throwError('error personalizado');
   }
 }

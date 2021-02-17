@@ -13,13 +13,13 @@
       <ion-col width-50  align= "center" >
         <span  align="center" *ngFor="let i of chipStatus" >
         <ion-chip color="blue"   *ngIf="i.type == 'invitation'" (click)="presentToast(i.type)">
-          <ion-label>Invitado</ion-label>
+          <ion-label>INVITADO</ion-label>
         </ion-chip>
         <ion-chip color="secondary"   *ngIf="i.type == 'application'" (click)="presentToast(i.type)">
-          <ion-label>Postulado</ion-label>
+          <ion-label>POSTULADO</ion-label>
         </ion-chip>
         <ion-chip color="warning"  *ngIf="i.type == 'hiring'" (click)="presentToast(i.type)">
-          <ion-label>Contratado</ion-label>
+          <ion-label>CONTRATADO</ion-label>
         </ion-chip>
         </span> 
       </ion-col>
