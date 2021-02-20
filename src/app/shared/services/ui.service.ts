@@ -121,7 +121,8 @@ export class UiService {
             });
           }
         }
-      ]
+      ],
+      backdropDismiss: false,
     });
 
     await alert.present();
@@ -145,7 +146,8 @@ export class UiService {
             });
           }
         }
-      ]
+      ],
+      backdropDismiss: false,
     });
 
     await alert.present();

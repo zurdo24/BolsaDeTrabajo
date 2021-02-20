@@ -4,6 +4,11 @@ export interface Login {
   login?: boolean;
 }
 
+export interface Password_recovery {
+  email?: string;
+  recovery?: string;
+}
+
 export interface User {
   id?: string;
   username?: string;
