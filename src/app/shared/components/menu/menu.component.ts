@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { AuthService } from './../../../auth/services/auth.service';
+import { Component, OnInit, Input } from '@angular/core';
 import { Candidate } from '../../interfaces';
 import { UiService } from '../../services/ui.service';
 import { NavController } from '@ionic/angular';
-import { retry } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-menu',
@@ -47,7 +48,7 @@ export class MenuComponent implements OnInit {
 
   @Input() url: string;
   @Input() candidate: Candidate = {firstname: '', lastname: '', photo: ''};
-  constructor(private uiService: UiService, private navCtrl: NavController) { }
+  constructor(private uiService: UiService, private navCtrl: NavController, private authService?: AuthService) { }
   ngOnInit() {
   }
   async clear(){
@@ -55,8 +56,14 @@ export class MenuComponent implements OnInit {
     const alert = await this.uiService.presentAlert('', '¿Desea cerrar su sesión?', message, 'alertCancel', 'alertButton', 'ios');
     const data = await alert.onDidDismiss();
     if (data.role === 'ok') {
-      localStorage.clear();
-      this.navCtrl.navigateRoot('/login');
+      this.authService.setUrl(environment.url);
+      const token = JSON.parse( localStorage.getItem('_cap_token'));
+      this.authService.logout(token).subscribe( logout => {
+        if ( logout.logout){
+          localStorage.clear();
+          this.navCtrl.navigateRoot('/login', { animated: true });
+        }
+      });
     }
     return;
   }

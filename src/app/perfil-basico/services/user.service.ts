@@ -7,11 +7,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserService {
-  URL = '';
-  constructor(private http: HttpClient) { }
+  URL = environment.url;
+  constructor(private http: HttpClient) {
+  }
 
   getUser(id: string) {
-    const tokenn =  localStorage.getItem('token');
     return this.http.get<User>(`${this.URL}/api/users/${id}`);
   }
 

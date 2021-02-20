@@ -12,6 +12,7 @@ import { StateService } from 'src/app/shared/services/state.service';
 import { environment } from 'src/environments/environment';
 import { CandidateService } from '../../services/candidate.service';
 import { NavController } from '@ionic/angular';
+import { AuthService } from '../../../auth/services/auth.service';
 
 
 
@@ -46,6 +47,7 @@ export class PerfilBasicoPage implements OnInit {
 
   ngOnInit() {
     const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
+    this.candService.setUrl(environment.url);
     this.userService.getUser(candidateId).subscribe(user => {
       this.user = user;
       this.candService.getCandidate(candidateId).subscribe(candidate => {

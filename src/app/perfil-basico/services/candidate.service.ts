@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Candidate } from 'src/app/shared/interfaces';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,7 +9,7 @@ import { Observable } from 'rxjs';
 export class CandidateService {
   URL = '';
   photoRoutbase: string = this.URL + '/btuady/public_html/files/photo/';
-  photoRout= '';
+  photoRout = '';
   constructor(private http: HttpClient) { }
 
   getCandidate(id: string){

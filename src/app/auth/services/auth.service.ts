@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { clearStorage, removeStorage, setStorage } from 'src/app/shared/services/storage.service';
-import { User,Password_recovery } from 'src/app/shared/interfaces';
+import { User, Password_recovery } from 'src/app/shared/interfaces';
 import { CandidateService } from 'src/app/perfil-basico/services/candidate.service';
 import { Observable } from 'rxjs';
 
@@ -17,9 +17,7 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    console.log('antes', this.URL);
     this.userService.setUrl(this.URL);
-    console.log('despues', this.URL);
     const data = { username, password };
 
     return new Promise(resolve => {
@@ -43,12 +41,18 @@ export class AuthService {
       });
     });
   }
-  
+  logout(token: string){
+    const data = {
+      token,
+    };
+    return this.http.post<any>(`${this.URL}/api/user/logout`, data);
+  }
+
   setUrl(url: string){
     this.URL = url;
   }
 
-  recovery (email:string){
+  recovery(email: string){
     const data = { email };
     return this.http.post<Password_recovery>(`${this.URL}/api/site/request-password`, data);
   }
