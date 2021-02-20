@@ -2,7 +2,9 @@ import { UiService } from './../../../../shared/services/ui.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CourseService } from 'src/app/mi-perfil/services/course.service';
-import { Course } from 'src/app/shared/interfaces';
+import { CourseModeService } from 'src/app/mi-perfil/services/course-mode.service';
+
+import { Course,CourseMode } from 'src/app/shared/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
@@ -14,6 +16,7 @@ import { NavController } from '@ionic/angular';
 })
 export class CoursesOptComponent implements OnInit {
 
+  courseMode: CourseMode;
   course: Course;
   maxDate1: string;
   minDate2: string;
@@ -25,11 +28,17 @@ export class CoursesOptComponent implements OnInit {
   title: string;
   btnText = '';
   constructor(private route: ActivatedRoute,  private uiService: UiService,
-              private courseService: CourseService, private navCtrl: NavController ) {
+              private courseService: CourseService, private navCtrl: NavController,
+              private courseModeService: CourseModeService ) {
                 this.initForm();
                }
 
   ngOnInit() {
+    this.courseModeService.getCourseMode().subscribe(mode=>{
+      this.courseMode=mode
+    })
+
+  
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
     const id = this.route.snapshot.paramMap.get('id');
     this.maxDate1  = this.maxDate2 = this.getNowDate();
@@ -49,9 +58,27 @@ export class CoursesOptComponent implements OnInit {
       this.data.get('cv_id').setValue(cvId);
     }
   }
+
+  // async addCourse(){
+  //   console.log(this.data.value)
+  //   console.log(this.courseMode)
+  // }
   async addCourse(){
     let header = '';
     let mssg = '';
+
+    if (this.data.get('name').value.trim()==""){
+      mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">`;
+      header = 'El campo "Nombre del curso" no puede estar vacio';
+      const warning = await this.uiService.presentAlert2('', header, mssg, 'alertCancel', 'alertButton', 'ios');
+      // const data = await alert.onDidDismiss();
+      // await warning.dismiss();
+      this.data.get('name').setValue("")
+      return
+    }
+
+
+
     if (this.isUpdate){
         mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">`;
         header = '¿Desea guardar los cambios?';
@@ -67,7 +94,7 @@ export class CoursesOptComponent implements OnInit {
         this.courseService.updateCourse(
           this.data.get('id').value,
             this.data.get('name').value,
-            this.data.get('hours').value.toString() ,
+            this.data.get('hours').value,
             this.data.get('institution').value,
             this.data.get('mode').value,
             this.data.get('start').value,
@@ -142,8 +169,8 @@ export class CoursesOptComponent implements OnInit {
     this.data = new FormGroup({
     id : new FormControl(''),
     cv_id: new FormControl(''),
-    name: new FormControl('', Validators.required),
-    hours: new FormControl(''),
+    name: new FormControl('', [ Validators.required, Validators.maxLength(175)]),
+    hours: new FormControl('',[ Validators.pattern('^[0-9]*$'), Validators.maxLength(3)]),
     institution: new FormControl(''),
     mode: new FormControl(''),
     start: new FormControl(''),

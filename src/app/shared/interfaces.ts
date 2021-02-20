@@ -97,6 +97,10 @@ export interface LineBusiness {
 id?: string;
 name?: string;
 }
+export interface CourseMode {
+  id?: string;
+  name?: string;
+}
 
 export interface Course {
 

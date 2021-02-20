@@ -30,8 +30,16 @@
 
 
 <ion-list >
+    
+    <ion-item >
+          <ion-label>Modo de curso:</ion-label>
+          <ion-select mode="ios" interface="popover" placeholder="Seleccione el Modo del curso" formControlName="mode" [value]="languagestart">
+  
+            <ion-select-option *ngFor="let i of courseMode" color="light" [value]="i.id">{{i.name}} </ion-select-option>
+      </ion-select>
+    </ion-item>
+<!-- 
   <ion-radio-group formControlName="mode">
-
     <ion-list-header>
       <ion-label>Modo</ion-label>
     </ion-list-header>
@@ -51,19 +59,19 @@
       <ion-radio slot="start" value="3" checked="false" ></ion-radio>
     </ion-item>
 
-  </ion-radio-group>
+  </ion-radio-group> -->
 </ion-list>
 
   <ion-item>
         <ion-label  position="stacked"><font size=5>Fecha de inicio</font></ion-label>
         
         <ion-datetime  min="1970" max={{maxDate1}} displayFormat='YYYY-MMMM-DD' placeholder="Seleccione el año" 
-        formControlName="start" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" (ionChange)=" onChangeStart($event)" >	  </ion-datetime>
+        formControlName="start" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" (ionChange)=" onChangeStart($event)" >	  </ion-datetime>
     </ion-item>    
 
     <ion-item>
         <ion-label  position="stacked"><font size=5>Fecha de término</font></ion-label>
-         <ion-datetime  min={{minDate2}} max={{maxDate2}} displayFormat='YYYY-MMMM-DD' placeholder="Seleccione el año" formControlName="end" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" (ionChange)=" onChangeEnd($event)"  >  
+         <ion-datetime  min={{minDate2}} max={{maxDate2}} displayFormat='YYYY-MMMM-DD' placeholder="Seleccione el año" formControlName="end" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre" (ionChange)=" onChangeEnd($event)"  >  
         </ion-datetime>
     </ion-item>    
     
