@@ -1,8 +1,6 @@
-import { MenuComponent } from './../menu/menu.component';
 
 import { Component, Input, OnInit } from '@angular/core';
 import { MenuController, NavController } from '@ionic/angular';
-import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-header',
@@ -16,7 +14,7 @@ export class HeaderComponent implements OnInit {
   @Input() backbutton: boolean;
   @Input() backbuttonhref: string;
   @Input() miPerfil: false;
-  constructor(private menuCtrl: MenuController, private navCtrl: NavController, private uiService: UiService) { }
+  constructor(private menuCtrl: MenuController, private navCtrl: NavController) { }
 
   ngOnInit() {
     this.miPerfil = false;
@@ -32,9 +30,9 @@ export class HeaderComponent implements OnInit {
       this.navCtrl.navigateBack(this.backbuttonhref, { animationDirection: 'back' });
       return;
     }
-    this.navCtrl.navigateForward(this.backbuttonhref, { animationDirection: 'back' });
+    this.navCtrl.navigateForward(this.backbuttonhref);
   }
   routef(){
-    this.navCtrl.navigateRoot (this.route);
+    this.navCtrl.navigateRoot(this.route, { animated: true });
   }
 }

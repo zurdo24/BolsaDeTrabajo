@@ -1,3 +1,4 @@
+import { PerfilBasicoPage } from './../../pages/perfil-basico/perfil-basico.page';
 import { UiService } from './../../../shared/services/ui.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -8,7 +9,6 @@ import { OrganizationUnitService } from 'src/app/shared/services/organization-un
 import { StateService } from 'src/app/shared/services/state.service';
 import { setStorage } from 'src/app/shared/services/storage.service';
 import { CandidateService } from '../../services/candidate.service';
-import { UserService } from '../../services/user.service';
 import * as moment from 'moment';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
@@ -31,12 +31,13 @@ export class EditarPerfilBasicoComponent implements OnInit {
   updateData: FormGroup;
   // ----------------------
 
-  // ----- Variables para los errores
+  // ----- Variables para los erroress
   first = false;
   firstSate = false;
 
   //
   load: any;
+  perfilBasico: PerfilBasicoPage;
   constructor(private countryService: CountryService, private cityService: CityService, private stateService: StateService,
               private organizationUnitService: OrganizationUnitService,
               private candidateService: CandidateService, private uiService: UiService,
@@ -91,7 +92,7 @@ export class EditarPerfilBasicoComponent implements OnInit {
           // Hide the loading spinner on success or error
           await this.load.dismiss();
           setTimeout(() => {
-            this.navCtrl.navigateForward('/perfil-basico', { animated: true });
+            this.navCtrl.navigateRoot('/perfil-basico', { animated: true });
           }, 500);
         })
       ).subscribe(candidate => {

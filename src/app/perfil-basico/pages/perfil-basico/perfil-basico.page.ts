@@ -12,7 +12,6 @@ import { StateService } from 'src/app/shared/services/state.service';
 import { environment } from 'src/environments/environment';
 import { CandidateService } from '../../services/candidate.service';
 import { NavController } from '@ionic/angular';
-import { AuthService } from '../../../auth/services/auth.service';
 
 
 
