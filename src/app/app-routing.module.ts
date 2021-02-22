@@ -2,6 +2,7 @@ import { NologinGuard } from './guards/nologin.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { DisconnectedComponent } from './shared/components/disconnected/disconnected.component';
 
 const routes: Routes = [
 
@@ -53,6 +54,16 @@ const routes: Routes = [
     path: 'prueb',
     loadChildren: () => import('./prueba/pages/prueb/prueb.module').then( m => m.PruebPageModule)
   },
+  {
+    //RUTA PARA CUANDO NO HAY CONECCION
+    path: 'disconnected',
+    component: DisconnectedComponent,
+
+  },  {
+    path: 'sin-coneccion',
+    loadChildren: () => import('./prueba/pages/sin-coneccion/sin-coneccion.module').then( m => m.SinConeccionPageModule)
+  },
+
 
 ];
 

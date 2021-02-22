@@ -1,0 +1,17 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>DETECCION DE RED</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="ion-padding">
+    <h1>Connection status: {{networkStatus && networkStatus.connected ? "Online" : "Offline"}}</h1>
+    
+    <p>See more Ionic content at <a href="https://developer.school">developer.school</a></p>
+  </div>
+
+  <ion-button (click)="conectar()">
+  	conectar
+  </ion-button>
+</ion-content>

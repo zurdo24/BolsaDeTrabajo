@@ -6,6 +6,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { PopFilterComponent } from './components/pop-filter/pop-filter.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { DisconnectedComponent } from './components/disconnected/disconnected.component';
 
 
 
@@ -13,7 +14,8 @@ import { RouterModule } from '@angular/router';
   declarations: [
     MenuComponent,
     HeaderComponent,
-    PopFilterComponent
+    PopFilterComponent,
+    DisconnectedComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { RouterModule } from '@angular/router';
   exports: [
     MenuComponent,
     HeaderComponent,
-    PopFilterComponent
+    PopFilterComponent,
+    DisconnectedComponent
   ]
 })
 export class SharedModule { }
