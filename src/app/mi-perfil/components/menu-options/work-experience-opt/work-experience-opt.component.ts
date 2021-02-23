@@ -9,6 +9,7 @@ import { UiService } from '../../../../shared/services/ui.service';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
 import { parse } from 'querystring';
+import { getStorage } from 'src/app/shared/services/storage.service';
 moment.locale('es');
 @Component({
   selector: 'app-work-experience-opt',
@@ -84,24 +85,25 @@ export class WorkExperienceOptComponent implements OnInit {
     } else {
       this.btnText = 'Guardar';
       this.headerTitle = 'Añadir Experiencia Laboral';
-      const id = JSON.parse(localStorage.getItem('_cap_id'));
-      this.data = new FormGroup({
-        wexperienceData: new FormGroup({
-          id: new FormControl(),
-          cv_id: new FormControl(id, Validators.required),
-          company: new FormControl('', [Validators.required, Validators.maxLength(175)]),
-          line_business_id: new FormControl(''),
-          date_start: new FormControl('', Validators.required),
-          date_end: new FormControl(''),
-          job_title: new FormControl('', [Validators.required, Validators.maxLength(175)]),
-          month_start: new FormControl('', Validators.required),
-          year_start: new FormControl('', Validators.required),
-          month_end: new FormControl('', Validators.required),
-          year_end: new FormControl('', Validators.required),
-          description: new FormControl(''),
-          is_current_job: new FormControl(0),
-        }),
-        name: new FormControl(''),
+      getStorage('id').then( candidateId => {
+        this.data = new FormGroup({
+          wexperienceData: new FormGroup({
+            id: new FormControl(),
+            cv_id: new FormControl(candidateId, Validators.required),
+            company: new FormControl('', [Validators.required, Validators.maxLength(175)]),
+            line_business_id: new FormControl(''),
+            date_start: new FormControl('', Validators.required),
+            date_end: new FormControl(''),
+            job_title: new FormControl('', [Validators.required, Validators.maxLength(175)]),
+            month_start: new FormControl('', Validators.required),
+            year_start: new FormControl('', Validators.required),
+            month_end: new FormControl('', Validators.required),
+            year_end: new FormControl('', Validators.required),
+            description: new FormControl(''),
+            is_current_job: new FormControl(0),
+          }),
+          name: new FormControl(''),
+        });
       });
     }
 

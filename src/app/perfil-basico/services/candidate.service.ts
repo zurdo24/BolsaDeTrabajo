@@ -13,6 +13,7 @@ export class CandidateService {
   constructor(private http: HttpClient) { }
 
   getCandidate(id: string){
+    console.log(this.URL);
     return this.http.get<Candidate>(`${this.URL}/api/candidates/${id}`);
   }
 

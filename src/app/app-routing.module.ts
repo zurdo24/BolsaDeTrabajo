@@ -59,7 +59,8 @@ const routes: Routes = [
     path: 'disconnected',
     component: DisconnectedComponent,
 
-  },  {
+  },
+  {
     path: 'sin-coneccion',
     loadChildren: () => import('./prueba/pages/sin-coneccion/sin-coneccion.module').then( m => m.SinConeccionPageModule)
   },

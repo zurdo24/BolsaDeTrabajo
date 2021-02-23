@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MenuController, NavController } from '@ionic/angular';
 import { CandidateService } from 'src/app/perfil-basico/services/candidate.service';
-import { setStorage } from 'src/app/shared/services/storage.service';
+import { getStorage, setStorage } from 'src/app/shared/services/storage.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -46,13 +46,22 @@ export class LoginPage implements OnInit {
       }
 
       if (res) {
-        const userId = JSON.parse( localStorage.getItem('_cap_id'));
-        this.candidateService.getCandidate(userId).subscribe(candidate => {
-          setStorage('candidate', candidate);
+        // const userId = JSON.parse( localStorage.getItem('_cap_id'));
+        getStorage('id').then( id => {
+          this.candidateService.getCandidate(id).subscribe(candidate => {
+            setStorage('candidate', candidate);
+          });
+          setTimeout(() => {
+            this.navCtrl.navigateRoot('/perfil-basico');
+          }, 500);
         });
-        setTimeout(() => {
-          this.navCtrl.navigateRoot('/perfil-basico', {animated: true});
-        }, 500);
+
+        // this.candidateService.getCandidate(userId).subscribe(candidate => {
+        //   setStorage('candidate', candidate);
+        // });
+        // setTimeout(() => {
+        //   this.navCtrl.navigateRoot('/perfil-basico', {animated: true});
+        // }, 500);
       } else {
         const mssg = `<img src="./assets/alerts/info.png" class="card-alert-img">  `;
         this.uiService.presentAlert2('', 'Usuario o contraseña incorrecta.', mssg, 'alertCancel', 'alertButton', 'ios');

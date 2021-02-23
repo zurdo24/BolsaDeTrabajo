@@ -4,6 +4,7 @@ import { finalize } from 'rxjs/operators';
 import { AcademicTraining } from 'src/app/shared/interfaces';
 import { EducationService } from '../../../services/education.service';
 import { NavController } from '@ionic/angular';
+import { getStorage } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-academic-training',
@@ -16,19 +17,21 @@ export class AcademicTrainingComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
-    const id = JSON.parse(localStorage.getItem('_cap_id'));
-    this.educationService.getEducation(id).subscribe(academicTraining => {
-      this.academicTraining = academicTraining;
+    getStorage('id').then( id => {
+      this.educationService.getEducation(id).subscribe(academicTraining => {
+        this.academicTraining = academicTraining;
+      });
     });
   }
   doRefresh(event) {
-    const id = JSON.parse(localStorage.getItem('_cap_id'));
-    this.educationService.getEducation(id).pipe(
-      finalize(async () => {
-        event.target.complete();
-      })
-    ).subscribe(academicTraining => {
-      this.academicTraining = academicTraining;
+    getStorage('id').then( id => {
+      this.educationService.getEducation(id).pipe(
+        finalize(async () => {
+          event.target.complete();
+        })
+      ).subscribe(academicTraining => {
+        this.academicTraining = academicTraining;
+      });
     });
   }
   async opcionesformAcademic(id: string) {

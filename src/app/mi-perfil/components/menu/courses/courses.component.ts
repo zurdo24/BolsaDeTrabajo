@@ -4,6 +4,7 @@ import { CourseService } from 'src/app/mi-perfil/services/course.service';
 import { Course } from 'src/app/shared/interfaces';
 import { UiService } from '../../../../shared/services/ui.service';
 import { NavController } from '@ionic/angular';
+import { getStorage } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-courses',
@@ -18,21 +19,23 @@ export class CoursesComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
-    const candId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.courseService.getCoursesComplete(candId).subscribe( course => {
-      this.course = course;
+    getStorage('id').then( candidateId => {
+      this.courseService.getCoursesComplete(candidateId).subscribe( course => {
+        this.course = course;
       });
+    });
   }
 
   doRefresh(event) {
-    const candId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.courseService.getCoursesComplete(candId).pipe(
-      finalize(async () => {
-        event.target.complete();
-      })
-    ).subscribe( course => {
-      this.course = course;
-      });
+    getStorage('id').then( candidateId => {
+      this.courseService.getCoursesComplete(candidateId).pipe(
+        finalize(async () => {
+          event.target.complete();
+        })
+      ).subscribe( course => {
+        this.course = course;
+        });
+    });
   }
   async opcionesCursos(id: string){
     const aSheet = await this.uiService.presentActionSheet();

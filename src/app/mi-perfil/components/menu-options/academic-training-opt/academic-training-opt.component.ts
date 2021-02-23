@@ -12,6 +12,7 @@ import { Degree, OrganizationUnit, StudyPrograme, StatusEducation, SubjectArea, 
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
+import { getStorage } from 'src/app/shared/services/storage.service';
 moment.locale('es');
 
 @Component({
@@ -72,7 +73,6 @@ export class AcademicTrainingOptComponent implements OnInit {
     });
     // ==================================================================================================
     this.idParam = this.route.snapshot.paramMap.get('id');
-    const idCandidate = JSON.parse(localStorage.getItem('_cap_id'));
     if (this.idParam != null) {
       this.btnText = 'Actualizar';
       this.title = 'Editar formación Académica';
@@ -101,7 +101,9 @@ export class AcademicTrainingOptComponent implements OnInit {
       // =========== Datos para la opcion Agregar ==============
       this.btnText = 'Guardar';
       this.title = 'Añadir formación Académica';
-      this.dataAddEducation(idCandidate);
+      getStorage('id').then( candidateId => {
+        this.dataAddEducation(candidateId);
+      });
     }
   }
   clickbox(event) {

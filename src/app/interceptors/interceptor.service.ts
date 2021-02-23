@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
 // import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import {HttpRequest,HttpHandler,HttpEvent,HttpInterceptor,HttpResponse,HttpErrorResponse} from '@angular/common/http';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, finalize,map } from 'rxjs/operators';
+import { catchError, finalize, map } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 // import { Events } from 'ionic-angular'; 
 import { ToastController } from '@ionic/angular';
+import { Plugins } from '@capacitor/core';
+import { getStorage } from '../shared/services/storage.service';
 
+const { Storage } = Plugins;
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor {
 
-  constructor(private navCtrl: NavController,private router: Router, public toastController: ToastController) { }
+  constructor(private navCtrl: NavController, private router: Router, public toastController: ToastController) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('_cap_token');
@@ -30,34 +33,15 @@ export class InterceptorService implements HttpInterceptor {
 
       map((event: HttpEvent<any>) => {
         if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
+          // console.log('event--->>>', event);
         }
         return event;
       }),
       catchError((errorR: HttpErrorResponse) => {
-        // error => {
-        // if (error.status === 401) {
-          // if (error.error.success === false) {
-            console.log(errorR)
-            this.presentToast('FALLO DE CONEXIÓN');
-          // } else {
-            this.router.navigate(['disconnected']);
-          // }
-        // }
+        // this.presentToast('FALLO DE CONEXIÓN');
+        // this.router.navigate(['disconnected']);
         return throwError(errorR);
       })
-      // ,error => {}
-        // console.log("")
-      //       // logging the http response to browser's console in case of a failure
-      //       if (error instanceof HttpErrorResponse) {
-      //         if (error.status === 401) {
-      //           this.router.navigateByUrl('/');
-      //         }
-      //       }
-       // }
-      // this.navCtrl.navigateForward('/disconnected')
-
-      // catchError(this.manejarError)
     );
   }
 

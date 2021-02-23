@@ -12,6 +12,7 @@ import { StateService } from 'src/app/shared/services/state.service';
 import { environment } from 'src/environments/environment';
 import { CandidateService } from '../../services/candidate.service';
 import { NavController } from '@ionic/angular';
+import { getStorage } from 'src/app/shared/services/storage.service';
 
 
 
@@ -45,17 +46,18 @@ export class PerfilBasicoPage implements OnInit {
               private navCtrl: NavController, private appComponent: AppComponent) { }
 
   ngOnInit() {
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.candService.setUrl(environment.url);
-    this.userService.getUser(candidateId).subscribe(user => {
-      this.user = user;
-      this.candService.getCandidate(candidateId).subscribe(candidate => {
-        this.candidate = candidate;
-        this.appComponent.setCandidateInfo(candidate);
-        this.translateInfo();
-        // carga del curriculum
-        this.cvService.getCv(this.candidate.user_id).subscribe(cv => {
-          this.cv = cv;
+    getStorage('id').then( candidateId => {
+      this.candService.setUrl(environment.url);
+      this.userService.getUser(candidateId).subscribe(user => {
+        this.user = user;
+        this.candService.getCandidate(candidateId).subscribe(candidate => {
+          this.candidate = candidate;
+          this.appComponent.setCandidateInfo(candidate);
+          this.translateInfo();
+          // carga del curriculum
+          this.cvService.getCv(this.candidate.user_id).subscribe(cv => {
+            this.cv = cv;
+          });
         });
       });
     });

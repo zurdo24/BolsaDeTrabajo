@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { LanguageService } from 'src/app/mi-perfil/services/language.service';
 import { LanguageList, LevelList, Language } from 'src/app/shared/interfaces';
+import { getStorage } from 'src/app/shared/services/storage.service';
 import { UiService } from 'src/app/shared/services/ui.service';
 
 @Component({
@@ -51,9 +52,9 @@ export class LanguagesOptComponent implements OnInit {
     // para la opcion de agregar
     this.title = 'Añadir un idioma';
     this.btnText = 'Guardar';
-    const candidateId = JSON.parse(localStorage.getItem('_cap_id'));
-    this.data.get('cv_id').setValue(candidateId);
-
+    getStorage('id').then( candidateId => {
+      this.data.get('cv_id').setValue(candidateId);
+    });
   }
 
   async submit() {

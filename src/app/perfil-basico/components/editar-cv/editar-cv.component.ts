@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { Cv } from 'src/app/shared/interfaces';
 import { CvService } from 'src/app/shared/services/cv.service';
 import { finalize } from 'rxjs/operators';
+import { getStorage } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-editar-cv',
@@ -21,9 +22,10 @@ export class EditarCvComponent implements OnInit {
               private navCtrl: NavController) { }
 
   ngOnInit() {
-    const candidateId = JSON.parse(localStorage.getItem('_cap_id'));
-    this.cvService.getCv(candidateId).subscribe(cv => {
-      this.cv = cv;
+    getStorage('id').then( candidateId => {
+      this.cvService.getCv(candidateId).subscribe(cv => {
+        this.cv = cv;
+      });
     });
   }
 

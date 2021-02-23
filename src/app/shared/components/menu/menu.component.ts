@@ -4,6 +4,7 @@ import { Candidate } from '../../interfaces';
 import { UiService } from '../../services/ui.service';
 import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
+import { getStorage } from '../../services/storage.service';
 
 @Component({
   selector: 'app-menu',
@@ -57,12 +58,13 @@ export class MenuComponent implements OnInit {
     const data = await alert.onDidDismiss();
     if (data.role === 'ok') {
       this.authService.setUrl(environment.url);
-      const token = JSON.parse( localStorage.getItem('_cap_token'));
-      this.authService.logout(token).subscribe( logout => {
-        if ( logout.logout){
-          localStorage.clear();
-          this.navCtrl.navigateRoot('/login', { animated: true });
-        }
+      getStorage('token').then( token => {
+        this.authService.logout(token).subscribe( logout => {
+          if ( logout.logout){
+            localStorage.clear();
+            this.navCtrl.navigateRoot('/login', { animated: true });
+          }
+        });
       });
     }
     return;

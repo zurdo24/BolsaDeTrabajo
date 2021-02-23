@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { LanguageService } from 'src/app/mi-perfil/services/language.service';
 import { LanguageComplete } from 'src/app/shared/interfaces';
+import { getStorage } from 'src/app/shared/services/storage.service';
 import { UiService } from 'src/app/shared/services/ui.service';
 
 @Component({
@@ -17,9 +18,10 @@ export class LanguagesComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
-    const candidateId = JSON.parse(localStorage.getItem('_cap_id'));
-    this.languageService.getLanguagesComplete(candidateId).subscribe(languages => {
-      this.languages = languages;
+    getStorage('id').then( candidateId => {
+      this.languageService.getLanguagesComplete(candidateId).subscribe(languages => {
+        this.languages = languages;
+      });
     });
   }
   async opcionesIdioma(id: string) {
@@ -53,13 +55,14 @@ export class LanguagesComponent implements OnInit {
     }
   }
   doRefresh(event) {
-    const id = JSON.parse(localStorage.getItem('_cap_id'));
-    this.languageService.getLanguagesComplete(id).pipe(
-      finalize(async () => {
-        event.target.complete();
-      })
-    ).subscribe(academicTraining => {
-      this.languages = academicTraining;
+    getStorage('id').then( candidateId => {
+      this.languageService.getLanguagesComplete(candidateId).pipe(
+        finalize(async () => {
+          event.target.complete();
+        })
+      ).subscribe(academicTraining => {
+        this.languages = academicTraining;
+      });
     });
   }
   onClick(){

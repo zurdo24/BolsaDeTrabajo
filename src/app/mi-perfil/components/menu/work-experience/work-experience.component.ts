@@ -4,6 +4,7 @@ import { WorkExperienceService } from 'src/app/mi-perfil/services/work-experienc
 import { WorkExperience } from 'src/app/shared/interfaces';
 import { UiService } from '../../../../shared/services/ui.service';
 import { NavController } from '@ionic/angular';
+import { getStorage } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-work-experience',
@@ -18,22 +19,24 @@ export class WorkExperienceComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
-    const id = JSON.parse(localStorage.getItem('_cap_id'));
-    this.workExperienceService.getWorkExComplete (id).subscribe( workexperience => {
-      this.workexperience = workexperience;
+    getStorage('id').then( candidateId => {
+      this.workExperienceService.getWorkExComplete (candidateId).subscribe( workexperience => {
+        this.workexperience = workexperience;
+      });
     });
   }
   ionViewDidEnter(){
   }
 
   doRefresh(event){
-    const id = JSON.parse(localStorage.getItem('_cap_id'));
-    this.workExperienceService.getWorkExComplete(id).pipe(
-      finalize(async () => {
-        event.target.complete();
-      })
-    ).subscribe(workexperience => {
-      this.workexperience = workexperience;
+    getStorage('id').then( candidateId => {
+      this.workExperienceService.getWorkExComplete(candidateId).pipe(
+        finalize(async () => {
+          event.target.complete();
+        })
+      ).subscribe(workexperience => {
+        this.workexperience = workexperience;
+      });
     });
   }
 

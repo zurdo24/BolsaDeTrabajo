@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { contactsChat } from 'src/app/shared/interfaces';
+import { getStorage } from 'src/app/shared/services/storage.service';
 import { JobApplicationStatusLogService } from 'src/app/vacantes/services/job-application-status-log.service';
 import { environment } from 'src/environments/environment';
 
@@ -18,10 +19,12 @@ export class MessagesPage implements OnInit {
   constructor(public jobApplicationStatusLogService: JobApplicationStatusLogService, private navCtrl: NavController) { }
 
   ngOnInit() {
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.jobApplicationStatusLogService.getContacts(candidateId).subscribe(chats => {
-      this.chats = chats;
+    getStorage('id').then( candidateId => {
+      this.jobApplicationStatusLogService.getContacts(candidateId).subscribe(chats => {
+        this.chats = chats;
+      });
     });
+
   }
   gotoChat(id: string){
     this.navCtrl.navigateForward('/messages/chat/' + id, {animated: true});

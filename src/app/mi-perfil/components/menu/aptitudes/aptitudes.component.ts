@@ -4,6 +4,7 @@ import { CvService } from 'src/app/shared/services/cv.service';
 import { UiService } from 'src/app/shared/services/ui.service';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
+import { getStorage } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-aptitudes',
@@ -17,9 +18,10 @@ export class AptitudesComponent implements OnInit {
 
   ngOnInit() {
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.cvSkillService.getCvSkillComplete(candidateId).subscribe( cvskill => {
-      this.cvSkill = cvskill;
+    getStorage('id').then( candidateId => {
+      this.cvSkillService.getCvSkillComplete(candidateId).subscribe( cvskill => {
+        this.cvSkill = cvskill;
+      });
     });
   }
   async opcionesAptitud(id: string, skill_list_id: string) {
@@ -53,13 +55,14 @@ export class AptitudesComponent implements OnInit {
 
   }
   doRefresh(event) {
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.cvSkillService.getCvSkillComplete(candidateId).pipe(
-      finalize(async () => {
-        event.target.complete();
-      })
-    ).subscribe( cvskill => {
-      this.cvSkill = cvskill;
+    getStorage('id').then( candidateId => {
+      this.cvSkillService.getCvSkillComplete(candidateId).pipe(
+        finalize(async () => {
+          event.target.complete();
+        })
+      ).subscribe( cvskill => {
+        this.cvSkill = cvskill;
+      });
     });
   }
   onClick(){

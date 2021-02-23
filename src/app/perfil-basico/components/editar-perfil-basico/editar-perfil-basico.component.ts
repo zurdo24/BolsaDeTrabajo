@@ -7,7 +7,7 @@ import { CityService } from 'src/app/shared/services/city.service';
 import { CountryService } from 'src/app/shared/services/country.service';
 import { OrganizationUnitService } from 'src/app/shared/services/organization-unit.service';
 import { StateService } from 'src/app/shared/services/state.service';
-import { setStorage } from 'src/app/shared/services/storage.service';
+import { setStorage, getStorage } from 'src/app/shared/services/storage.service';
 import { CandidateService } from '../../services/candidate.service';
 import * as moment from 'moment';
 import { NavController } from '@ionic/angular';
@@ -46,16 +46,11 @@ export class EditarPerfilBasicoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.candidate = JSON.parse(localStorage.getItem('_cap_candidate'));
-    // ----- Esta seccion es para inicializar la lista de pais estado y ciudad
-    this.organizationUnitService.getOrganizationUnits().subscribe(organizationUnit => {
-      this.organizationUnit = organizationUnit;
-    });
-    this.countryService.getCountries().subscribe(countries => {
-      this.countries = countries;
-    });
-    // ---------- inicializa  el objeto candidate para llenar el formulario
-    this.cityService.getCity(this.candidate.city_id).subscribe(city => {
+    getStorage('candidate').then( candidate => {
+      this.candidate = candidate;
+
+       // ---------- inicializa  el objeto candidate para llenar el formulario
+      this.cityService.getCity(this.candidate.city_id).subscribe(city => {
       this.stateId = city.state_id;
       setStorage('state_id', this.stateId);
       this.cityId = city.id;
@@ -71,7 +66,14 @@ export class EditarPerfilBasicoComponent implements OnInit {
         });
       });
     });
-
+    });
+    // ----- Esta seccion es para inicializar la lista de pais estado y ciudad
+    this.organizationUnitService.getOrganizationUnits().subscribe(organizationUnit => {
+      this.organizationUnit = organizationUnit;
+    });
+    this.countryService.getCountries().subscribe(countries => {
+      this.countries = countries;
+    });
   }
   //  esta funcion se usa para hacer los cambios en la bd
   async update() {

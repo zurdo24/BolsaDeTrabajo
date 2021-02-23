@@ -4,6 +4,7 @@ import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { Skill } from 'src/app/shared/interfaces';
 import { CvService } from 'src/app/shared/services/cv.service';
+import { getStorage } from 'src/app/shared/services/storage.service';
 import { UiService } from '../../../../shared/services/ui.service';
 
 @Component({
@@ -35,12 +36,13 @@ export class AptitudesOptComponent implements OnInit {
   }
 
   initform() {
-    const candidateId = JSON.parse(localStorage.getItem('_cap_id'));
-    this.addData = new FormGroup({
-      // id : new FormControl(''),//no se usa
-      cv_id: new FormControl(candidateId),
-      skill_list_id: new FormControl(''),
-      skill: new FormControl('', [Validators.required]),
+    getStorage('id').then( candidateId => {
+      this.addData = new FormGroup({
+        // id : new FormControl(''),//no se usa
+        cv_id: new FormControl(candidateId),
+        skill_list_id: new FormControl(''),
+        skill: new FormControl('', [Validators.required]),
+      });
     });
   }
   asignar(data: string, id: string) {

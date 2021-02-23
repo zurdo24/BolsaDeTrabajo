@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/perfil-basico/services/user.service';
 import { IonInput, NavController } from '@ionic/angular';
 import { UiService } from 'src/app/shared/services/ui.service';
-import { setStorage } from 'src/app/shared/services/storage.service';
+import { getStorage, setStorage } from 'src/app/shared/services/storage.service';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -28,15 +28,17 @@ export class AccessPage implements OnInit {
   }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('_cap_user'));
-
-    this.userData = new FormGroup({
-      // tslint:disable-next-line: max-line-length
-      username: new FormControl(this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(128), Validators.pattern('^(?![-_.])(?!.*[-_.]{2})[a-zA-Z0-9._-]+(?![-_.])$')]),
-      email: new FormControl(this.user.email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6),
-      Validators.pattern('^(?=^.{7,30}$)((?=.*)(?=.*[A-Z])(?=.*[a-z])|(?=.*)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*$')]),
-      password_confirm: new FormControl(),
+    // this.user = JSON.parse(localStorage.getItem('_cap_user'));
+    getStorage('user').then( user => {
+      this.user = user;
+      this.userData = new FormGroup({
+        // tslint:disable-next-line: max-line-length
+        username: new FormControl(this.user.username, [Validators.required, Validators.minLength(4), Validators.maxLength(128), Validators.pattern('^(?![-_.])(?!.*[-_.]{2})[a-zA-Z0-9._-]+(?![-_.])$')]),
+        email: new FormControl(this.user.email, [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]),
+        password: new FormControl('', [Validators.required, Validators.minLength(6),
+        Validators.pattern('^(?=^.{7,30}$)((?=.*)(?=.*[A-Z])(?=.*[a-z])|(?=.*)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*$')]),
+        password_confirm: new FormControl(),
+      });
     });
     this.userData.get('password_confirm').setValidators([
       Validators.required, this.passwordid.bind(this.userData)

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Match } from 'src/app/shared/interfaces';
 import { CvService } from 'src/app/shared/services/cv.service';
+import { getStorage } from 'src/app/shared/services/storage.service';
 import { environment } from 'src/environments/environment';
 import { JobOpeningService } from '../../services/job-opening.service';
 
@@ -20,15 +21,15 @@ export class OpportunitiesPage implements OnInit {
                private navCtrl: NavController) { }
 
   ngOnInit() {
-    const candidateId = JSON.parse(localStorage.getItem('_cap_id'));
-    this.cvService.matchCv(candidateId).subscribe((response) => {
-      if (response.ok === true) {
-        this.ismatch = true;
-        this.jobOpeningService.jobsMatch(response.match).subscribe((match) => {
-        this.Match = match;
-        });
-      } else { this.ismatch = false; }
-
+    getStorage('id').then( candidateId => {
+      this.cvService.matchCv(candidateId).subscribe((response) => {
+        if (response.ok === true) {
+          this.ismatch = true;
+          this.jobOpeningService.jobsMatch(response.match).subscribe((match) => {
+          this.Match = match;
+          });
+        } else { this.ismatch = false; }
+      });
     });
   }
 

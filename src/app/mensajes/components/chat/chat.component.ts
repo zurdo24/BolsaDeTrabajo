@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IonContent, NavController } from '@ionic/angular';
 import { Organization } from 'src/app/shared/interfaces';
+import { getStorage } from 'src/app/shared/services/storage.service';
 import { OrganizationService } from 'src/app/vacantes/services/organization.service';
 import { environment } from 'src/environments/environment';
 import { MessageService } from '../../services/message.service';
@@ -27,9 +28,9 @@ export class ChatComponent implements OnInit {
 
   ngOnInit() {
     this.contact_id = this.route.snapshot.paramMap.get('id');
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.cv_id = candidateId;
-    this.messageService.getChat(candidateId, this.contact_id).subscribe(chat => {
+    getStorage('id').then( candidateId => {
+      this.cv_id = candidateId;
+      this.messageService.getChat(candidateId, this.contact_id).subscribe(chat => {
       this.messages = chat;
       this.organizationService.getOrganization(this.contact_id).subscribe(org => {
         this.organization = org;
@@ -42,6 +43,8 @@ export class ChatComponent implements OnInit {
       });
       this.seeMessage();
     });
+    });
+
   }
   sendMessage(){
     if (this.newMessage.trim() === '') {
@@ -69,11 +72,11 @@ export class ChatComponent implements OnInit {
 
   goLinkVacant(id: string){
             this.navCtrl.navigateForward('/vacants/vacant/c/' + id);
-           
+
   }
   goLinkUser(id: string){
             this.navCtrl.navigateRoot('/perfil-basico');
-           
+
   }
 
 getNowDate(){

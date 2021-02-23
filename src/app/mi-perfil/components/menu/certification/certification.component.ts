@@ -5,6 +5,7 @@ import { Certification } from 'src/app/shared/interfaces';
 import { UiService } from '../../../../shared/services/ui.service';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
+import { getStorage } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-certification',
@@ -24,9 +25,10 @@ export class CertificationComponent implements OnInit {
       this.subjectAreas = subjectAreas;
     });
 
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.certificationService.getCertifications(candidateId).subscribe(certifications => {
-      this.certifications = certifications;
+    getStorage('id').then( candidateId => {
+      this.certificationService.getCertifications(candidateId).subscribe(certifications => {
+        this.certifications = certifications;
+      });
     });
   }
   async opcionesCertifications(id: string) {
@@ -60,13 +62,14 @@ export class CertificationComponent implements OnInit {
 
   }
   doRefresh(event) {
-    const id = JSON.parse(localStorage.getItem('_cap_id'));
-    this.certificationService.getCertifications(id).pipe(
-      finalize(async () => {
-        event.target.complete();
-      })
-    ).subscribe(certifications => {
-      this.certifications = certifications;
+    getStorage('id').then( candidateId => {
+      this.certificationService.getCertifications(candidateId).pipe(
+        finalize(async () => {
+          event.target.complete();
+        })
+      ).subscribe(certifications => {
+        this.certifications = certifications;
+      });
     });
   }
   onClick() {

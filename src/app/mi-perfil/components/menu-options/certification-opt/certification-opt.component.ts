@@ -8,6 +8,7 @@ import { UiService } from '../../../../shared/services/ui.service';
 import * as moment from 'moment';
 import { finalize } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
+import { getStorage } from 'src/app/shared/services/storage.service';
 moment.locale('es');
 @Component({
   selector: 'app-certification-opt',
@@ -48,8 +49,9 @@ export class CertificationOptComponent implements OnInit {
       });
       return;
     }
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.createCertication.controls.cv_id.setValue(candidateId);
+    getStorage('id').then( candidateId => {
+      this.createCertication.controls.cv_id.setValue(candidateId);
+    });
     this.title = 'Añadir Certificación';
     this.btnText = 'Guardar';
   }

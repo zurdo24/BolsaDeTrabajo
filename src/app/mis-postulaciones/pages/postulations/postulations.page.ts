@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Applications } from 'src/app/shared/interfaces';
+import { getStorage } from 'src/app/shared/services/storage.service';
 import { JobApplicationStatusLogService } from 'src/app/vacantes/services/job-application-status-log.service';
 import { environment } from 'src/environments/environment';
 
@@ -21,12 +22,13 @@ export class PostulationsPage implements OnInit {
   color2 = 'gold';
   constructor(private jobApplicationStatusLogService: JobApplicationStatusLogService, private navCtrl: NavController) { }
   ngOnInit() {
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.jobApplicationStatusLogService.getApplications(candidateId).subscribe(applications => {
-      this.applications = applications;
-      this.open0 = true;
-      this.open1 = true;
-      this.open2 = true;
+    getStorage('id').then( candidateId => {
+      this.jobApplicationStatusLogService.getApplications(candidateId).subscribe(applications => {
+        this.applications = applications;
+        this.open0 = true;
+        this.open1 = true;
+        this.open2 = true;
+      });
     });
   }
   goSeeVacant(id: string){
