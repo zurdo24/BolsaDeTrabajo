@@ -73,4 +73,16 @@ export class DisconnectedComponent implements OnInit {
 		this.networkListener.remove();
 	}
 
+  prueba(){
+
+      // const token = JSON.parse( localStorage.getItem('_cap_token'));
+      getStorage('id').then( candidate => {
+      	console.log(candidate)
+      })
+       
+          // localStorage.clear();
+          // this.navCtrl.navigateRoot('/login', { animated: true });
+       
+      
+  }
 }

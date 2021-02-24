@@ -38,8 +38,8 @@ export class InterceptorService implements HttpInterceptor {
         return event;
       }),
       catchError((errorR: HttpErrorResponse) => {
-        // this.presentToast('FALLO DE CONEXIÓN');
-        // this.router.navigate(['disconnected']);
+        this.presentToast('FALLO DE CONEXIÓN');
+        this.router.navigate(['disconnected']);
         return throwError(errorR);
       })
     );
