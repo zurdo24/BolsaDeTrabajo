@@ -143,6 +143,7 @@ export class VacantComponent implements OnInit {
 
       this.jobTypeService.getJobType(this.job_opening.job_type_id).subscribe(type => {
         this.job_type = type;
+        
         if (this.job_opening.city_id != null) {
           this.cityService.getCity(this.job_opening.city_id).subscribe(city => {
             this.city = city;
@@ -154,6 +155,7 @@ export class VacantComponent implements OnInit {
               });
             });
           });
+
         } else {
           this.show = true;
         }

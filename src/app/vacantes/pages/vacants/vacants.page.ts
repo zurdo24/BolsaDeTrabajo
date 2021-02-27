@@ -6,6 +6,7 @@ import { JobOpeningService } from 'src/app/mis-oportunidades/services/job-openin
 import { PopFilterComponent } from 'src/app/shared/components/pop-filter/pop-filter.component';
 import { Vacant, AcademicTraining } from 'src/app/shared/interfaces';
 import { environment } from 'src/environments/environment';
+import { getStorage } from 'src/app/shared/services/storage.service';
 
 @Component({
   selector: 'app-vacants',
@@ -23,7 +24,7 @@ export class VacantsPage implements OnInit {
   textFinder = '';
   buscar = true;
   showVacants: boolean ;
-
+  candidateId :any;
   constructor(private jobOpeningService: JobOpeningService,
               private educationService: EducationService,
               private navCtrl: NavController,
@@ -32,20 +33,27 @@ export class VacantsPage implements OnInit {
                }
 
   ngOnInit() {
-    const candidateId = JSON.parse( localStorage.getItem('_cap_id'));
-    this.educationService.getEducationVacants(candidateId).subscribe(academicTraining => {
-      this.academicTraining = academicTraining;
-      if (Object.keys(this.academicTraining).length > 0) {
-        this.showVacants = true;
-        this.jobOpeningService.getJobsListOpen().subscribe(jobs => {
-          this.jobsOpening = jobs;
-          this.total = Object.keys(jobs).length;
-        });
-      }
-      else {
-        this.showVacants = false;
-      }
-    });
+    // this.candidateId = JSON.parse( localStorage.getItem('_cap_id'));
+    getStorage('id').then( candidateId => {
+      this.candidateId=candidateId
+      console.log(this.candidateId)
+    // console.log(this.candidateId)
+
+      this.educationService.getEducationVacants(this.candidateId).subscribe(academicTraining => {
+        this.academicTraining = academicTraining;
+        if (Object.keys(this.academicTraining).length > 0) {
+          this.showVacants = true;
+          this.jobOpeningService.getJobsListOpen().subscribe(jobs => {
+            this.jobsOpening = jobs;
+            this.total = Object.keys(jobs).length;
+          });
+        }
+        else {
+          this.showVacants = false;
+        }
+
+      })
+    }) //corte del getStorage
   }
 
   async showpop(event) {

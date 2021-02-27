@@ -76,12 +76,12 @@ export class DisconnectedComponent implements OnInit {
   prueba(){
 
       // const token = JSON.parse( localStorage.getItem('_cap_token'));
-      getStorage('id').then( candidate => {
-      	console.log(candidate)
-      })
+      // getStorage('id').then( candidate => {
+      // 	console.log(candidate)
+      // })
        
           // localStorage.clear();
-          // this.navCtrl.navigateRoot('/login', { animated: true });
+          this.navCtrl.navigateRoot('/prueb', { animated: true });
        
       
   }

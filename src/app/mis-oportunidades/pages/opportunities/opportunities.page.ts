@@ -22,10 +22,11 @@ export class OpportunitiesPage implements OnInit {
 
   ngOnInit() {
     getStorage('id').then( candidateId => {
-      this.cvService.matchCv(candidateId).subscribe((response) => {
+      this.cvService.matchCv(candidateId).subscribe(response => {
+        console.log(response)
         if (response.ok === true) {
           this.ismatch = true;
-          this.jobOpeningService.jobsMatch(response.match).subscribe((match) => {
+          this.jobOpeningService.jobsMatch(response.match).subscribe(match => {
           this.Match = match;
           });
         } else { this.ismatch = false; }

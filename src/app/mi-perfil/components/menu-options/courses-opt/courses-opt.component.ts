@@ -67,6 +67,8 @@ export class CoursesOptComponent implements OnInit {
   async addCourse(){
     let header = '';
     let mssg = '';
+    // console.log(this.data.get('hours').value)
+    // console.log(this.data.get('hours').value.toString())
 
     if (this.data.get('name').value.trim() == ""){
       mssg = `<img src="./assets/alerts/war.png" class="card-alert-img">`;
@@ -95,7 +97,7 @@ export class CoursesOptComponent implements OnInit {
         this.courseService.updateCourse(
           this.data.get('id').value,
             this.data.get('name').value,
-            this.data.get('hours').value,
+            this.data.get('hours').value.toString(),
             this.data.get('institution').value,
             this.data.get('mode').value,
             this.data.get('start').value,
@@ -115,7 +117,7 @@ export class CoursesOptComponent implements OnInit {
       this.courseService.addCourse(
         this.data.get('cv_id').value,
         this.data.get('name').value,
-        this.data.get('hours').value,
+        this.data.get('hours').value.toString(),
         this.data.get('institution').value,
         this.data.get('mode').value,
         this.data.get('start').value,

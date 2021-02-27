@@ -6,9 +6,13 @@
 export const environment = {
 
   production: false,
-  // url: 'http://92bb6b21a951.ngrok.io',
-  url: 'http://localhost:8080',
-  urlPhotos: 'http://localhost'
+  
+  // url: 'http://localhost:8080',
+  // urlPhotos: 'http://localhost',
+
+  url: 'http://c13fcf7b9528.ngrok.io',
+  urlPhotos: 'http://192.168.1.110'
+
 };
 
 /*

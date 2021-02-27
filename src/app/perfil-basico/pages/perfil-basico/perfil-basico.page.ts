@@ -47,7 +47,10 @@ export class PerfilBasicoPage implements OnInit {
 
   ngOnInit() {
     getStorage('id').then( candidateId => {
+
       this.candService.setUrl(environment.url);
+      this.userService.setUrl(environment.url);
+
       this.userService.getUser(candidateId).subscribe(user => {
         this.user = user;
         this.candService.getCandidate(candidateId).subscribe(candidate => {
@@ -60,7 +63,8 @@ export class PerfilBasicoPage implements OnInit {
           });
         });
       });
-    });
+
+    });//corte del getStorage
   }
   calculateAge(birthday) {
     // tslint:disable-next-line: variable-name
