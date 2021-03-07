@@ -1,15 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Plugins, NetworkStatus, PluginListenerHandle } from '@capacitor/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { UiService } from './../../../shared/services/ui.service';
 import { NavController } from '@ionic/angular';
 import { getStorage } from '../../services/storage.service';
-
-// import { PluginListenerHandle } from '@capacitor/core/dist/esm/web/network'
 import { DisconnectedService } from '../../services/disconnected.service';
 
-const { Network } = Plugins;
 
 @Component({
 	selector: 'app-disconnected',
@@ -17,8 +12,7 @@ const { Network } = Plugins;
 	styleUrls: ['./disconnected.component.scss'],
 })
 export class DisconnectedComponent implements OnInit {
-	networkStatus: NetworkStatus;
-	networkListener: PluginListenerHandle;
+
 	URL = environment.url;
 	connectedDB = false;
 	id = '';
