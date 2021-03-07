@@ -1,3 +1,4 @@
+import { DisconnectedService } from './../../../shared/services/disconnected.service';
 import { PerfilBasicoPage } from './../../pages/perfil-basico/perfil-basico.page';
 import { UiService } from './../../../shared/services/ui.service';
 import { Component, OnInit } from '@angular/core';
@@ -12,6 +13,7 @@ import { CandidateService } from '../../services/candidate.service';
 import * as moment from 'moment';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
+import { disconnect } from 'process';
 @Component({
   selector: 'app-editar-perfil-basico',
   templateUrl: './editar-perfil-basico.component.html',
@@ -41,11 +43,12 @@ export class EditarPerfilBasicoComponent implements OnInit {
   constructor(private countryService: CountryService, private cityService: CityService, private stateService: StateService,
               private organizationUnitService: OrganizationUnitService,
               private candidateService: CandidateService, private uiService: UiService,
-              private navCtrl: NavController) {
+              private navCtrl: NavController, private disccService: DisconnectedService) {
     this.initForm();
   }
 
   ngOnInit() {
+    this.disccService.seturl('/perfil-basico/editar-perfil-basico');
     getStorage('candidate').then( candidate => {
       this.candidate = candidate;
 

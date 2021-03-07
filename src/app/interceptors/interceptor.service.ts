@@ -16,7 +16,7 @@ const { Storage } = Plugins;
 })
 export class InterceptorService implements HttpInterceptor {
 
-  constructor(private navCtrl: NavController, private router: Router, public toastController: ToastController) { }
+  constructor(private navCtrl: NavController, private router: Router, public toastController: ToastController ) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('_cap_token');
@@ -39,7 +39,8 @@ export class InterceptorService implements HttpInterceptor {
       }),
       catchError((errorR: HttpErrorResponse) => {
         this.presentToast('FALLO DE CONEXIÓN');
-        this.router.navigate(['disconnected']);
+        this.navCtrl.navigateRoot('disconnected', {animated: true});
+        // this.router.navigate(['disconnected']);
         return throwError(errorR);
       })
     );
