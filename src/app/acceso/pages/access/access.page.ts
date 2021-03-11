@@ -6,6 +6,7 @@ import { IonInput, NavController } from '@ionic/angular';
 import { UiService } from 'src/app/shared/services/ui.service';
 import { getStorage, setStorage } from 'src/app/shared/services/storage.service';
 import { finalize } from 'rxjs/operators';
+import { DisconnectedService } from './../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-access',
@@ -23,10 +24,16 @@ export class AccessPage implements OnInit {
 
   // show password
   isActiveToggleTextPassword = true;
-  constructor(private userService: UserService, private uiService: UiService, private navCtrl: NavController) {
+  constructor(private userService: UserService,
+              private disccService: DisconnectedService,
+              private uiService: UiService,
+              private navCtrl: NavController) {
     this.initForm();
   }
-
+  
+  ionViewWillEnter(){
+    this.disccService.seturl('/access')
+  }    
   ngOnInit() {
     // this.user = JSON.parse(localStorage.getItem('_cap_user'));
     getStorage('user').then( user => {

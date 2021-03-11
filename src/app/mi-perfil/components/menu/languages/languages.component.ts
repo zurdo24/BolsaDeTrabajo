@@ -5,6 +5,7 @@ import { LanguageService } from 'src/app/mi-perfil/services/language.service';
 import { LanguageComplete } from 'src/app/shared/interfaces';
 import { getStorage } from 'src/app/shared/services/storage.service';
 import { UiService } from 'src/app/shared/services/ui.service';
+import { DisconnectedService } from './../../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-languages',
@@ -14,9 +15,15 @@ import { UiService } from 'src/app/shared/services/ui.service';
 export class LanguagesComponent implements OnInit {
   languages: LanguageComplete;
 
-  constructor(private languageService: LanguageService, private uiService: UiService, private navCtrl: NavController) { }
+  constructor(private languageService: LanguageService, private disccService: DisconnectedService
+    , private uiService: UiService, private navCtrl: NavController) { }
 
+
+  ionViewWillEnter(){
+    this.disccService.seturl('/mi-perfil/home/languages')
+  }
   ngOnInit() {
+
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     getStorage('id').then( candidateId => {
       this.languageService.getLanguagesComplete(candidateId).subscribe(languages => {

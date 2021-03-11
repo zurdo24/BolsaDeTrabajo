@@ -7,6 +7,7 @@ import { PopFilterComponent } from 'src/app/shared/components/pop-filter/pop-fil
 import { Vacant, AcademicTraining } from 'src/app/shared/interfaces';
 import { environment } from 'src/environments/environment';
 import { getStorage } from 'src/app/shared/services/storage.service';
+import { DisconnectedService } from './../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-vacants',
@@ -28,9 +29,14 @@ export class VacantsPage implements OnInit {
   constructor(private jobOpeningService: JobOpeningService,
               private educationService: EducationService,
               private navCtrl: NavController,
-              private popoverCtrl: PopoverController, ) {
+              private popoverCtrl: PopoverController,
+              private disccService: DisconnectedService ) {
                 this.initForm();
                }
+
+  ionViewWillEnter(){
+    this.disccService.seturl('/vacants')
+  }              
 
   ngOnInit() {
     // this.candidateId = JSON.parse( localStorage.getItem('_cap_id'));
@@ -44,6 +50,7 @@ export class VacantsPage implements OnInit {
         if (Object.keys(this.academicTraining).length > 0) {
           this.showVacants = true;
           this.jobOpeningService.getJobsListOpen().subscribe(jobs => {
+            console.log(jobs)
             this.jobsOpening = jobs;
             this.total = Object.keys(jobs).length;
           });

@@ -5,6 +5,7 @@ import { WorkExperience } from 'src/app/shared/interfaces';
 import { UiService } from '../../../../shared/services/ui.service';
 import { NavController } from '@ionic/angular';
 import { getStorage } from 'src/app/shared/services/storage.service';
+import { DisconnectedService } from './../../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-work-experience',
@@ -14,10 +15,15 @@ import { getStorage } from 'src/app/shared/services/storage.service';
 export class WorkExperienceComponent implements OnInit {
   workexperience: WorkExperience;
 
-  constructor( private workExperienceService: WorkExperienceService, private uiService: UiService,
-               private navCtrl: NavController) { }
+  constructor( private workExperienceService: WorkExperienceService, private disccService: DisconnectedService
+              ,private uiService: UiService,private navCtrl: NavController) { }
+
+  ionViewWillEnter(){
+    this.disccService.seturl('/mi-perfil/home/work-experience')
+  }
 
   ngOnInit() {
+
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     getStorage('id').then( candidateId => {
       this.workExperienceService.getWorkExComplete (candidateId).subscribe( workexperience => {

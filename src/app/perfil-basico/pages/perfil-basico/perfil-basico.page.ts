@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { CandidateService } from '../../services/candidate.service';
 import { NavController } from '@ionic/angular';
 import { getStorage } from 'src/app/shared/services/storage.service';
+import { DisconnectedService } from './../../../shared/services/disconnected.service';
 
 
 
@@ -43,7 +44,11 @@ export class PerfilBasicoPage implements OnInit {
   constructor(private cityService: CityService, private stateService: StateService, private countryService: CountryService,
               private organizationunitService: OrganizationUnitService, private cvService: CvService,
               private userService: UserService, private candService: CandidateService, private uiService: UiService,
-              private navCtrl: NavController, private appComponent: AppComponent) { }
+              private disccService: DisconnectedService, private navCtrl: NavController, private appComponent: AppComponent) { }
+
+  ionViewWillEnter(){
+    this.disccService.seturl('/perfil-basico')
+  }   
 
   ngOnInit() {
     getStorage('id').then( candidateId => {

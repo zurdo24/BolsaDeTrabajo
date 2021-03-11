@@ -6,6 +6,7 @@ import { UiService } from '../../../../shared/services/ui.service';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { getStorage } from 'src/app/shared/services/storage.service';
+import { DisconnectedService } from './../../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-certification',
@@ -17,9 +18,14 @@ export class CertificationComponent implements OnInit {
   subjectAreas: SubjectAreas;
   // para las opciones de certificaciones
   constructor(private certificationService: CertificationService, private subjectAreaService: SubjectAreaService,
-              private uiService: UiService, private navCtrl: NavController) { }
-
+              private uiService: UiService, private navCtrl: NavController, private disccService: DisconnectedService) { }
+  
+  ionViewWillEnter(){
+    this.disccService.seturl('/mi-perfil/home/certification')
+  }
+  
   ngOnInit() {
+
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     this.subjectAreaService.getSubjectAreas().subscribe(subjectAreas => {
       this.subjectAreas = subjectAreas;

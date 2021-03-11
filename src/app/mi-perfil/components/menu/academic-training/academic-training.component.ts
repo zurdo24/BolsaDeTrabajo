@@ -5,6 +5,7 @@ import { AcademicTraining } from 'src/app/shared/interfaces';
 import { EducationService } from '../../../services/education.service';
 import { NavController } from '@ionic/angular';
 import { getStorage } from 'src/app/shared/services/storage.service';
+import { DisconnectedService } from './../../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-academic-training',
@@ -13,9 +14,14 @@ import { getStorage } from 'src/app/shared/services/storage.service';
 })
 export class AcademicTrainingComponent implements OnInit {
   academicTraining: AcademicTraining;
-  constructor(private educationService: EducationService, private uiService: UiService, private navCtrl: NavController) { }
+  constructor(private educationService: EducationService, private uiService: UiService, private navCtrl: NavController
+  , private disccService: DisconnectedService  ) { }
 
+  ionViewWillEnter(){
+    this.disccService.seturl('/mi-perfil/home/academic-training')
+  }
   ngOnInit() {
+    
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     getStorage('id').then( id => {
       this.educationService.getEducation(id).subscribe(academicTraining => {

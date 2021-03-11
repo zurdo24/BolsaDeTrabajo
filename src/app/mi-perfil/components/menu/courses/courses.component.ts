@@ -5,6 +5,7 @@ import { Course } from 'src/app/shared/interfaces';
 import { UiService } from '../../../../shared/services/ui.service';
 import { NavController } from '@ionic/angular';
 import { getStorage } from 'src/app/shared/services/storage.service';
+import { DisconnectedService } from './../../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-courses',
@@ -15,9 +16,14 @@ export class CoursesComponent implements OnInit {
 
   confirm: string ;
   course: Course;
-  constructor(private courseService: CourseService, private uiService: UiService, private navCtrl: NavController) { }
+  constructor(private courseService: CourseService, private uiService: UiService
+    , private disccService: DisconnectedService, private navCtrl: NavController) { }
 
+  ionViewWillEnter(){
+    this.disccService.seturl('/mi-perfil/home/courses')
+  }
   ngOnInit() {
+
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
     getStorage('id').then( candidateId => {
       this.courseService.getCoursesComplete(candidateId).subscribe( course => {

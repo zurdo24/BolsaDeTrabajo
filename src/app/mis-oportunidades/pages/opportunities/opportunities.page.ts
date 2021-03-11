@@ -5,6 +5,7 @@ import { CvService } from 'src/app/shared/services/cv.service';
 import { getStorage } from 'src/app/shared/services/storage.service';
 import { environment } from 'src/environments/environment';
 import { JobOpeningService } from '../../services/job-opening.service';
+import { DisconnectedService } from './../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-opportunities',
@@ -18,7 +19,12 @@ export class OpportunitiesPage implements OnInit {
   logo = this.URL + '/btuady/public_html/files/logo/organization/';
   constructor( private cvService: CvService,
                private jobOpeningService: JobOpeningService,
-               private navCtrl: NavController) { }
+               private navCtrl: NavController,
+               private disccService: DisconnectedService) { }
+
+  ionViewWillEnter(){
+    this.disccService.seturl('/opportunities')
+  }
 
   ngOnInit() {
     getStorage('id').then( candidateId => {

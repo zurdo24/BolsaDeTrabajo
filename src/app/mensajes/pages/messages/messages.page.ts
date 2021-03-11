@@ -5,6 +5,7 @@ import { contactsChat } from 'src/app/shared/interfaces';
 import { getStorage } from 'src/app/shared/services/storage.service';
 import { JobApplicationStatusLogService } from 'src/app/vacantes/services/job-application-status-log.service';
 import { environment } from 'src/environments/environment';
+import { DisconnectedService } from './../../../shared/services/disconnected.service';
 
 @Component({
   selector: 'app-messages',
@@ -16,8 +17,12 @@ export class MessagesPage implements OnInit {
   logo = this.URL + '/btuady/public_html/';
   chats: contactsChat;
 
-  constructor(public jobApplicationStatusLogService: JobApplicationStatusLogService, private navCtrl: NavController) { }
-
+  constructor(public jobApplicationStatusLogService: JobApplicationStatusLogService,
+              private disccService: DisconnectedService, private navCtrl: NavController) { }
+ 
+  ionViewWillEnter(){
+    this.disccService.seturl('/messages')
+  }
   ngOnInit() {
     getStorage('id').then( candidateId => {
       this.jobApplicationStatusLogService.getContacts(candidateId).subscribe(chats => {
