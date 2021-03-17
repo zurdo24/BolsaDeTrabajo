@@ -63,6 +63,9 @@ export class AptitudesOptComponent implements OnInit {
   }
 
   async add(text: string) {
+    if (text === '') {
+      return;
+    }
     const mssg = `<img src="./assets/alerts/info.png" class="card-alert-img">`;
     const header = '¿Desea guardar esta aptitud?';
     const alert = await this.uiService.presentAlert('', header, mssg, 'alertCancel', 'alertButton', 'ios');

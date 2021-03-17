@@ -37,7 +37,6 @@ export class AptitudesComponent implements OnInit {
     // }
     if (data.role === 'delete') {
       const aSheet2 = await this.uiService.presentActionSheet2('¿Desea Eliminar esta aptitud de forma permanente?', 'Eliminar', 'delete', 'trash', 'delete-btn');
-
       const  data2 = await aSheet2.onDidDismiss();
       if (!data2.data){
         return;
@@ -47,8 +46,7 @@ export class AptitudesComponent implements OnInit {
           finalize(async () => {
             this.ngOnInit();
           })
-        ).subscribe(() => {
-
+        ).subscribe( () => {
         });
       }
     }

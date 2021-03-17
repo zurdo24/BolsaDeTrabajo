@@ -44,7 +44,6 @@ export class CvService {
     return this.http.get<CvSkillComplete>(`${this.URL}/api/cv-skill/del-cvskill/?c=${cv_id}&s=${skill_list_id}`);
   }
 
-
   // =========== skill-list ================================== //
   // retorna un skill
   getSkill(id: string){
