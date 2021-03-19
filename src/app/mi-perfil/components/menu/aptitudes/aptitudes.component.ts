@@ -5,6 +5,8 @@ import { UiService } from 'src/app/shared/services/ui.service';
 import { NavController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { getStorage } from 'src/app/shared/services/storage.service';
+import { DisconnectedService } from './../../../../shared/services/disconnected.service';
+
 
 @Component({
   selector: 'app-aptitudes',
@@ -14,7 +16,15 @@ import { getStorage } from 'src/app/shared/services/storage.service';
 export class AptitudesComponent implements OnInit {
   cvSkill: CvSkillComplete;
 
-  constructor(private cvSkillService: CvService, private uiService: UiService, private navCtrl: NavController) { }
+  constructor(private uiService: UiService,
+              private navCtrl: NavController,
+              private cvSkillService: CvService,
+              private disccService: DisconnectedService) { }
+
+  
+  ionViewWillEnter(){
+    this.disccService.seturl('/mi-perfil/home/aptitudes')
+  }
 
   ngOnInit() {
     document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
@@ -27,6 +37,7 @@ export class AptitudesComponent implements OnInit {
   async opcionesAptitud(id: string, skill_list_id: string) {
     const aSheet = await this.uiService.presentActionSheet2('Opciones', 'Eliminar', 'delete', 'trash', 'delete-btn');
     const { data } = await aSheet.onDidDismiss();
+
     if (!data) {
       return;
     }
@@ -42,16 +53,19 @@ export class AptitudesComponent implements OnInit {
         return;
       }
       if (data2.data.role === 'delete'){
+        // console.log("action")
         this.cvSkillService.deleteCvSkill(id, skill_list_id).pipe(
           finalize(async () => {
             this.ngOnInit();
           })
-        ).subscribe( () => {
-        });
+        ).subscribe( () => { });
+
+
       }
     }
 
   }
+
   doRefresh(event) {
     getStorage('id').then( candidateId => {
       this.cvSkillService.getCvSkillComplete(candidateId).pipe(
@@ -63,6 +77,7 @@ export class AptitudesComponent implements OnInit {
       });
     });
   }
+
   onClick(){
     this.navCtrl.navigateRoot('/mi-perfil/home/aptitudes/add', { animationDirection: 'forward' });
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');

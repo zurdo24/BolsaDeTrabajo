@@ -5,6 +5,9 @@ import { NavController } from '@ionic/angular';
 import { getStorage } from '../../services/storage.service';
 import { UiService } from '../../services/ui.service';
 import { DisconnectedService } from '../../services/disconnected.service';
+// import { MenuComponent } from './../../../shared/components/menu/menu.component';
+import { AppComponent } from 'src/app/app.component';
+import { Candidate } from 'src/app/shared/interfaces';
 
 
 @Component({
@@ -13,15 +16,24 @@ import { DisconnectedService } from '../../services/disconnected.service';
 	styleUrls: ['./disconnected.component.scss'],
 })
 export class DisconnectedComponent implements OnInit {
+    URLp = environment.urlPhotos;
+	photoRoutbase: string = this.URLp + '/btuady/public_html/files/photo/';
 
 	URL = environment.url;
 	connectedDB = false;
 	id = '';
+	candidate:Candidate;
 	constructor(private http: HttpClient, private navCtrl: NavController,
-				private uiService: UiService, private disscService: DisconnectedService) {
+				private uiService: UiService,
+				private appComponent: AppComponent,
+				private disscService: DisconnectedService) {
 		getStorage('id').then(candidateId => {
 			this.id = candidateId;
 		});
+    	getStorage('candidate').then( cand => {
+    		this.candidate=cand;
+    	})
+
 	}
 
 	ngOnInit() {
@@ -31,7 +43,7 @@ export class DisconnectedComponent implements OnInit {
 
 	conectar() {
 		if(!this.id) {
-			this.navCtrl.navigateRoot( 'login' , { animationDirection: 'forward' });
+			this.navCtrl.navigateRoot( '/login' , { animationDirection: 'forward' });
 			return;
 		}
 		// console.log("id",this.id)
@@ -41,7 +53,26 @@ export class DisconnectedComponent implements OnInit {
 			if (res) {
 				if (this.disscService.getUrl()==undefined)
 				{
-					this.disscService.seturl('login')
+					this.disscService.seturl('/login')
+				}
+				if (this.disscService.getUrl()!='/perfil-basico')
+				{
+					//carga foto 
+
+					if (this.candidate.photo == null) {
+					    // this.photoRout = './assets/image/' + this.candidate.sex + '.png';
+				      	if(this.candidate.sex=="male"){
+				      		this.candidate.sex="Hombre"
+				      	}
+				      	else{
+				      		this.candidate.sex="Mujer"
+				      	}
+
+				    	this.appComponent.setphotoRout('./assets/image/' + this.candidate.sex + '.png');
+				    } else {
+				      	// this.photoRout = this.photoRoutbase + this.candidate.photo;
+				        this.appComponent.setphotoRout(this.photoRoutbase + this.candidate.photo);
+    				}
 				}
 				this.connectedDB = true;
 				this.navCtrl.navigateRoot( this.disscService.getUrl() , { animationDirection: 'forward' });

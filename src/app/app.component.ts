@@ -34,6 +34,7 @@ export class AppComponent {
   }
 
   setphotoRout(url: string){
+    console.log(url)
     this.photoRout = url;
   }
   setCandidateInfo(candidate: Candidate){
