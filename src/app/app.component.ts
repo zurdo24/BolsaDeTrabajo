@@ -6,6 +6,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Candidate } from './shared/interfaces';
 import { environment } from 'src/environments/environment';
 
+import { getStorage } from './shared/services/storage.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -17,7 +19,7 @@ export class AppComponent {
   photoRoutbase = this.URL + '/btuady/public_html/files/photo/';
   photoRout = '';
   confirm = false;
-
+  candidateR: Candidate;
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -27,6 +29,8 @@ export class AppComponent {
   }
 
   initializeApp() {
+    // console.log(this.photoRout)
+    this.chargeIMG()
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
@@ -34,10 +38,43 @@ export class AppComponent {
   }
 
   setphotoRout(url: string){
-    console.log(url)
     this.photoRout = url;
   }
   setCandidateInfo(candidate: Candidate){
     this.candidate = candidate;
   }
+
+  chargeIMG(){
+
+    if(this.photoRout==""){
+      // console.log("cargar imagen") 
+      getStorage('candidate').then( cand => {
+        if(cand== undefined || cand == null){
+          // console.log(cand)
+          return
+        }
+
+        this.candidateR=cand;
+        // console.log(this.candidateR )
+
+          if (this.candidateR.photo == null) {
+              
+                if(this.candidateR.sex=="male"){
+                  this.setphotoRout('./assets/image/' + "Hombre.png");
+                }
+                else{
+                  this.setphotoRout('./assets/image/' + "Mujer.png");
+                }
+
+              
+            } else {
+                // this.photoRout = this.photoRoutbase + this.candidate.photo;
+                this.setphotoRout(this.photoRoutbase + this.candidateR.photo);
+            }
+
+      })
+    }
+
+  }
+
 }

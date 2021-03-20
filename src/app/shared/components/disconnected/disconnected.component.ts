@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { NavController } from '@ionic/angular';
+import { NavController,MenuController } from '@ionic/angular';
 import { getStorage } from '../../services/storage.service';
 import { UiService } from '../../services/ui.service';
 import { DisconnectedService } from '../../services/disconnected.service';
 // import { MenuComponent } from './../../../shared/components/menu/menu.component';
 import { AppComponent } from 'src/app/app.component';
 import { Candidate } from 'src/app/shared/interfaces';
+
 
 
 @Component({
@@ -25,6 +26,7 @@ export class DisconnectedComponent implements OnInit {
 	candidate:Candidate;
 	constructor(private http: HttpClient, private navCtrl: NavController,
 				private uiService: UiService,
+				private menuCtrl: MenuController,
 				private appComponent: AppComponent,
 				private disscService: DisconnectedService) {
 		getStorage('id').then(candidateId => {
@@ -35,7 +37,12 @@ export class DisconnectedComponent implements OnInit {
     	})
 
 	}
-
+	ionViewWillEnter() {
+	    this.menuCtrl.enable(false);
+  	}
+  	
+    	
+  	
 	ngOnInit() {
 		// console.log(this.disscService.getUrl());
 		
@@ -51,29 +58,35 @@ export class DisconnectedComponent implements OnInit {
 			console.log(res,this.disscService.getUrl());
 
 			if (res) {
-				if (this.disscService.getUrl()==undefined)
+
+				if (this.disscService.getUrl()==undefined )
 				{
-					this.disscService.seturl('/login')
+					this.disscService.seturl('/perfil-basico')
 				}
-				if (this.disscService.getUrl()!='/perfil-basico')
-				{
+				
+				if ( this.disscService.getUrl() != '/login')
+				{					
+					this.menuCtrl.enable(true);
+				}
+				// if (this.disscService.getUrl()!='/perfil-basico')
+				// {
 					//carga foto 
+					// console.log("NO ENTRO EN perfil-basico")
+					// if (this.candidate.photo == null) {
+					    
+				 //      	if(this.candidate.sex=="male"){
+				 //      		this.candidate.sex="Hombre"
+				 //      	}
+				 //      	else{
+				 //      		this.candidate.sex="Mujer"
+				 //      	}
 
-					if (this.candidate.photo == null) {
-					    // this.photoRout = './assets/image/' + this.candidate.sex + '.png';
-				      	if(this.candidate.sex=="male"){
-				      		this.candidate.sex="Hombre"
-				      	}
-				      	else{
-				      		this.candidate.sex="Mujer"
-				      	}
-
-				    	this.appComponent.setphotoRout('./assets/image/' + this.candidate.sex + '.png');
-				    } else {
-				      	// this.photoRout = this.photoRoutbase + this.candidate.photo;
-				        this.appComponent.setphotoRout(this.photoRoutbase + this.candidate.photo);
-    				}
-				}
+				 //    	this.appComponent.setphotoRout('./assets/image/' + this.candidate.sex + '.png');
+				 //    } else {
+				 //      	// this.photoRout = this.photoRoutbase + this.candidate.photo;
+				 //        this.appComponent.setphotoRout(this.photoRoutbase + this.candidate.photo);
+    	// 			}
+				// }
 				this.connectedDB = true;
 				this.navCtrl.navigateRoot( this.disscService.getUrl() , { animationDirection: 'forward' });
 
@@ -101,6 +114,7 @@ export class DisconnectedComponent implements OnInit {
 	}
 
 	prueba() {
+		// console.log(this.appComponent.photoRout)
 		this.navCtrl.navigateRoot('/prueb', { animated: true });
 	}
 }

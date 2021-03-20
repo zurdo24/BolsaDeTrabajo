@@ -10,6 +10,9 @@ import { ToastController } from '@ionic/angular';
 import { Plugins } from '@capacitor/core';
 import { getStorage } from '../shared/services/storage.service';
 
+// import { AppComponent } from 'src/app/app.component';
+// import { Candidate } from 'src/app/shared/interfaces';
+
 const { Storage } = Plugins;
 @Injectable({
   providedIn: 'root'
