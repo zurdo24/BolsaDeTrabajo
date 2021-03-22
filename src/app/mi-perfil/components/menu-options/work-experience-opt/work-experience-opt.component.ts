@@ -183,7 +183,7 @@ export class WorkExperienceOptComponent implements OnInit {
             finalize(async () => {
               await loading.dismiss();
               setTimeout(() => {
-                this.navCtrl.navigateForward('/mi-perfil/home/work-experience', { animated: true });
+                this.navCtrl.navigateRoot('/mi-perfil/home/work-experience', { animated: true });
                 document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
               }, 500);
             })
@@ -208,7 +208,7 @@ export class WorkExperienceOptComponent implements OnInit {
           finalize(async () => {
             await load.dismiss();
             setTimeout(() => {
-              this.navCtrl.navigateForward('/mi-perfil/home/work-experience', { animated: true });
+              this.navCtrl.navigateRoot('/mi-perfil/home/work-experience', { animated: true });
               document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
             }, 500);
           })

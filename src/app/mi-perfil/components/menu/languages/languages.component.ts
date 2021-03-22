@@ -20,7 +20,7 @@ export class LanguagesComponent implements OnInit {
 
 
   ionViewWillEnter(){
-    this.disccService.seturl('/mi-perfil/home/languages')
+    this.disccService.seturl('/mi-perfil/home/languajes')
   }
   ngOnInit() {
 

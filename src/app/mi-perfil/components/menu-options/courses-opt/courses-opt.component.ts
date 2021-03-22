@@ -106,7 +106,7 @@ export class CoursesOptComponent implements OnInit {
           finalize(async () => {
             await loading.dismiss();
             setTimeout(() => {
-              this.navCtrl.navigateForward('/mi-perfil/home/courses', { animationDirection: 'back' });
+              this.navCtrl.navigateRoot('/mi-perfil/home/courses', { animationDirection: 'back' });
               document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
             }, 500);
           })
@@ -126,7 +126,7 @@ export class CoursesOptComponent implements OnInit {
         finalize(async () => {
           await load.dismiss();
           setTimeout(() => {
-            this.navCtrl.navigateForward('/mi-perfil/home/courses', { animated: true });
+            this.navCtrl.navigateRoot('/mi-perfil/home/courses', { animated: true });
             document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
           }, 500);
         })

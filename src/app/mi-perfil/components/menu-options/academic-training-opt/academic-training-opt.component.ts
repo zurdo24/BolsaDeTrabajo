@@ -191,7 +191,7 @@ export class AcademicTrainingOptComponent implements OnInit {
           finalize(async () => {
             await loading.dismiss();
             setTimeout(() => {
-              this.navCtrl.navigateForward('/mi-perfil/home/academic-training', { animated: true });
+              this.navCtrl.navigateRoot('/mi-perfil/home/academic-training', { animated: true });
               document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
             }, 500);
           })
@@ -203,7 +203,7 @@ export class AcademicTrainingOptComponent implements OnInit {
         finalize(async () => {
           await load.dismiss();
           setTimeout(() => {
-            this.navCtrl.navigateForward('/mi-perfil/home/academic-training', { animated: true });
+            this.navCtrl.navigateRoot('/mi-perfil/home/academic-training', { animated: true });
             document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
           }, 500);
         })
