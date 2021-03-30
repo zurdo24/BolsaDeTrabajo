@@ -55,7 +55,7 @@ export class DisconnectedComponent implements OnInit {
 		}
 		// console.log("id",this.id)
 		this.http.get(`${this.URL}/api/site/is-connected/?id=` + this.id).subscribe(res => {
-			console.log(res,this.disscService.getUrl());
+			// console.log(res,this.disscService.getUrl());
 
 			if (res) {
 
@@ -99,7 +99,7 @@ export class DisconnectedComponent implements OnInit {
 
 		}, 
 		 async error => {
-			console.log("ERROR")
+			// console.log("ERROR")
 			let mssg = `<img src="./assets/alerts/alert.png" class="card-alert-img">`;
 			// let header = '';
 			

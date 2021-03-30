@@ -95,20 +95,21 @@
   </div>
 </ion-content>
 
-<ion-footer>
-  <div *ngIf="jobsOpening!=null">
+<ion-footer >
+  <div *ngIf="jobsOpening!=null"   >
     <ion-range
+      color ="gold"
       style="height: 60px"
       min="0"
       max="{{total}}"
       pin
       step="10"
-      class="blue"
+      class="ion-footer"
       value="{{end}}"
       (ionChange)="show($event)"
     >
       <ion-icon slot="start" size="small" name="documents-sharp"></ion-icon>
-      <ion-icon slot="end" name="documents-sharp"></ion-icon>
+      <ion-icon slot="end" name="documents-sharp" ></ion-icon>
     </ion-range>
   </div>
 </ion-footer>

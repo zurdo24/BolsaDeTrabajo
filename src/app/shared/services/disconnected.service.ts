@@ -8,7 +8,7 @@ export class DisconnectedService {
   constructor() { }
 
   seturl( url: string ) {
-  	console.log(url)
+  	// console.log(url)
     this.url = url;
   }
 
