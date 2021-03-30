@@ -1,181 +1,183 @@
 <app-header [title]="'Actualización de perfil'" [backbutton]="true" [backbuttonhref]="'perfil-basico'"></app-header>
 
 
-<ion-content class="transparent-bg">
-  <form [formGroup]=" updateData" (ngSubmit)="update()">
-      <ion-grid class="goldlow ">
+<app-editar-perfil-basico-skeleton [view]="skeletonView" ></app-editar-perfil-basico-skeleton>    
+
+<ion-content  class="transparent-bg">
+  <form  [formGroup]=" updateData" (ngSubmit)="update()">
+      <ion-grid class="goldlow">
           <ion-row>
               <ion-col size="12">
-                  <ion-card style="background-color: white;">
-                      <ion-card-header>
-                          <ion-card-title><strong>Datos Del Candidato</strong></ion-card-title>
-                      </ion-card-header>
-                      <ion-card-content>
-                          <ion-list>
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Nombres
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input formControlName="firstname" inputmode="text" placeholder="Escribe tu(s) nombre(s)"></ion-input>
-                              </ion-item>
-                              <ion-text color="danger" *ngIf="!updateData.controls['firstname'].valid">
-                                  <small>Nombres no puede estar vacío.</small>
-                              </ion-text>
+                    <ion-card style="background-color: white;">
+                        <ion-card-header>
+                            <ion-card-title><strong>Datos Del Candidato</strong></ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <ion-list>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Nombres
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-input formControlName="firstname" inputmode="text" placeholder="Escribe tu(s) nombre(s)"></ion-input>
+                                </ion-item>
+                                <ion-text color="danger" *ngIf="!updateData.controls['firstname'].valid">
+                                    <small>Nombres no puede estar vacío.</small>
+                                </ion-text>
 
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Apellidos
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input formControlName="lastname" inputmode="email" placeholder="Escribe tu(s) apellidos(s)"></ion-input>
-                              </ion-item>
-                              <ion-text color="danger" *ngIf="!updateData.controls['lastname'].valid">
-                                  <small>Apellidos no puede estar vacío.</small>
-                              </ion-text>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Apellidos
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-input formControlName="lastname" inputmode="email" placeholder="Escribe tu(s) apellidos(s)"></ion-input>
+                                </ion-item>
+                                <ion-text color="danger" *ngIf="!updateData.controls['lastname'].valid">
+                                    <small>Apellidos no puede estar vacío.</small>
+                                </ion-text>
 
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Sexo
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-select mode="ios" formControlName="sex" placeholder="Seleccione tu Sexo" interface="popover">
-                                      <ion-select-option value="female">Mujer</ion-select-option>
-                                      <ion-select-option value="male">Hombre</ion-select-option>
-                                  </ion-select>
-                              </ion-item>
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1>Fecha de Nacimiento
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-datetime formControlName="birth_date" placeholder="yyyy-mm-dd" display-format="YYYY MMMM DD" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" min="1950-01-01" max="2015-12-31"> </ion-datetime>
-                              </ion-item>
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1>Estado civil
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-select mode="ios" formControlName="marital_status" placeholder="Seleciona tu estado civil" interface="popover">
-                                      <ion-select-option value="married">Casado(a)</ion-select-option>
-                                      <ion-select-option value="unmarried">Soltero(a)</ion-select-option>
-                                  </ion-select>
-                              </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Sexo
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-select mode="ios" formControlName="sex" placeholder="Seleccione tu Sexo" interface="popover">
+                                        <ion-select-option value="female">Mujer</ion-select-option>
+                                        <ion-select-option value="male">Hombre</ion-select-option>
+                                    </ion-select>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1>Fecha de Nacimiento
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-datetime formControlName="birth_date" placeholder="yyyy-mm-dd" display-format="YYYY MMMM DD" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" min="1950-01-01" max="2015-12-31"> </ion-datetime>
+                                </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1>Estado civil
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-select mode="ios" formControlName="marital_status" placeholder="Seleciona tu estado civil" interface="popover">
+                                        <ion-select-option value="married">Casado(a)</ion-select-option>
+                                        <ion-select-option value="unmarried">Soltero(a)</ion-select-option>
+                                    </ion-select>
+                                </ion-item>
 
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Teléfono
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input formControlName="phone" placeholder="p. ej. (999) 999 9999"></ion-input>
-                              </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Teléfono
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-input formControlName="phone" placeholder="p. ej. (999) 999 9999"></ion-input>
+                                </ion-item>
 
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Teléfono Celular
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input formControlName="cellphone" inputmode="tel" placeholder="p. ej. (+52) 999 999 99 99"></ion-input>
-                              </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Teléfono Celular
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-input formControlName="cellphone" inputmode="tel" placeholder="p. ej. (+52) 999 999 99 99"></ion-input>
+                                </ion-item>
 
-                              <ion-item lines="none">
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> País
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-select  mode="md" formControlName="country_id" (ionChange)=" onChangeCountry($event)" interface="action-sheet" placeholder="seleccionar Pais">
+                                <ion-item lines="none">
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> País
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-select  mode="md" formControlName="country_id" (ionChange)=" onChangeCountry($event)" interface="action-sheet" placeholder="seleccionar Pais">
 
-                                      <ion-select-option *ngFor="let country of countries" [value]="country.id"> {{country.name}} </ion-select-option>
-                                  </ion-select>
-                              </ion-item>
+                                        <ion-select-option *ngFor="let country of countries" [value]="country.id"> {{country.name}} </ion-select-option>
+                                    </ion-select>
+                                </ion-item>
 
-                              <ion-item lines="none">
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Estado
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-select  mode="md"  formControlName="state_id" interface="action-sheet" (ionChange)=" onChangeState($event)" placeholder="seleccionar Estado">
+                                <ion-item lines="none">
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Estado
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-select  mode="md"  formControlName="state_id" interface="action-sheet" (ionChange)=" onChangeState($event)" placeholder="seleccionar Estado">
 
-                                      <ion-select-option *ngFor="let state of states" [value]="state.id"> {{state.name}} </ion-select-option>
-                                  </ion-select>
-                              </ion-item>
+                                        <ion-select-option *ngFor="let state of states" [value]="state.id"> {{state.name}} </ion-select-option>
+                                    </ion-select>
+                                </ion-item>
 
-                              <ion-item lines="none">
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Ciudad
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-select  mode="md" formControlName="city_id"  (ionChange)=" onChangeCity($event)" interface="action-sheet" placeholder="seleccionar la ciudad">
-                                      <ion-select-option *ngFor="let city of cities" [value]="city.id"> {{city.name}} </ion-select-option>
-                                  </ion-select>
-                              </ion-item>
+                                <ion-item lines="none">
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Ciudad
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-select  mode="md" formControlName="city_id"  (ionChange)=" onChangeCity($event)" interface="action-sheet" placeholder="seleccionar la ciudad">
+                                        <ion-select-option *ngFor="let city of cities" [value]="city.id"> {{city.name}} </ion-select-option>
+                                    </ion-select>
+                                </ion-item>
 
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Curp
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input readonly="true" mode="ios" formControlName="curp"   placeholder=" CURP"></ion-input>
-                              </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Curp
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-input readonly="true" mode="ios" formControlName="curp"   placeholder=" CURP"></ion-input>
+                                </ion-item>
 
-                              <ion-item>
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Matricula
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-input mode="ios" readonly="true" formControlName="student_id_number"  placeholder=" Matrícula"></ion-input>
-                              </ion-item>
+                                <ion-item>
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Matricula
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-input mode="ios" readonly="true" formControlName="student_id_number"  placeholder=" Matrícula"></ion-input>
+                                </ion-item>
 
-                              <ion-item lines="none">
-                                  <ion-label position="stacked">
-                                      <ion-text color="Dark">
-                                          <h1> Dependencia
-                                              <ion-text color="danger">*</ion-text>
-                                          </h1>
-                                      </ion-text>
-                                  </ion-label>
-                                  <ion-select mode="md" formControlName="organization_unit_id" interface="action-sheet" placeholder="seleccionar la ciudad">
-                                      <ion-select-option *ngFor="let orgUnit of organizationUnit" [value]="orgUnit.id"> {{orgUnit.name}} </ion-select-option>
-                                  </ion-select>
-                              </ion-item>
+                                <ion-item lines="none">
+                                    <ion-label position="stacked">
+                                        <ion-text color="Dark">
+                                            <h1> Dependencia
+                                                <ion-text color="danger">*</ion-text>
+                                            </h1>
+                                        </ion-text>
+                                    </ion-label>
+                                    <ion-select mode="md" formControlName="organization_unit_id" interface="action-sheet" placeholder="seleccionar la ciudad">
+                                        <ion-select-option *ngFor="let orgUnit of organizationUnit" [value]="orgUnit.id"> {{orgUnit.name}} </ion-select-option>
+                                    </ion-select>
+                                </ion-item>
 
 
-                          </ion-list>
+                            </ion-list>
 
-                      </ion-card-content>
-                  </ion-card>
+                        </ion-card-content>
+                    </ion-card>
               </ion-col>
           </ion-row>
       </ion-grid>
