@@ -12,8 +12,8 @@ export class JobApplicationStatusLogService {
   constructor(private http: HttpClient) { }
 
   // agrega un mensaje
-  addJobASL( cv_id: string, opening_id: string, message_id: string, date: string, type: string, text: string) {
-    const data = {cv_id, opening_id, message_id, date, type, text};
+  addJobASL( cv_id: string, opening_id: string, message_id: string, type: string, text: string) {
+    const data = {cv_id, opening_id, message_id,  type, text};
     return this.http.post<JobApplicationStatusLogs>(`${this.URL}/api/job-application-status-logs`, data);
   }
 

@@ -13,13 +13,13 @@ export class MessageService {
   constructor(private http: HttpClient) { }
 
   // agrega un mensaje
-  addMessage( from_user_id: string, to_user_id: string, text: string, html_text: string, date_sent: string) {
+  addMessage( from_user_id: string, to_user_id: string, text: string, html_text: string) {
     if (html_text === ''){
-      const data = {from_user_id, to_user_id, text, date_sent};
+      const data = {from_user_id, to_user_id, text};
       return this.http.post<Message>(`${this.URL}/api/messages`, data);
     }
     else {
-      const data = {from_user_id, to_user_id, text, html_text, date_sent};
+      const data = {from_user_id, to_user_id, text, html_text};
       return this.http.post<Message>(`${this.URL}/api/messages`, data);
     }
   }
@@ -31,9 +31,8 @@ export class MessageService {
     }
 
     // actualiza: coloca la fecha a un mensaje que tenga null en su columna date_read
-    seeMessages(id: string, date_read: string ) {
-      const data = { date_read};
-      return this.http.put<Message>(`${this.URL}/api/messages/${id}`, data);
+    seeMessages(id: string ) {
+      return this.http.get<Message>(`${this.URL}/api/message/see/?id=${id}`);
     }
 
 }

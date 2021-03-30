@@ -50,7 +50,7 @@ export class ChatComponent implements OnInit {
     if (this.newMessage.trim() === '') {
       this.newMessage = '';
     } else {
-      this.messageService.addMessage(this.cv_id, this.contact_id, this.newMessage.trim(), '', this.getNowDate()).subscribe(message => {
+      this.messageService.addMessage(this.cv_id, this.contact_id, this.newMessage.trim(), '').subscribe(message => {
         this.ngOnInit();
       });
       this.newMessage = '';
@@ -60,7 +60,7 @@ export class ChatComponent implements OnInit {
   seeMessage(){
     for (const i in this.messages) {
       if (this.messages[i].date_read == null && this.messages[i].type === 'received'){
-        this.messageService.seeMessages(this.messages[i].id, this.getNowDate()).subscribe(message => {
+        this.messageService.seeMessages(this.messages[i].id).subscribe(message => {
         });
       }
     }
@@ -79,58 +79,58 @@ export class ChatComponent implements OnInit {
 
   }
 
-getNowDate(){
-  const date = new Date(); // Fecha actual
-  const monthN = date.getMonth() + 1; // obteniendo mes
-  const dayN = date.getDate(); // obteniendo dia
-  const year = date.getFullYear(); // obteniendo año
-  const HH = date.getHours();
-  const MM = date.getMinutes();
-  const SS = date.getSeconds();
-  let day;
-  let month;
-  let HHH;
-  let MMM;
-  let SSS;
-// 	horas
-  if (HH < 10) {
-     HHH = '0' + HH.toString();
-  } // agrega cero si el menor de 10
-  else {
-    HHH = HH;
-  }
+// getNowDate(){
+//   const date = new Date(); // Fecha actual
+//   const monthN = date.getMonth() + 1; // obteniendo mes
+//   const dayN = date.getDate(); // obteniendo dia
+//   const year = date.getFullYear(); // obteniendo año
+//   const HH = date.getHours();
+//   const MM = date.getMinutes();
+//   const SS = date.getSeconds();
+//   let day;
+//   let month;
+//   let HHH;
+//   let MMM;
+//   let SSS;
+// // 	horas
+//   if (HH < 10) {
+//      HHH = '0' + HH.toString();
+//   } // agrega cero si el menor de 10
+//   else {
+//     HHH = HH;
+//   }
 
-  if (MM < 10) {
-     MMM = '0' + MM.toString();
-} // agrega cero si el menor de 10
-  else {
-  MMM = MM;
-}
+//   if (MM < 10) {
+//      MMM = '0' + MM.toString();
+// } // agrega cero si el menor de 10
+//   else {
+//   MMM = MM;
+// }
 
-  if (SS < 10) {
-     SSS = '0' + SS.toString();
-  } // agrega cero si el menor de 10
-  else {
-    SSS = SS;
-  }
+//   if (SS < 10) {
+//      SSS = '0' + SS.toString();
+//   } // agrega cero si el menor de 10
+//   else {
+//     SSS = SS;
+//   }
 
 
-  if (dayN < 10) {
-    day = '0' + dayN;
-  } // agrega cero si el menor de 10
-  else {
-    day = dayN;
-  }
+//   if (dayN < 10) {
+//     day = '0' + dayN;
+//   } // agrega cero si el menor de 10
+//   else {
+//     day = dayN;
+//   }
 
-  if (monthN < 10) {
-    month = '0' + monthN;
-  } // agrega cero si el menor de 10
-  else {
-  month = monthN;
-  }
+//   if (monthN < 10) {
+//     month = '0' + monthN;
+//   } // agrega cero si el menor de 10
+//   else {
+//   month = monthN;
+//   }
 
-  // console.log(year+"-"+month+"-"+day+" "+HHH+":"+MMM+":"+SSS)
-  return year + '-' + month + '-' + day + ' ' + HHH + ':' + MMM + ':' + SSS;
-}
+//   // console.log(year+"-"+month+"-"+day+" "+HHH+":"+MMM+":"+SSS)
+//   return year + '-' + month + '-' + day + ' ' + HHH + ':' + MMM + ':' + SSS;
+// }
 
 }

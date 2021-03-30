@@ -169,7 +169,7 @@ export class VacantComponent implements OnInit {
     if (this.addMessage.get('text').value.trim() == '') {
       this.addMessage.get('text').setValue('');
     } else {
-      this.addMessage.get('date_sent').setValue(this.getNowDate());
+      // this.addMessage.get('date_sent').setValue(this.getNowDate());
       this.jobOpeningService.getIsOpen(this.id).subscribe(async val => {
         if (val == 1) {
           const load = await this.uiServiceService.presentLoading('Enviando...', 'loading', false);
@@ -177,27 +177,26 @@ export class VacantComponent implements OnInit {
             this.addMessage.get('from_user_id').value,
             this.addMessage.get('to_user_id').value,
             this.addMessage.get('text').value,
-            this.addMessage.get('html_text').value,
-            this.addMessage.get('date_sent').value).subscribe(message => {
+            this.addMessage.get('html_text').value).subscribe(message => {
               this.message = message;
 
               this.jobApplicationStatusLogService.addJobASL(
                 this.addMessage.get('from_user_id').value,
                 this.id,
-                this.message.id,
-                this.addMessage.get('date_sent').value,
+                this.message.id, 
                 'application',
                 this.addMessage.get('text').value
               ).pipe(
                 finalize(async () => {
                   await load.dismiss();
                   setTimeout(() => {
-                    this.navCtrl.navigateForward('/vacants', { animated: true });
+                    this.navCtrl.navigateRoot('/vacants', { animated: true });
                   }, 500);
                 })
               ).subscribe(() => {
                 // this.navCtrl.navigateRoot('/vacants');
               });
+
 
             });
 
