@@ -39,6 +39,7 @@ export class EditarPerfilBasicoComponent implements OnInit {
 
   //
   load: any;
+  skeletonView = true;
   perfilBasico: PerfilBasicoPage;
   constructor(private countryService: CountryService, private cityService: CityService, private stateService: StateService,
               private organizationUnitService: OrganizationUnitService,
@@ -51,7 +52,6 @@ export class EditarPerfilBasicoComponent implements OnInit {
     this.disccService.seturl('/perfil-basico/editar-perfil-basico');
     getStorage('candidate').then( candidate => {
       this.candidate = candidate;
-
        // ---------- inicializa  el objeto candidate para llenar el formulario
       this.cityService.getCity(this.candidate.city_id).subscribe(city => {
       this.stateId = city.state_id;
@@ -63,7 +63,14 @@ export class EditarPerfilBasicoComponent implements OnInit {
         this.stateService.getStateByCountry(this.countryId).subscribe(states => {
           this.states = states[0];
         });
-        this.cityService.getCitiesByState(this.stateId).subscribe(cities => {
+        this.cityService.getCitiesByState(this.stateId).pipe(
+          finalize(async () => {
+            // Hide the loading spinner on success or error
+            setTimeout(() => {
+              this.skeletonView = false;
+            }, 500);
+          })
+        ).subscribe( cities => {
           this.cities = cities[0];
           this.dataEdit();
         });
@@ -77,6 +84,8 @@ export class EditarPerfilBasicoComponent implements OnInit {
     this.countryService.getCountries().subscribe(countries => {
       this.countries = countries;
     });
+    
+
   }
   //  esta funcion se usa para hacer los cambios en la bd
   async update() {
@@ -120,8 +129,8 @@ export class EditarPerfilBasicoComponent implements OnInit {
       curp: new FormControl(this.candidate.curp),
       student_id_number: new FormControl(this.candidate.student_id_number),
       organization_unit_id: new FormControl(this.candidate.organization_unit_id, Validators.required),
-      country_id: new FormControl(this.countryId),
-      state_id: new FormControl(this.stateId),
+      country_id: new FormControl(this.countryId,  Validators.required),
+      state_id: new FormControl(this.stateId,  Validators.required),
     });
   }
   // iniciliza el formGroup
@@ -170,8 +179,13 @@ export class EditarPerfilBasicoComponent implements OnInit {
     this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
       this.cities = cities[0];
     });
+    // console.log( this.updateData.controls.city_id);
   }
   onChangeCity(event) {
+    if (event.detail.value === '') {
+      return;
+    }
+
     this.updateData.controls.city_id.setValue(this.cityId);
     this.updateData.controls.city_id.updateValueAndValidity();
   }

@@ -1,52 +1,83 @@
 import { Injectable } from '@angular/core';
-// import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, finalize, map } from 'rxjs/operators';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpResponse, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { from, Observable, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { NavController } from '@ionic/angular';
-import { Router } from '@angular/router';
-// import { Events } from 'ionic-angular'; 
 import { ToastController } from '@ionic/angular';
-import { Plugins } from '@capacitor/core';
 import { getStorage } from '../shared/services/storage.service';
 
-// import { AppComponent } from 'src/app/app.component';
-// import { Candidate } from 'src/app/shared/interfaces';
-
-const { Storage } = Plugins;
 @Injectable({
   providedIn: 'root'
 })
 export class InterceptorService implements HttpInterceptor {
+  protected debug = true;
+  constructor(private navCtrl: NavController, public toastController: ToastController) { }
 
-  constructor(private navCtrl: NavController, private router: Router, public toastController: ToastController ) { }
+  // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  //   const token = localStorage.getItem('_cap_token');
+  //   let request = req;
+  //   request = req.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+  //   if (token) {
+  //     request = req.clone({
+  //       setHeaders: {
+  //         Authorization: `Bearer ${token}`
+  //       }
+  //     });
+  //   }
+  //   return next.handle(request).pipe(
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('_cap_token');
-    let request = req;
-    request = req.clone({ headers: request.headers.set('Content-Type', 'application/json') });
-    if (token) {
-      request = req.clone({
-        setHeaders: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-    }
-    return next.handle(request).pipe(
+  //     map((event: HttpEvent<any>) => {
+  //       if (event instanceof HttpResponse) {
+  //         // console.log('event--->>>', event);
+  //       }
+  //       return event;
+  //     }),
+  //     catchError((errorR: HttpErrorResponse) => {
+  //       // this.presentToast('FALLO DE CONEXIÓN');
+  //       this.navCtrl.navigateRoot('disconnected', {animated: true});
+  //       // this.router.navigate(['disconnected']);
+  //       return throwError(errorR);
+  //     })
+  //   );
+  // }
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    return from(getStorage('token'))
+      .pipe(
+        switchMap(token => {
+          if (token) {
+            request = request.clone({
+              params: new HttpParams().set('access-token', token),
+            });
+          }
 
-      map((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          // console.log('event--->>>', event);
-        }
-        return event;
-      }),
-      catchError((errorR: HttpErrorResponse) => {
-        // this.presentToast('FALLO DE CONEXIÓN');
-        this.navCtrl.navigateRoot('disconnected', {animated: true});
-        // this.router.navigate(['disconnected']);
-        return throwError(errorR);
-      })
-    );
+          if (!request.headers.has('Content-Type')) {
+            request = request.clone({
+              setHeaders: {
+                'content-type': 'application/json'
+              }
+              // headers: request.headers.set('Content-Type', 'application/json')
+            });
+          }
+          request = request.clone({
+            headers: request.headers.set('Accept', 'application/json')
+          });
+          return next.handle(request).pipe(
+            map((event: HttpEvent<any>) => {
+              if (event instanceof HttpResponse) {
+                // do nothing for now
+              }
+              return event;
+            }),
+            catchError((error: HttpErrorResponse) => {
+              // const status = error.status;
+              // const reason = error && error.error.reason ? error.error.reason : '';
+              this.navCtrl.navigateRoot('disconnected', {animated: true});
+              // this.presentAlert(status, reason);
+              return throwError(error);
+            })
+          );
+        })
+      );
   }
 
 

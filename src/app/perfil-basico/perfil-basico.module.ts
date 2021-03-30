@@ -5,13 +5,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditarPerfilBasicoSkeletonComponent } from './components/editar-perfil-basico-skeleton/editar-perfil-basico-skeleton.component';
 
 
 
 @NgModule({
   declarations: [
     EditarPerfilBasicoComponent,
-    EditarCvComponent
+    EditarCvComponent,
+    EditarPerfilBasicoSkeletonComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule
   ],
   exports: [
-    EditarPerfilBasicoComponent
+    EditarPerfilBasicoComponent,
+    EditarPerfilBasicoSkeletonComponent
   ]
 })
 export class PerfilBasicoModule { }
