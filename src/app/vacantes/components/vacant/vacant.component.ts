@@ -123,7 +123,7 @@ export class VacantComponent implements OnInit {
           this.backbuttonhref = '/vacants';
           break;
         case 'o':
-          this.navCtrl.navigateRoot('/oportunidades');
+          this.backbuttonhref = '/opportunities';
           break;
         case 'p':
           this.backbuttonhref = '/postulations';

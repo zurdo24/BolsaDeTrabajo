@@ -47,9 +47,9 @@ export class OpportunitiesPage implements OnInit {
       return false;
     }
   }
-
+// http://localhost:8100/vacants/vacant/p/6090
   goSeeVacant(id: string) {
-    this.navCtrl.navigateForward('/vacante/o/' + id, { animated: true });
+    this.navCtrl.navigateForward('vacants/vacant/o/' + id, { animated: true });
   }
 
 }
