@@ -33,7 +33,7 @@
     
     <ion-item >
           <ion-label>Modo de curso:</ion-label>
-          <ion-select mode="ios" interface="popover" placeholder="Seleccione el Modo del curso" formControlName="mode" [value]="languagestart">
+          <ion-select mode="ios" interface="popover" placeholder="Seleccione el Modo del curso" formControlName="mode" >
   
             <ion-select-option *ngFor="let i of courseMode" color="light" [value]="i.id">{{i.name}} </ion-select-option>
       </ion-select>
