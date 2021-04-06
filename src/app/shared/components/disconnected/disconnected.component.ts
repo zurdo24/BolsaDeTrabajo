@@ -68,25 +68,8 @@ export class DisconnectedComponent implements OnInit {
 				{					
 					this.menuCtrl.enable(true);
 				}
-				// if (this.disscService.getUrl()!='/perfil-basico')
-				// {
-					//carga foto 
-					// console.log("NO ENTRO EN perfil-basico")
-					// if (this.candidate.photo == null) {
-					    
-				 //      	if(this.candidate.sex=="male"){
-				 //      		this.candidate.sex="Hombre"
-				 //      	}
-				 //      	else{
-				 //      		this.candidate.sex="Mujer"
-				 //      	}
 
-				 //    	this.appComponent.setphotoRout('./assets/image/' + this.candidate.sex + '.png');
-				 //    } else {
-				 //      	// this.photoRout = this.photoRoutbase + this.candidate.photo;
-				 //        this.appComponent.setphotoRout(this.photoRoutbase + this.candidate.photo);
-    	// 			}
-				// }
+		
 				this.connectedDB = true;
 				this.navCtrl.navigateRoot( this.disscService.getUrl() , { animationDirection: 'forward' });
 

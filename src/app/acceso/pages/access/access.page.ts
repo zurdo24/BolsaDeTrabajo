@@ -48,6 +48,7 @@ export class AccessPage implements OnInit {
       this.userData.controls.password_confirm.setValidators([
         Validators.required, this.passwordid.bind(this.userData)
       ]);
+      this.userData.updateValueAndValidity()
     });
   }
   public toggleTextPassword(): void {
