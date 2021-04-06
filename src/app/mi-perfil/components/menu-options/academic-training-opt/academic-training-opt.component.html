@@ -77,6 +77,7 @@
                 </ion-text>
               </ion-label>
               <ion-select
+                mode="md"
                 formControlName="organization_unit_id"
                 interface="action-sheet"
                 (ionChange)=" orgUnit($event, false,degreeSelect.value)"
@@ -110,6 +111,7 @@
                 <h2><strong>Plan de estudios</strong></h2>
               </ion-label>
               <ion-select
+                mode="md"
                 formControlName="study_programme_id"
                 value=""
                 interface="action-sheet"
@@ -236,7 +238,9 @@
             <ion-label>
               <h2><strong>Fecha de inicio</strong></h2>
             </ion-label>
-            <ion-datetime 
+            <ion-datetime
+            done-text="Guardar"
+            cancel-text="Cancelar"
             min="1970"
             value = " {{startDate}} "
             display-timezone="utc"

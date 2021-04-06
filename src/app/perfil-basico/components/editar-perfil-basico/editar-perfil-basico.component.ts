@@ -42,40 +42,54 @@ export class EditarPerfilBasicoComponent implements OnInit {
   skeletonView = true;
   perfilBasico: PerfilBasicoPage;
   constructor(private countryService: CountryService, private cityService: CityService, private stateService: StateService,
-              private organizationUnitService: OrganizationUnitService,
-              private candidateService: CandidateService, private uiService: UiService,
-              private navCtrl: NavController, private disccService: DisconnectedService) {
+    private organizationUnitService: OrganizationUnitService,
+    private candidateService: CandidateService, private uiService: UiService,
+    private navCtrl: NavController, private disccService: DisconnectedService) {
     this.initForm();
   }
 
   ngOnInit() {
     this.disccService.seturl('/perfil-basico/editar-perfil-basico');
-    getStorage('candidate').then( candidate => {
+    getStorage('candidate').then(candidate => {
       this.candidate = candidate;
-       // ---------- inicializa  el objeto candidate para llenar el formulario
-      this.cityService.getCity(this.candidate.city_id).subscribe(city => {
-      this.stateId = city.state_id;
-      setStorage('state_id', this.stateId);
-      this.cityId = city.id;
-      this.stateService.getState(city.state_id).subscribe(state => {
-        this.countryId = state.country_id;
-        // paraa inicializar el objeto del estado y ciudad
-        this.stateService.getStateByCountry(this.countryId).subscribe(states => {
-          this.states = states[0];
-        });
-        this.cityService.getCitiesByState(this.stateId).pipe(
-          finalize(async () => {
-            // Hide the loading spinner on success or error
-            setTimeout(() => {
-              this.skeletonView = false;
-            }, 500);
-          })
-        ).subscribe( cities => {
-          this.cities = cities[0];
-          this.dataEdit();
+      // ---------- inicializa  el objeto candidate para llenar el formulario
+      this.cityService.getCity(this.candidate.city_id).subscribe( city => {
+        this.stateId = city.state_id;
+        setStorage('state_id', this.stateId);
+        this.cityId = city.id;
+        this.stateService.getState(city.state_id).subscribe(state => {
+          this.countryId = state.country_id;
+          // paraa inicializar el objeto del estado y ciudad
+          this.stateService.getStateByCountry(this.countryId).subscribe(states => {
+            this.states = states[0];
+            this.cityService.getCitiesByState(this.stateId).pipe(
+              finalize(async () => {
+                // Hide the loading spinner on success or error
+                setTimeout(() => {
+                  this.skeletonView = false;
+                }, 500);
+              })
+            ).subscribe(cities => {
+              this.cities =  cities[0];
+              setTimeout(() => {
+                this.dataEdit();
+              }, 500);
+            });
+          });
+          // this.dataEdit();
+          // this.cityService.getCitiesByState(this.stateId).pipe(
+          //   finalize(async () => {
+          //     // Hide the loading spinner on success or error
+          //     setTimeout(() => {
+          //       this.skeletonView = false;
+          //     }, 500);
+          //   })
+          // ).subscribe(async cities => {
+          //   this.cities = await cities[0];
+          //   this.dataEdit();
+          // });
         });
       });
-    });
     });
     // ----- Esta seccion es para inicializar la lista de pais estado y ciudad
     this.organizationUnitService.getOrganizationUnits().subscribe(organizationUnit => {
@@ -84,7 +98,7 @@ export class EditarPerfilBasicoComponent implements OnInit {
     this.countryService.getCountries().subscribe(countries => {
       this.countries = countries;
     });
-    
+
 
   }
   //  esta funcion se usa para hacer los cambios en la bd
@@ -100,6 +114,12 @@ export class EditarPerfilBasicoComponent implements OnInit {
     this.load = await this.uiService.presentLoading('Guardando...', 'loading', false);
     const dat = moment(this.updateData.controls.birth_date.value).format('YYYY-MM-DD');
     this.updateData.controls.birth_date.setValue(dat);
+    if (this.updateData.get('cellphone').value !== null) {
+      this.updateData.get('cellphone').setValue(this.updateData.get('cellphone').value.toString());
+    }
+    if (this.updateData.get('phone').value !== null) {
+      this.updateData.get('phone').setValue( this.updateData.get('phone').value.toString());
+    }
     this.candidateService.updateCandidate(this.candidate.user_id, this.updateData.value)
       .pipe(
         finalize(async () => {
@@ -129,8 +149,8 @@ export class EditarPerfilBasicoComponent implements OnInit {
       curp: new FormControl(this.candidate.curp),
       student_id_number: new FormControl(this.candidate.student_id_number),
       organization_unit_id: new FormControl(this.candidate.organization_unit_id, Validators.required),
-      country_id: new FormControl(this.countryId,  Validators.required),
-      state_id: new FormControl(this.stateId,  Validators.required),
+      country_id: new FormControl(this.countryId, Validators.required),
+      state_id: new FormControl(this.stateId, Validators.required),
     });
   }
   // iniciliza el formGroup
@@ -172,22 +192,22 @@ export class EditarPerfilBasicoComponent implements OnInit {
     if (this.firstSate === false) {
       this.firstSate = true;
       this.updateData.updateValueAndValidity();
+      // this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
+      //   this.cities = cities[0];
+      // });
     } else {
       this.updateData.controls.city_id.setValue('');
       this.updateData.updateValueAndValidity();
+      // this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
+      //   this.cities = cities[0];
+      // });
     }
-    this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
-      this.cities = cities[0];
-    });
     // console.log( this.updateData.controls.city_id);
+    this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
+        this.cities = cities[0];
+    });
   }
   onChangeCity(event) {
-    if (event.detail.value === '') {
-      return;
-    }
-
-    this.updateData.controls.city_id.setValue(this.cityId);
-    this.updateData.controls.city_id.updateValueAndValidity();
   }
 
 }

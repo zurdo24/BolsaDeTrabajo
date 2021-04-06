@@ -86,7 +86,7 @@
                                             </h1>
                                         </ion-text>
                                     </ion-label>
-                                    <ion-input formControlName="phone" placeholder="p. ej. (999) 999 9999"></ion-input>
+                                    <ion-input formControlName="phone" type="number" placeholder="p. ej. (999) 999 9999"></ion-input>
                                 </ion-item>
 
                                 <ion-item>
@@ -96,7 +96,7 @@
                                             </h1>
                                         </ion-text>
                                     </ion-label>
-                                    <ion-input formControlName="cellphone" inputmode="tel" placeholder="p. ej. (+52) 999 999 99 99"></ion-input>
+                                    <ion-input formControlName="cellphone" type="number"  placeholder="p. ej. (+52) 999 999 99 99"></ion-input>
                                 </ion-item>
 
                                 <ion-item lines="none">
@@ -135,7 +135,7 @@
                                             </h1>
                                         </ion-text>
                                     </ion-label>
-                                    <ion-select  mode="md" formControlName="city_id"  (ionChange)=" onChangeCity($event)" interface="action-sheet" placeholder="seleccionar la ciudad">
+                                    <ion-select  mode="md" formControlName="city_id" (ionChange)="onChangeCity($event)"  interface="action-sheet" placeholder="seleccionar la ciudad">
                                         <ion-select-option *ngFor="let city of cities" [value]="city.id"> {{city.name}} </ion-select-option>
                                     </ion-select>
                                 </ion-item>

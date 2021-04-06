@@ -60,7 +60,8 @@
 
     <ion-item>
       <ion-label>Año de inicio</ion-label>
-        <ion-datetime  min="1970"  displayFormat='YYYY-MMMM' placeholder="Seleccione el año" formControlName="date_start" 
+        <ion-datetime done-text="Guardar"
+        cancel-text="Cancelar"  min="1970"  displayFormat='YYYY-MMMM' placeholder="Seleccione el año" formControlName="date_start" 
         month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre"
         (ionChange)=" onChangeStart($event)" value={{maxDate}}> </ion-datetime>
     </ion-item>
@@ -88,7 +89,8 @@
   <div *ngIf = "!data.get('wexperienceData').get('is_current_job').value">
     <ion-item>
         <ion-label>Año de término</ion-label>
-          <ion-datetime  min={{minDate}}  displayFormat='YYYY-MMMM' placeholder="Seleccione el año" 
+          <ion-datetime  done-text="Guardar"
+          cancel-text="Cancelar" min={{minDate}}  displayFormat='YYYY-MMMM' placeholder="Seleccione el año" 
           formControlName="date_end" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" (ionChange)=" onChangeEnd($event)" value={{maxDate}}>  </ion-datetime>
     </ion-item>  
   </div>

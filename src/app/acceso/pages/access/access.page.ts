@@ -30,10 +30,9 @@ export class AccessPage implements OnInit {
               private navCtrl: NavController) {
     this.initForm();
   }
-  
   ionViewWillEnter(){
-    this.disccService.seturl('/access')
-  }    
+    this.disccService.seturl('/access');
+  }
   ngOnInit() {
     // this.user = JSON.parse(localStorage.getItem('_cap_user'));
     getStorage('user').then( user => {
@@ -46,10 +45,10 @@ export class AccessPage implements OnInit {
         Validators.pattern('^(?=^.{7,30}$)((?=.*)(?=.*[A-Z])(?=.*[a-z])|(?=.*)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*$')]),
         password_confirm: new FormControl(),
       });
+      this.userData.controls.password_confirm.setValidators([
+        Validators.required, this.passwordid.bind(this.userData)
+      ]);
     });
-    this.userData.get('password_confirm').setValidators([
-      Validators.required, this.passwordid.bind(this.userData)
-    ]);
   }
   public toggleTextPassword(): void {
     this.isActiveToggleTextPassword = (this.isActiveToggleTextPassword === true) ? false : true;
@@ -92,6 +91,9 @@ export class AccessPage implements OnInit {
       };
     }
     return null;
+  }
+  dataEdit() {
+
   }
   initForm() {
     this.userData = new FormGroup({
