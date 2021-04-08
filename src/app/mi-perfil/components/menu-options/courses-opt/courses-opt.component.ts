@@ -28,13 +28,16 @@ export class CoursesOptComponent implements OnInit {
   isUpdate = false;
   title: string;
   btnText = '';
+
+  // mostrar contenido
+  showcontent = true;
   constructor(private route: ActivatedRoute,  private uiService: UiService,
               private courseService: CourseService, private navCtrl: NavController,
               private courseModeService: CourseModeService ) {
                 this.initForm();
                }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.courseModeService.getCourseMode().subscribe(mode => {
       this.courseMode = mode;
     });
@@ -46,7 +49,17 @@ export class CoursesOptComponent implements OnInit {
     if (id){
       this.title = 'Editar Curso';
       this.btnText = 'Actualizar';
-      this.courseService.getCourse(id).subscribe( course => {
+      this.showcontent = false;
+      const loading = await this.uiService.presentLoading('', 'loading-content', false);
+      this.courseService.getCourse(id).pipe(
+        finalize(async () => {
+          await loading.dismiss();
+          setTimeout(() => {
+           this.showcontent = true;
+           document.getElementById('content').classList.add('fade-in-fast');
+          }, 100);
+        })
+      ).subscribe( course => {
         this.course = course;
         this.initdataEdit();
       });

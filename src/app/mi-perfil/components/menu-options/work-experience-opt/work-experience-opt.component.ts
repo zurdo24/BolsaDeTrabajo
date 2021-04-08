@@ -8,7 +8,6 @@ import { LineBusiness, WorkExperience } from 'src/app/shared/interfaces';
 import { UiService } from '../../../../shared/services/ui.service';
 import { finalize } from 'rxjs/operators';
 import * as moment from 'moment';
-import { parse } from 'querystring';
 import { getStorage } from 'src/app/shared/services/storage.service';
 moment.locale('es');
 @Component({
@@ -30,6 +29,9 @@ export class WorkExperienceOptComponent implements OnInit {
   // --------------------------------------------------------------
   headerTitle = '';
   btnText = '';
+
+  // mostrar contenido
+  showcontent = true;
   constructor(private navCtrl: NavController, private route: ActivatedRoute, private workExperienceService: WorkExperienceService,
               private linebusinessService: LineBusinessService, private uiService: UiService) {
     this.initForm();
@@ -41,14 +43,24 @@ export class WorkExperienceOptComponent implements OnInit {
     }
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
     // recupera la id enviada como parametro (app-routing)
     this.id = this.route.snapshot.paramMap.get('id');
     if (this.id) {
+      this.showcontent = false;
       this.btnText = 'Actualizar';
       this.headerTitle = 'Editar Experiencia Laboral';
-      this.workExperienceService.getWorkExperience(this.id).subscribe(workexperience => {
+      const loading = await this.uiService.presentLoading('', 'loading-content', false);
+      this.workExperienceService.getWorkExperience(this.id).pipe(
+        finalize(async () => {
+          await loading.dismiss();
+          setTimeout(() => {
+           this.showcontent = true;
+           document.getElementById('content').classList.add('fade-in-fast');
+          }, 100);
+        })
+      ).subscribe(workexperience => {
         this.workExperience = workexperience;
 
         // si el workexperience es su trabajo actual is is_current_job se pone en true y se le asigna una fecha maxDate por si
@@ -80,6 +92,9 @@ export class WorkExperienceOptComponent implements OnInit {
           }),
           name: new FormControl(''),
         });
+        // no se laza el evento ionchange al iniciar la vista, por eso se asgina los valores
+        this.data.get('wexperienceData').get('year_start').setValue(this.data.get('wexperienceData').get('date_start').value.substr(0, 4));
+        this.data.get('wexperienceData').get('month_start').setValue(this.data.get('wexperienceData').get('date_start').value.substr(5, 2));
       });
 
     } else {
@@ -94,7 +109,7 @@ export class WorkExperienceOptComponent implements OnInit {
             line_business_id: new FormControl(''),
             date_start: new FormControl('', Validators.required),
             date_end: new FormControl(''),
-            job_title: new FormControl('', [Validators.required, Validators.maxLength(175)]),
+            job_title: new FormControl('',   [Validators.required, Validators.maxLength(175)]),
             month_start: new FormControl('', Validators.required),
             year_start: new FormControl('', Validators.required),
             month_end: new FormControl('', Validators.required),
@@ -129,7 +144,7 @@ export class WorkExperienceOptComponent implements OnInit {
   }
 
   // le asigna las fechas correspondientes a year_start y month_start
-  onChangeStart($event) {
+  onChangeStart(event) {
     this.minDate = this.data.get('wexperienceData').get('date_start').value;
     this.data.get('wexperienceData').get('year_start').setValue(this.data.get('wexperienceData').get('date_start').value.substr(0, 4));
     this.data.get('wexperienceData').get('month_start').setValue(this.data.get('wexperienceData').get('date_start').value.substr(5, 2));
@@ -191,7 +206,6 @@ export class WorkExperienceOptComponent implements OnInit {
           });
           return;
         }
-        console.log('ejecuta');
         const load = await this.uiService.presentLoading('Actualizando...', 'loading', false);
         this.workExperienceService.updateWorkExperience(
           this.id,

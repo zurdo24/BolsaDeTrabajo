@@ -154,14 +154,34 @@
         <ion-col size="12">
           <ion-card button color="light" (click)="opcionesCv()">
             <ion-card-header>
-              <ion-card-title
-                >CURRÍCULUM VÍTAE <ion-icon mode="md" name="create" color="blue"></ion-icon
-              ></ion-card-title>
-      
-              <ion-card-subtitle class="text-info">({{cv.status}})</ion-card-subtitle>
+              <ion-card-title>
+                <!-- CURRÍCULUM VÍTAE <ion-icon mode="md" name="create" slot="end" color="blue"></ion-icon> -->
+                <ion-item  class="ion-no-padding" lines="none" class="transparent-bg" >
+                  <ion-text color="dark">
+                    <strong>CURRÍCULUM VÍTAE</strong>
+                  </ion-text>
+                  <ion-icon name="create"  slot="end" color="blue"></ion-icon>
+                </ion-item>
+              </ion-card-title>
+              
+             <!-- <ion-list class="ion-no-padding">
+              <ion-item  class="ion-no-padding" lines="none" class="transparent-bg" >
+                <ion-label> <strong>CURRÍCULUM VÍTAE</strong> </ion-label>
+                <ion-icon name="create" size="small" slot="end"></ion-icon>
+              </ion-item>
+              <ion-item  class="ion-no-padding" lines="none" class="transparent-bg" >
+                <ion-label class="ion-no-padding" > <strong>({{cv.status}})</strong> </ion-label>
+              </ion-item>
+             </ion-list> -->
+             
+              <ion-card-subtitle style="top: -3vh;" >
+                <ion-item   lines="none" class="transparent-bg" >
+                  <ion-label> <strong> <small>({{cv.status |titlecase}})</small> </strong> </ion-label>
+                </ion-item>
+              </ion-card-subtitle>
             </ion-card-header>
       
-            <ion-card-content> 
+            <ion-card-content > 
               <p class="text-info">{{cv.summary}}</p>
             </ion-card-content>
           </ion-card>

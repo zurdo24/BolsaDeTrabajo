@@ -48,8 +48,8 @@
           <span *ngIf=" i.mode == 2"> Presencial</span>
           <span *ngIf=" i.mode == 3"> Semipresencial</span>
         </span ><br>
-        <span  *ngIf=" i.start != null"><b>Fecha de inicio: </b>{{i.start}} </span><br>
-        <span  *ngIf=" i.end != null"><b>Fecha de término: </b>{{i.end}}</span><br>
+        <span  *ngIf=" i.start != null"><b>Fecha de inicio: </b>{{i.start |date: 'dd-MM-YYYY'}} </span><br>
+        <span  *ngIf=" i.end != null"><b>Fecha de término: </b>{{i.end |date: 'dd-MM-YYYY'}}</span><br>
     </ion-card-content>
   </ion-card>
    </div>

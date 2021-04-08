@@ -90,7 +90,7 @@ export class AptitudesOptComponent implements OnInit {
           this.addData.get('skill_list_id').setValue(aux[0].id); // le pone el id al addData
 
           this.cvsKillService.getCvSkillExist(this.addData.get('cv_id').value, this.addData.get('skill_list_id').value)
-            .subscribe(cvskill => {
+            .subscribe(async cvskill => {
               // verifica si el usuario tiene agregado la skill
               if (cvskill === 1) {
                 // si lo tiene lo regresa a la pagina de skills
@@ -98,10 +98,18 @@ export class AptitudesOptComponent implements OnInit {
               }
               else {
                 // no lo tiene -> se lo agrega
+                const loading = await this.uiService.presentLoading('Actualizando...', 'loading', false);
                 this.cvsKillService.addCvSkill(this.addData.get('cv_id').value,
                   this.addData.get('skill_list_id').value,
-                  this.addData.get('skill').value).subscribe(() => {
-                    this.navCtrl.navigateRoot('/mi-perfil/home/aptitudes');
+                  this.addData.get('skill').value).pipe(
+                    finalize(async () => {
+                      await loading.dismiss();
+                      setTimeout(() => {
+                        this.navCtrl.navigateRoot('/mi-perfil/home/aptitudes', { animationDirection: 'back' });
+                        document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
+                      }, 500);
+                    })
+                  ).subscribe(() => {
                   });
               }
             });

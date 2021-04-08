@@ -9,7 +9,7 @@
       <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" />
     </ion-avatar>
     <!-- <ion-label><ion-text>{{i.commercial_name}}</ion-text></ion-label> -->
-    <ion-text><b>{{i.commercial_name}}</b></ion-text>
+    <ion-text><b>{{i.commercial_name |titlecase }}  </b></ion-text>
     <ion-icon
       name="mail"
       slot="end"

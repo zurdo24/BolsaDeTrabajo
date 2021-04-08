@@ -25,12 +25,14 @@ export class LanguagesOptComponent implements OnInit {
   // ----- formato para almacenar la informacion a actualizar------
   data: FormGroup;
   // --------------------------------------------------------------
+    // mostrar contenido
+    showcontent = true;
   constructor(private route: ActivatedRoute, private uiService: UiService, private languageService: LanguageService,
               private navCtrl: NavController) {
     this.initForm();
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
     this.id = this.route.snapshot.paramMap.get('id');
     this.languageService.getListComplete().subscribe(list => {
@@ -43,7 +45,17 @@ export class LanguagesOptComponent implements OnInit {
     if (this.id) {
       this.title = 'Editar idioma';
       this.btnText = 'Actualizar';
-      this.languageService.getLanguage(this.id).subscribe(language => {
+      this.showcontent = false;
+      const loading = await this.uiService.presentLoading('', 'loading-content', false);
+      this.languageService.getLanguage(this.id).pipe(
+        finalize(async () => {
+          await loading.dismiss();
+          setTimeout(() => {
+           this.showcontent = true;
+           document.getElementById('content').classList.add('fade-in-fast');
+          }, 100);
+        })
+      ).subscribe(language => {
         this.language = language;
         this.initDataEdit();
       });

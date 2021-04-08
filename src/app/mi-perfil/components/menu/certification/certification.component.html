@@ -58,8 +58,8 @@
     </ion-card-header>
     <ion-card-content>
       <b> {{ certifications.subject_area_id }} </b> <br />
-      <b>Recibido: </b> {{ certifications.date_received }} <br /><b>Vence: </b>
-      {{ certifications.date_expire }}
+      <b>Recibido: </b> {{ certifications.date_received |date: 'dd-MM-YYYY' }} <br /><b>Vence: </b>
+      {{ certifications.date_expire |date: 'dd-MM-YYYY' }}
     </ion-card-content>
   </ion-card>
 

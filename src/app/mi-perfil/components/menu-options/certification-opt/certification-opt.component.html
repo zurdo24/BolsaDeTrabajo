@@ -1,7 +1,14 @@
-<app-header [title]="title" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/certification'" [miPerfil]="true"> </app-header>
+<app-header
+  [title]="title"
+  [backbutton]="true"
+  [backbuttonhref]="'/mi-perfil/home/certification'"
+  [miPerfil]="true"
+>
+</app-header>
 
 <ion-content>
-  <form class="ion-padding" [formGroup]=" createCertication">
+ <div id="content">
+  <form  *ngIf="showcontent" class="ion-padding" [formGroup]="createCertication">
     <ion-grid class="ion-padding-top">
       <ion-row>
         <ion-col size="12">
@@ -15,6 +22,12 @@
               placeholder="Ingrese el nombre de la certificación"
             ></ion-input>
           </ion-item>
+
+          <div class="ion-padding-start">
+            <ion-text color="danger" *ngIf="createCertication.get('name').invalid">
+              <small> Nombre de la certificación no puede estar vacío.</small> 
+            </ion-text><br>
+          </div>
         </ion-col>
 
         <ion-col size="12">
@@ -42,8 +55,10 @@
               <ion-select-option selected value=""
                 >selecciona el área de estudio</ion-select-option
               >
-              <ion-select-option  value="{{subAreas.id}}" *ngFor="let subAreas of subjectAreas"
-                >{{subAreas.name}}</ion-select-option
+              <ion-select-option
+                value="{{ subAreas.id }}"
+                *ngFor="let subAreas of subjectAreas"
+                >{{ subAreas.name }}</ion-select-option
               >
             </ion-select>
           </ion-item>
@@ -54,23 +69,54 @@
             <ion-label position="stacked"
               ><font size="5">Fecha de inicio</font></ion-label
             >
-            <ion-input formControlName="date_received" [max]="DateMax" (ionChange)=" minDate($event, date_Expire)" type="date"></ion-input>
+
+            <ion-datetime
+              done-text="Guardar"
+              cancel-text="Cancelar"
+              min="1970"
+              max="{{ maxDate1 }}"
+              displayFormat="DD-MMMM-YYYY"
+              placeholder="Seleccione el año"
+              formControlName="date_received"
+              month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+              (ionChange)="onChangeStart($event)"
+            >
+            </ion-datetime>
           </ion-item>
 
           <ion-item>
             <ion-label position="stacked"
               ><font size="5">Fecha de término</font></ion-label
             >
-            <ion-input  [min]="DateMin"  formControlName="date_expire" type="date" (ionChange)="validendDate($event)" #date_Expire></ion-input>
+            <ion-datetime
+              done-text="Guardar"
+              cancel-text="Cancelar"
+              min="{{ minDate2 }}"
+              max="{{ maxDate2 }}"
+              displayFormat="DD-MMMM-YYYY"
+              placeholder="Seleccione el año"
+              formControlName="date_expire"
+              month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre"
+              (ionChange)="onChangeEnd($event)"
+            >
+            </ion-datetime>
           </ion-item>
         </ion-col>
-			</ion-row>
+      </ion-row>
     </ion-grid>
   </form>
+ </div>
 </ion-content>
 <!-- <ion-row>
   <ion-col width-50 style="text-align: center"> -->
-    <ion-button  [ngClass]="{'button-disabled': createCertication.invalid}" class="blue-btn" type="submit"  expand="block"
-       (click)= "submit()" size="large">{{btnText}}</ion-button>		
+<ion-button
+*ngIf="showcontent"
+  [ngClass]="{ 'button-disabled': createCertication.invalid }"
+  class="blue-btn"
+  expand="block"
+  (click)="submit()"
+  size="large"
+  >{{ btnText }}</ion-button
+>
 <!-- </ion-col>
 </ion-row> -->

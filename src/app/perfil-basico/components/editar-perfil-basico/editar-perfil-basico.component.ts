@@ -67,6 +67,7 @@ export class EditarPerfilBasicoComponent implements OnInit {
                 // Hide the loading spinner on success or error
                 setTimeout(() => {
                   this.skeletonView = false;
+                  // this.dataEdit();
                 }, 500);
               })
             ).subscribe(cities => {

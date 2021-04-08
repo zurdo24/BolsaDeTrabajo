@@ -7,7 +7,7 @@
         <ion-col size="12">
           <ion-item>
             <ion-label>
-              <h2><strong>Grado de Estudio</strong></h2>
+              <h2><strong>Grado de Estudio</strong> <ion-text color="danger">*<br></ion-text></h2>
             </ion-label>
             <ion-select
               formControlName="degree_id"
@@ -37,7 +37,7 @@
             <ion-radio-group value="{{checkedinit}}" (ionChange)="clickbox($event)"    >
               <ion-list-header>
                 <ion-label>
-                  <h2><strong>Instituto</strong></h2>
+                  <h2><strong>Instituto</strong> <ion-text color="danger">*<br></ion-text></h2>
                 </ion-label>
               </ion-list-header>
               <ion-item>
@@ -73,7 +73,7 @@
             <ion-item>
               <ion-label>
                 <ion-text>
-                  <h2><strong>Dependencia</strong></h2>
+                  <h2><strong>Dependencia</strong><ion-text color="danger">*<br></ion-text></h2>
                 </ion-text>
               </ion-label>
               <ion-select
@@ -108,7 +108,7 @@
 
             <ion-item>
               <ion-label>
-                <h2><strong>Plan de estudios</strong></h2>
+                <h2><strong>Plan de estudios</strong><ion-text color="danger">*<br></ion-text></h2>
               </ion-label>
               <ion-select
                 mode="md"
@@ -140,7 +140,7 @@
             </ion-item>
             <ion-item>
               <ion-label>
-                <h2><strong>Estado</strong></h2>
+                <h2><strong>Estado</strong><ion-text color="danger">*<br></ion-text></h2>
               </ion-label>
               <ion-select
                 (ionChange)="statusEducation($event)"
@@ -167,7 +167,7 @@
                 <ion-text>
                   <font size="5">
                     <strong>Nombre del instituto</strong>
-                  </font>
+                  </font><ion-text color="danger">*<br></ion-text>
                 </ion-text>
               </ion-label>
               <ion-input
@@ -179,7 +179,7 @@
             <ion-item>
               <ion-label position="stacked">
                 <font size="5"
-                  ><strong>Nombre del plan de estudio</strong></font
+                  ><strong>Nombre del plan de estudio</strong><ion-text color="danger">*<br></ion-text></font
                 >
               </ion-label>
               <ion-input
@@ -189,7 +189,7 @@
             </ion-item>
             <ion-item>
               <ion-label>
-                <h2><strong>Área de estudios</strong></h2>
+                <h2><strong>Área de estudios</strong><ion-text color="danger">*<br></ion-text></h2>
               </ion-label>
               <ion-select
                 formControlName="subject_area_id"
@@ -209,7 +209,7 @@
             </ion-item>
             <ion-item>
               <ion-label>
-                <h2><strong>Estado</strong></h2>
+                <h2><strong>Estado</strong><ion-text color="danger">*<br></ion-text></h2>
               </ion-label>
               <ion-select
                 (ionChange)="statusEducation($event)"
@@ -236,7 +236,7 @@
         <ion-col size="12">
           <ion-item detail>
             <ion-label>
-              <h2><strong>Fecha de inicio</strong></h2>
+              <h2><strong>Fecha de inicio</strong><ion-text color="danger">*<br></ion-text></h2>
             </ion-label>
             <ion-datetime
             done-text="Guardar"
@@ -256,9 +256,11 @@
         <ion-col size="12">
           <ion-item detail>
             <ion-label>
-              <h2><strong>Fecha de Término</strong></h2>
+              <h2><strong>Fecha de Término</strong><ion-text color="danger">*<br></ion-text></h2>
             </ion-label>
             <ion-datetime 
+            done-text="Guardar"
+            cancel-text="Cancelar"
             min={{minDate}}
             value=" {{endDate}} "
             displayFormat='MMMM YYYY'

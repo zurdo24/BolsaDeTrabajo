@@ -20,23 +20,26 @@ export class CertificationOptComponent implements OnInit {
   subjectAreas: SubjectArea;
   createCertication: FormGroup;
   // variables auxiliares para el ion-input date
-  DateMin: Date;
-  DateMax: string;
-  readOnly = true;
-  first = false;
-
   title = '';
   btnText = '';
+
+  maxDate1: string;
+  minDate2: string;
+  maxDate2: string;
+
+  // mostrar contenido
+  showcontent = true;
   constructor(private route: ActivatedRoute, private subjectAreaService: SubjectAreaService,
               private certificationService: CertificationService, private uiService: UiService,
               private navCtrl: NavController) {
                 this.initForm();
               }
 
-  ngOnInit() {
+  async ngOnInit() {
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
-    this.DateMax = moment().format('YYYY-MM-DD');
     this.idParam = this.route.snapshot.paramMap.get('id');
+    this.maxDate1  = this.maxDate2 = this.getNowDate();
+    this.minDate2 = ('1970');
     this.subjectAreaService.getSubjectAreas().subscribe(subjectAreas => {
       this.subjectAreas = subjectAreas;
     });
@@ -44,7 +47,18 @@ export class CertificationOptComponent implements OnInit {
     if (this.idParam != null) {
       this.title = 'Editar Certificación';
       this.btnText = 'Actualizar';
-      this.certificationService.getCertificationByIdCertification(this.idParam).subscribe(certification => {
+
+      this.showcontent = false;
+      const loading = await this.uiService.presentLoading('', 'loading-content', false);
+      this.certificationService.getCertificationByIdCertification(this.idParam).pipe(
+        finalize(async () => {
+          await loading.dismiss();
+          setTimeout(() => {
+           this.showcontent = true;
+           document.getElementById('content').classList.add('fade-in-fast');
+          }, 100);
+        })
+      ).subscribe(certification => {
         this.dataEdit(certification);
       });
       return;
@@ -63,7 +77,7 @@ export class CertificationOptComponent implements OnInit {
         header = '¿Desea guardar los cambios?';
       } else {
         mssg = `<img src="./assets/alerts/info.png" class="card-alert-img">`;
-        header = '¿Desea agregar el nuevo curso?';
+        header = '¿Desea guardar esta certificación?';
       }
     const alert = await this.uiService.presentAlert('', header, mssg, 'alertCancel', 'alertButton', 'ios');
     const data = await alert.onDidDismiss();
@@ -117,25 +131,36 @@ export class CertificationOptComponent implements OnInit {
     });
   }
 
-  minDate($event, dateExpire: any) {
-    if (this.first === false) {
-      this.first = true;
-    } else {
-      this.DateMin = $event.target.value;
-      dateExpire.value = '';
-      this.readOnly = false;
-    }
-    this.DateMin = $event.target.value;
-    this.readOnly = false;
-  }
 
-  validendDate(event){
-    const dateStart = moment( this.createCertication.controls.date_received.value).format('YYYY-MM-DD');
-    const dateEnd = moment(event.detail.value).format('YYYY-MM-DD');
-    if ( dateEnd < dateStart ){
-      this.createCertication.controls.date_expire.setErrors({incorrect: true});
-    } else {
-      this.createCertication.controls.date_expire.setErrors(null);
+  onChangeStart($event) {
+    this.minDate2 = this.createCertication.get('date_received').value;
+    this.createCertication.get('date_received').setValue(this.createCertication.get('date_received').value.substr(0, 10));
+  }
+  // le asigna las fechas correspondientes a year_end y month_end
+  onChangeEnd($event) {
+
+    this.maxDate1 = this.createCertication.get('date_expire').value;
+    this.createCertication.get('date_expire').setValue(this.createCertication.get('date_expire').value.substr(0, 10));
+  }
+  getNowDate(){
+    const date = new Date(); // Fecha actual
+    const monthN = date.getMonth() + 1; // obteniendo mes
+    const dayN = date.getDate(); // obteniendo dia
+    const year = date.getFullYear(); // obteniendo año
+    let day;
+    let month;
+    if (dayN < 10) {
+      day = '0' + dayN;
+    } // agrega cero si el menor de 10
+    else {
+      day = dayN;
     }
+    if (monthN < 10) {
+      month = '0' + monthN;
+    } // agrega cero si el menor de 10
+    else {
+      month = monthN;
+    }
+    return year + '-' + month + '-' + day;
   }
 }

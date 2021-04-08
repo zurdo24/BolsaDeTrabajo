@@ -43,7 +43,7 @@
     </ion-card-header>
     <ion-card-content>
         <b>Grado de estudio:</b> {{edc.degree}} <br>
-        <b>Ingreso: </b> {{edc.start}} <br><b *ngIf="edc.end != null">Egreso: </b> {{edc.end}}
+        <b>Ingreso: </b> {{edc.start |date: 'dd-MM-YYYY'}} <br><b *ngIf="edc.end != null">Egreso: </b> {{edc.end |date: 'dd-MM-YYYY'}}
     </ion-card-content>
 </ion-card>
 

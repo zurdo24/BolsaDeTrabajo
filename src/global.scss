@@ -75,6 +75,12 @@
   color: #fff;
   font-size: 3vh;
 }
+.loading-content {
+  --background: #042b59;
+  --spinner-color: #ffffff;
+  color: #fff;
+  font-size: 3vh;
+}
 .delete-btn .sc-ion-action-sheet-md {
   color: red !important;
 }
@@ -179,3 +185,15 @@
   }
 }
 
+// 
+.fade-in-fast {
+	animation: fade-in-fast 0.7s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+}
+@keyframes fade-in-fast {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

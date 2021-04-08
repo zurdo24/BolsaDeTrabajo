@@ -39,7 +39,12 @@ export class DisconnectedComponent implements OnInit {
 	}
 	ionViewWillEnter() {
 	    this.menuCtrl.enable(false);
-  	}
+  }
+	ionViewWillLeave(){
+		if(this.id) {
+			this.menuCtrl.enable(true);
+		}
+	}
   	
     	
   	
