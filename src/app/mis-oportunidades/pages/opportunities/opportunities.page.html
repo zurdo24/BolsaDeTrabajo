@@ -1,37 +1,86 @@
-<app-header [title]="'Oportunidades'"  [backbutton]="false"></app-header>
+<app-header [title]="'Oportunidades'" [backbutton]="false"></app-header>
 
-<ion-content color="goldlow">
-  <ion-grid >
+<ion-content  color="goldlow">
+  <div class="ion-padding"  *ngIf=" !ismatch">
+    <ion-card  *ngFor="let i of [1,1,1]" color="light">
+      <ion-card-header>
+        <h3 style="text-align: center">
+          <ion-skeleton-text
+            style="
+              width: 95%;
+              height: 100px;
+              margin-left: auto;
+              margin-right: auto;
+            "
+          ></ion-skeleton-text>
+        </h3>
+        <ion-card-title>
+          <ion-skeleton-text
+            animated
+            style="width: 80%; height: 80%"
+          ></ion-skeleton-text>
+        </ion-card-title>
+        <ion-card-subtitle>
+          <ion-skeleton-text animated style="width: 45%"></ion-skeleton-text>
+        </ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content style="text-align: justify">
+        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 65%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-grid>
     <ion-row>
-      <ion-col *ngIf=" ismatch"  >
-        <ion-card  class="fade-in ion-card-vacante" button *ngFor="let Match of Match" (click)=" goSeeVacant(Match.id)" >
-          <ion-img   *ngIf="Match.logo != null" src={{logo}}{{Match.logo}}  class="img" ></ion-img>
+     <div class="align-center"  id="content">
+      <ion-col  *ngIf=" viewcard">
+        <ion-card
+          class="ion-card-vacante "
+          button
+          *ngFor="let Match of Match"
+          (click)=" goSeeVacant(Match.id)"
+        >
+          <ion-img
+            *ngIf="Match.logo != null"
+            src="{{logo}}{{Match.logo}}"
+            class="img"
+          ></ion-img>
           <ion-card-header>
-            <ion-card-subtitle> <strong> Puntuación: {{ Match.score }} </strong> </ion-card-subtitle>
+            <ion-card-subtitle>
+              <strong> Puntuación: {{ Match.score }} </strong>
+            </ion-card-subtitle>
             <ion-card-title>{{Match.job_title}}</ion-card-title>
-          	<ion-card-subtitle>en {{Match.commercial_name}}</ion-card-subtitle>
+            <ion-card-subtitle>en {{Match.commercial_name}}</ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
             <strong>Aptitudes: </strong>
-            <ion-text *ngFor="let skills of Match.skills "  >
-              <ion-text *ngIf="islast(Match.skills,skills)==false">{{skills.skill}}, </ion-text>
-          		<ion-text  *ngIf="islast(Match.skills,skills)==true">{{skills.skill}}. </ion-text>
-          </ion-text> 
+            <ion-text *ngFor="let skills of Match.skills ">
+              <ion-text *ngIf="islast(Match.skills,skills)==false"
+                >{{skills.skill}},
+              </ion-text>
+              <ion-text *ngIf="islast(Match.skills,skills)==true"
+                >{{skills.skill}}.
+              </ion-text>
+            </ion-text>
           </ion-card-content>
         </ion-card>
       </ion-col>
-      
+     </div>
     </ion-row>
-    <ion-row>
-      
-        <ion-col style="padding-top: 70%;" >
-          <ion-item  class="gold" *ngIf=" !ismatch"   >
-            <ion-label  color="light">
-              <h3 style="text-align: center;"><b>Tu CV no es compatible con alguna vacante</b></h3>
-            </ion-label>
-          </ion-item>
-        </ion-col>
 
+    <ion-row>
+      <ion-col style="padding-top: 70%">
+        <ion-item class="gold" *ngIf=" viewinfo">
+          <ion-label color="light">
+            <h3 style="text-align: center">
+              <b>Tu CV no es compatible con alguna vacante</b>
+            </h3>
+          </ion-label>
+        </ion-item>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

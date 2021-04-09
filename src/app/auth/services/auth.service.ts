@@ -21,7 +21,7 @@ export class AuthService {
     const data = { username, password };
 
     return new Promise(resolve => {
-      this.http.post(`${this.URL}/api/user/login`, data).subscribe(resp => {
+      this.http.post(`${this.URL}/api/site/login`, data).subscribe(resp => {
         if (resp['login']) {
           if (!resp['user'].match('candidate')) {
             resolve('no es candidato');
@@ -45,7 +45,7 @@ export class AuthService {
     const data = {
       token,
     };
-    return this.http.post<any>(`${this.URL}/api/user/logout`, data);
+    return this.http.post<any>(`${this.URL}/api/site/logout`, data);
   }
 
   setUrl(url: string){

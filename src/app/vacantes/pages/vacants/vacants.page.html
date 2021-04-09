@@ -1,8 +1,9 @@
 <ion-header slot="top">
   <app-header [title]="'Vacantes'" [backbutton]="false"></app-header>
   <div *ngIf="jobsOpening!=null && showVacants != false">
-    <ion-toolbar class="gold">
+    <ion-toolbar  class="gold">
       <ion-searchbar
+        mode="md"
         animated
         (ionChange)="find($event)"
         color="light"

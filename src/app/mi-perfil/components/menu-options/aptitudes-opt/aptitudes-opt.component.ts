@@ -81,7 +81,7 @@ export class AptitudesOptComponent implements OnInit {
       // si hay texto
       text = text.toLowerCase().trim();
       // descarga de nuevo las skill para tener los agregados recientes
-      this.cvsKillService.getSkillListComplete().subscribe(skills => {
+      this.cvsKillService.getSkillListComplete().subscribe(async skills => {
         const skillsadd = skills;
 
         // filtra el arreglo buscando el valor del texto
@@ -119,7 +119,15 @@ export class AptitudesOptComponent implements OnInit {
           // no existe-> lo agrega a la lista de skills
           //agregar presentLoading
           this.addData.get('skill_list_id').setValue(''); // le coloca en vacio el id al addData
+          const loading = await this.uiService.presentLoading('Agregando...', 'loading', false);
           this.cvsKillService.addSkill(this.addData.get('skill').value).pipe(
+            finalize(async () => {
+              await loading.dismiss();
+              setTimeout(() => {
+                this.navCtrl.navigateRoot('/mi-perfil/home/aptitudes', { animationDirection: 'back' });
+                document.getElementById('tabs').classList.remove('hidden', 'scale-out-center');
+              }, 500);
+            })
           ).subscribe(cvskill => {
             // ejecuta de nuevo la funcion
             this.addedSkill(text);

@@ -48,7 +48,7 @@
       <ion-card-content style="text-align: justify;">
         {{i.description}}
         <br>
-        <b>Periodo:</b><p> <strong> De</strong> {{i.start |date: 'dd-MM-YYYY' }} a  <span  *ngIf=" i.end == null">la fecha</span > <span  *ngIf=" i.end != null">{{i.end}}</span ></p>
+        <b>Periodo:</b><p> <strong> De</strong> {{i.start |date: 'dd-MM-YYYY' }} a  <span  *ngIf=" i.end == null">la fecha</span > <span  *ngIf=" i.end != null">{{i.end |date: 'dd-MM-YYYY'}}</span ></p>
         <br>
         <b>Giro del negocio:</b> {{i.name}}
       </ion-card-content>

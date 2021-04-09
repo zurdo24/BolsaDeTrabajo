@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
 import { Match } from 'src/app/shared/interfaces';
 import { CvService } from 'src/app/shared/services/cv.service';
 import { getStorage } from 'src/app/shared/services/storage.service';
@@ -16,6 +17,8 @@ export class OpportunitiesPage implements OnInit {
   URL = environment.urlPhotos;
   Match: Match;
   ismatch = false;
+  viewinfo = false;
+  viewcard = false;
   logo = this.URL + '/btuady/public_html/files/logo/organization/';
   constructor( private cvService: CvService,
                private jobOpeningService: JobOpeningService,
@@ -28,14 +31,32 @@ export class OpportunitiesPage implements OnInit {
 
   ngOnInit() {
     getStorage('id').then( candidateId => {
-      this.cvService.matchCv(candidateId).subscribe(response => {
-        console.log(response)
+      this.cvService.matchCv(candidateId).pipe(
+        finalize(async () => {
+        })
+      ).subscribe(response => {
         if (response.ok === true) {
-          this.ismatch = true;
-          this.jobOpeningService.jobsMatch(response.match).subscribe(match => {
-          this.Match = match;
+          this.jobOpeningService.jobsMatch(response.match). pipe(
+            finalize(async () => {
+              setTimeout(() => {
+               if (this.Match) {
+                this.ismatch = true;
+                this.viewcard = true;
+                document.getElementById('content').classList.add('fade-in');
+                return;
+               }
+              }, 100);
+            })
+          ).subscribe(match => {
+            this.Match = match;
           });
-        } else { this.ismatch = false; }
+          return;
+        }
+
+        this.ismatch = true;
+        this.viewinfo = true;
+        // this.ismatch = false;
+        // this.viewinfo = false;
       });
     });
   }
