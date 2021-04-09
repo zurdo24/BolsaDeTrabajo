@@ -1,287 +1,289 @@
 <app-header [title]="title" [backbutton]="true"  [backbuttonhref]="'/mi-perfil/home/academic-training'" [miPerfil]="true"> </app-header>
 
 <ion-content>
-  <form [formGroup]=" data">
-    <ion-grid class="ion-padding-top">
-      <ion-row>
-        <ion-col size="12">
-          <ion-item>
-            <ion-label>
-              <h2><strong>Grado de Estudio</strong> <ion-text color="danger">*<br></ion-text></h2>
-            </ion-label>
-            <ion-select
-              formControlName="degree_id"
-              mode="ios"
-              (ionChange)=" orgUnit($event,true)"
-              interface="popover"
-              placeholder="Selecciona el grado de estudio"
-              #degreeSelect
-            >
-              <ion-select-option selected value="">
-                Seleccione el grado de estudios
-              </ion-select-option>
-              <ion-select-option
-                *ngFor="let degree of degrees "
-                value="{{degree.id}}"
-                >{{degree.title}}</ion-select-option
+  <div id="content">
+    <form *ngIf="showcontent" [formGroup]=" data">
+      <ion-grid class="ion-padding-top">
+        <ion-row>
+          <ion-col size="12">
+            <ion-item>
+              <ion-label>
+                <h2><strong>Grado de Estudio</strong> <ion-text color="danger">*<br></ion-text></h2>
+              </ion-label>
+              <ion-select
+                formControlName="degree_id"
+                mode="ios"
+                (ionChange)=" degreeChange($event)"
+                interface="popover"
+                placeholder="Selecciona el grado de estudio"
+                #degreeSelect
               >
-            </ion-select>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="12">
-          <ion-list>
-
-            <ion-radio-group value="{{checkedinit}}" (ionChange)="clickbox($event)"    >
-              <ion-list-header>
+                <ion-select-option selected value="">
+                  Seleccione el grado de estudios
+                </ion-select-option>
+                <ion-select-option
+                  *ngFor="let degree of degrees "
+                  value="{{degree.id}}"
+                  >{{degree.title}}</ion-select-option
+                >
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row>
+          <ion-col size="12">
+            <ion-list>
+  
+              <ion-radio-group value="{{checkedinit}}" (ionChange)="clickbox($event)"    >
+                <ion-list-header>
+                  <ion-label>
+                    <h2><strong>Instituto</strong> <ion-text color="danger">*<br></ion-text></h2>
+                  </ion-label>
+                </ion-list-header>
+                <ion-item>
+                  <ion-label>UADY</ion-label>
+                  <ion-radio
+                    mode="ios"
+                    slot="end"
+                    value="1"
+                  ></ion-radio>
+                </ion-item>
+                <ion-item>
+                  <ion-label>Otro</ion-label>
+                  <ion-radio
+                    mode="ios"
+                    slot="end"
+                    value="2"
+                   
+                   
+                  ></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row>
+          <ion-col size="12">
+            <ng-container
+              *ngIf="checkedinit.match('1'); then thenTemplateUady else elseTemplateOtro"
+            ></ng-container>
+            <!-- FORM PARA LA OPCION UADY -->
+            <ng-template #thenTemplateUady>
+              <ion-item>
                 <ion-label>
-                  <h2><strong>Instituto</strong> <ion-text color="danger">*<br></ion-text></h2>
+                  <ion-text>
+                    <h2><strong>Dependencia</strong><ion-text color="danger">*<br></ion-text></h2>
+                  </ion-text>
                 </ion-label>
-              </ion-list-header>
+                <ion-select
+                  mode="md"
+                  formControlName="organization_unit_id"
+                  interface="action-sheet"
+                  (ionChange)=" orgUnitUady($event,degreeSelect.value)"
+                  cancel-text="cancelar"
+                  #orgUnitSelect
+                >
+                  <ng-container
+                    *ngIf="!degreeSelect.value; then thenTemplate; else elseTemplate"
+                  ></ng-container>
+                  <ng-template #thenTemplate>
+                    <ion-select-option selected value="">
+                      Primero seleccione el grado de estudio
+                    </ion-select-option>
+                  </ng-template>
+                  <ng-template #elseTemplate>
+                    <ion-select-option selected value="">
+                      Seleccione la escuela o facultad
+                    </ion-select-option>
+                    <ion-select-option
+                      *ngFor="let orgUnit of organizationUnit "
+                      value="{{orgUnit.id}}"
+                    >
+                      {{orgUnit.name}}
+                    </ion-select-option>
+                  </ng-template>
+                </ion-select>
+              </ion-item>
+  
               <ion-item>
-                <ion-label>UADY</ion-label>
-                <ion-radio
-                  mode="ios"
-                  slot="end"
-                  value="1"
-                ></ion-radio>
+                <ion-label>
+                  <h2><strong>Plan de estudios</strong><ion-text color="danger">*<br></ion-text></h2>
+                </ion-label>
+                <ion-select
+                  mode="md"
+                  formControlName="study_programme_id"
+                  value=""
+                  interface="action-sheet"
+  
+                >
+                  <ng-container
+                    *ngIf="!orgUnitSelect.value; then thenTemplate2; else elseTemplate2"
+                  ></ng-container>
+                  <ng-template #thenTemplate2>
+                    <ion-select-option selected value="">
+                      Primero Seleccione la escuela o facultad
+                    </ion-select-option>
+                  </ng-template>
+                  <ng-template #elseTemplate2>
+                    <ion-select-option selected value="">
+                      Seleccione el plan de estudios
+                    </ion-select-option>
+                    <ion-select-option
+                      *ngFor="let studyProgramme of studyProgrammes"
+                      [value]="studyProgramme.id"
+                    >
+                      {{studyProgramme.name}}
+                    </ion-select-option>
+                  </ng-template>
+                </ion-select>
               </ion-item>
               <ion-item>
-                <ion-label>Otro</ion-label>
-                <ion-radio
+                <ion-label>
+                  <h2><strong>Estado</strong><ion-text color="danger">*<br></ion-text></h2>
+                </ion-label>
+                <ion-select
+                  (ionChange)="statusEducation($event)"
+                  formControlName="status_education_id"
                   mode="ios"
-                  slot="end"
-                  value="2"
-                 
-                 
-                ></ion-radio>
+                  interface="popover"
+                >
+                  <ion-select-option selected value="">
+                    Seleccione el estado de tus estudios
+                  </ion-select-option>
+                  <ion-select-option
+                    *ngFor="let statusEd of statusEducations "
+                    value="{{statusEd.id}}"
+                  >
+                    {{statusEd.name}}
+                  </ion-select-option>
+                </ion-select>
               </ion-item>
-            </ion-radio-group>
-          </ion-list>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="12">
-          <ng-container
-            *ngIf="checkedVal.match('1'); then thenTemplateUady else elseTemplateOtro"
-          ></ng-container>
-          <!-- FORM PARA LA OPCION UADY -->
-          <ng-template #thenTemplateUady>
-            <ion-item>
-              <ion-label>
-                <ion-text>
-                  <h2><strong>Dependencia</strong><ion-text color="danger">*<br></ion-text></h2>
-                </ion-text>
-              </ion-label>
-              <ion-select
-                mode="md"
-                formControlName="organization_unit_id"
-                interface="action-sheet"
-                (ionChange)=" orgUnit($event, false,degreeSelect.value)"
-                cancel-text="cancelar"
-                #orgUnitSelect
-              >
-                <ng-container
-                  *ngIf="!degreeSelect.value; then thenTemplate; else elseTemplate"
-                ></ng-container>
-                <ng-template #thenTemplate>
+            </ng-template>
+            <!-- en caso de que sea graduado de una institucion que no es la UADY -->
+            <ng-template #elseTemplateOtro>
+              <ion-item>
+                <ion-label position="stacked">
+                  <ion-text>
+                    <font size="5">
+                      <strong>Nombre del instituto</strong>
+                    </font><ion-text color="danger">*<br></ion-text>
+                  </ion-text>
+                </ion-label>
+                <ion-input
+                  inputmode="text"
+                  formControlName="institution_name"
+                  placeholder="Ingrese el nombre del instituto"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label position="stacked">
+                  <font size="5"
+                    ><strong>Nombre del plan de estudio</strong><ion-text color="danger">*<br></ion-text></font
+                  >
+                </ion-label>
+                <ion-input
+                  formControlName="study_programme_name"
+                  placeholder="Ingrese el nombre del plan de estudio"
+                ></ion-input>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  <h2><strong>Área de estudios</strong><ion-text color="danger">*<br></ion-text></h2>
+                </ion-label>
+                <ion-select
+                  formControlName="subject_area_id"
+                  mode="md"
+                  interface="action-sheet"
+                >
                   <ion-select-option selected value="">
-                    Primero seleccione el grado de estudio
-                  </ion-select-option>
-                </ng-template>
-                <ng-template #elseTemplate>
-                  <ion-select-option selected value="">
-                    Seleccione la escuela o facultad
+                    Seleccione el area de estudios
                   </ion-select-option>
                   <ion-select-option
-                    *ngFor="let orgUnit of organizationUnit "
-                    value="{{orgUnit.id}}"
+                    *ngFor="let subAreas of subjectAreas "
+                    [value]=" subAreas.id "
                   >
-                    {{orgUnit.name}}
+                    {{subAreas.name}}
                   </ion-select-option>
-                </ng-template>
-              </ion-select>
-            </ion-item>
-
-            <ion-item>
-              <ion-label>
-                <h2><strong>Plan de estudios</strong><ion-text color="danger">*<br></ion-text></h2>
-              </ion-label>
-              <ion-select
-                mode="md"
-                formControlName="study_programme_id"
-                value=""
-                interface="action-sheet"
-                (ionChange)="planStudy()"
-              >
-                <ng-container
-                  *ngIf="!orgUnitSelect.value; then thenTemplate2; else elseTemplate2"
-                ></ng-container>
-                <ng-template #thenTemplate2>
+                </ion-select>
+              </ion-item>
+              <ion-item>
+                <ion-label>
+                  <h2><strong>Estado</strong><ion-text color="danger">*<br></ion-text></h2>
+                </ion-label>
+                <ion-select
+                  (ionChange)="statusEducation($event)"
+                  formControlName="status_education_id"
+                  mode="ios"
+                  interface="popover"
+                >
                   <ion-select-option selected value="">
-                    Primero Seleccione la escuela o facultad
-                  </ion-select-option>
-                </ng-template>
-                <ng-template #elseTemplate2>
-                  <ion-select-option selected value="">
-                    Seleccione el plan de estudios
+                    Seleccione el estado de tus estudios
                   </ion-select-option>
                   <ion-select-option
-                    *ngFor="let studyProgramme of studyProgrammes"
-                    [value]="studyProgramme.id"
+                    *ngFor="let statusEd of statusEducations "
+                    value="{{statusEd.id}}"
                   >
-                    {{studyProgramme.name}}
+                    {{statusEd.name}}
                   </ion-select-option>
-                </ng-template>
-              </ion-select>
-            </ion-item>
-            <ion-item>
+                </ion-select>
+              </ion-item>
+            </ng-template>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row>
+          <ion-col size="12">
+            <ion-item detail>
               <ion-label>
-                <h2><strong>Estado</strong><ion-text color="danger">*<br></ion-text></h2>
+                <h2><strong>Fecha de inicio</strong><ion-text color="danger">*<br></ion-text></h2>
               </ion-label>
-              <ion-select
-                (ionChange)="statusEducation($event)"
-                formControlName="status_education_id"
-                mode="ios"
-                interface="popover"
-              >
-                <ion-select-option selected value="">
-                  Seleccione el estado de tus estudios
-                </ion-select-option>
-                <ion-select-option
-                  *ngFor="let statusEd of statusEducations "
-                  value="{{statusEd.id}}"
-                >
-                  {{statusEd.name}}
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ng-template>
-          <!-- en caso de que sea graduado de una institucion que no es la UADY -->
-          <ng-template #elseTemplateOtro>
-            <ion-item>
-              <ion-label position="stacked">
-                <ion-text>
-                  <font size="5">
-                    <strong>Nombre del instituto</strong>
-                  </font><ion-text color="danger">*<br></ion-text>
-                </ion-text>
-              </ion-label>
-              <ion-input
-                inputmode="text"
-                formControlName="institution_name"
-                placeholder="Ingrese el nombre del instituto"
-              ></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="stacked">
-                <font size="5"
-                  ><strong>Nombre del plan de estudio</strong><ion-text color="danger">*<br></ion-text></font
-                >
-              </ion-label>
-              <ion-input
-                formControlName="study_programme_name"
-                placeholder="Ingrese el nombre del plan de estudio"
-              ></ion-input>
-            </ion-item>
-            <ion-item>
+              <ion-datetime
+              done-text="Guardar"
+              cancel-text="Cancelar"
+              min="1970"
+              value = "{{startDate}}"
+              (ionChange)=" onChangeDate($event, 'start')"
+              month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre"
+              displayFormat='MMMM-YYYY'></ion-datetime>
+            </ion-item >
+          </ion-col>
+        </ion-row>
+  
+        <ion-row *ngIf=" statEducation == 1 ">
+          <ion-col size="12">
+            <ion-item detail>
               <ion-label>
-                <h2><strong>Área de estudios</strong><ion-text color="danger">*<br></ion-text></h2>
+                <h2><strong>Fecha de Término</strong><ion-text color="danger">*<br></ion-text></h2>
               </ion-label>
-              <ion-select
-                formControlName="subject_area_id"
-                mode="md"
-                interface="action-sheet"
-              >
-                <ion-select-option selected value="">
-                  Seleccione el area de estudios
-                </ion-select-option>
-                <ion-select-option
-                  *ngFor="let subAreas of subjectAreas "
-                  [value]=" subAreas.id "
-                >
-                  {{subAreas.name}}
-                </ion-select-option>
-              </ion-select>
+              <ion-datetime 
+              done-text="Guardar"
+              cancel-text="Cancelar"
+              min={{minDate}}
+              value=" {{endDate}} "
+              displayFormat='MMMM-YYYY'
+              (ionChange)=" onChangeDate($event,'')"
+              month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre"></ion-datetime>
             </ion-item>
-            <ion-item>
-              <ion-label>
-                <h2><strong>Estado</strong><ion-text color="danger">*<br></ion-text></h2>
-              </ion-label>
-              <ion-select
-                (ionChange)="statusEducation($event)"
-                formControlName="status_education_id"
-                mode="ios"
-                interface="popover"
-              >
-                <ion-select-option selected value="">
-                  Seleccione el estado de tus estudios
-                </ion-select-option>
-                <ion-select-option
-                  *ngFor="let statusEd of statusEducations "
-                  value="{{statusEd.id}}"
-                >
-                  {{statusEd.name}}
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ng-template>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col size="12">
-          <ion-item detail>
-            <ion-label>
-              <h2><strong>Fecha de inicio</strong><ion-text color="danger">*<br></ion-text></h2>
-            </ion-label>
-            <ion-datetime
-            done-text="Guardar"
-            cancel-text="Cancelar"
-            min="1970"
-            value = " {{startDate}} "
-            display-timezone="utc"
-            (ionChange)=" onChangeDate($event, 'start')"
-            month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre"
-            displayFormat='MMMM YYYY'></ion-datetime>
-          </ion-item>
-
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf=" statEducation == 1 ">
-        <ion-col size="12">
-          <ion-item detail>
-            <ion-label>
-              <h2><strong>Fecha de Término</strong><ion-text color="danger">*<br></ion-text></h2>
-            </ion-label>
-            <ion-datetime 
-            done-text="Guardar"
-            cancel-text="Cancelar"
-            min={{minDate}}
-            value=" {{endDate}} "
-            displayFormat='MMMM YYYY'
-            (ionChange)=" onChangeDate($event,'')"
-            month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre"></ion-datetime>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        <ion-col width-50 style="text-align: center" >
-          
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row>
+          <ion-col width-50 style="text-align: center" >
+            
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </form>
+  </div>
+ 
 </ion-content>
 
 <!-- <ion-row>
   <ion-col width-50 style="text-align: center"> -->
     <ion-button
+    *ngIf="showcontent"
     [ngClass]="{'button-disabled ': data.invalid}"
     (click)= "update()"
     class="blue-btn"

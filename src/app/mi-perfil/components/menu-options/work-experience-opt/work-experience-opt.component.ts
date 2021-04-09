@@ -95,6 +95,7 @@ export class WorkExperienceOptComponent implements OnInit {
         // no se laza el evento ionchange al iniciar la vista, por eso se asgina los valores
         this.data.get('wexperienceData').get('year_start').setValue(this.data.get('wexperienceData').get('date_start').value.substr(0, 4));
         this.data.get('wexperienceData').get('month_start').setValue(this.data.get('wexperienceData').get('date_start').value.substr(5, 2));
+        this.data.updateValueAndValidity();
       });
 
     } else {
