@@ -63,6 +63,8 @@ export class AptitudesOptComponent implements OnInit {
   }
 
   async add(text: string) {
+
+
     if (text === '') {
       return;
     }
@@ -92,13 +94,13 @@ export class AptitudesOptComponent implements OnInit {
           this.cvsKillService.getCvSkillExist(this.addData.get('cv_id').value, this.addData.get('skill_list_id').value)
             .subscribe(async cvskill => {
               // verifica si el usuario tiene agregado la skill
-              if (cvskill === 1) {
+              if (cvskill[0] == 1) {
                 // si lo tiene lo regresa a la pagina de skills
-                this.navCtrl.navigateRoot('/mi-perfil/aptitudes');
+                this.navCtrl.navigateRoot('/mi-perfil/home/aptitudes');
               }
               else {
                 // no lo tiene -> se lo agrega
-                const loading = await this.uiService.presentLoading('Actualizando...', 'loading', false);
+                const loading = await this.uiService.presentLoading('Agregando...', 'loading', false);
                 this.cvsKillService.addCvSkill(this.addData.get('cv_id').value,
                   this.addData.get('skill_list_id').value,
                   this.addData.get('skill').value).pipe(
@@ -115,7 +117,8 @@ export class AptitudesOptComponent implements OnInit {
             });
         } else {
           // no existe-> lo agrega a la lista de skills
-          this.addData.get('skill_list_id').setValue(''); // le pone el id al addData
+          //agregar presentLoading
+          this.addData.get('skill_list_id').setValue(''); // le coloca en vacio el id al addData
           this.cvsKillService.addSkill(this.addData.get('skill').value).pipe(
           ).subscribe(cvskill => {
             // ejecuta de nuevo la funcion
@@ -131,7 +134,7 @@ export class AptitudesOptComponent implements OnInit {
     // si hay texto
     text = text.toLowerCase().trim();
     // descarga de nuevo las skill para tener los agregados recientes
-    this.cvsKillService.getSkillListComplete().subscribe(skills => {
+    this.cvsKillService.getSkillListComplete().subscribe( async skills => {
       const skillsadd = skills;
       // filtra el arreglo buscando el valor del texto
       const aux: Skill[] = skillsadd.filter(item => {
@@ -149,7 +152,7 @@ export class AptitudesOptComponent implements OnInit {
         this.cvsKillService.getCvSkillExist(this.addData.get('cv_id').value, this.addData.get('skill_list_id').value)
           .subscribe(cvskill => {
             // verifica si el usuario tiene agregado la skill
-            if (cvskill === 1) {
+            if (cvskill[0] === 1) {
               // si lo tiene lo regresa a la pagina de skills
               this.navCtrl.navigateRoot('/mi-perfil/home/aptitudes');
             }
@@ -163,8 +166,10 @@ export class AptitudesOptComponent implements OnInit {
             }
           });
       } else {
-        // si no lo encuentra lo regresa a la pagina
-        // this.uiService.AlertaOK('Lo sentimos, no se puede agregar esta skill', 'war', '/mi-perfil/mp-aptitudes');
+        let mssge = `<img src="./assets/alerts/war.png" class="card-alert-img">`;
+        let headere = 'Lo sentimos, no se puede agregar esta aptitud';
+        let alerte = await this.uiService.presentAlert2('', headere, mssge, 'alertCancel', 'alertButton', 'ios');
+        let datae = await alerte.onDidDismiss();
       }
 
 

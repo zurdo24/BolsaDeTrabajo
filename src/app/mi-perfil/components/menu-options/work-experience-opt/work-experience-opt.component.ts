@@ -70,6 +70,7 @@ export class WorkExperienceOptComponent implements OnInit {
           this.workExperience.end = this.maxDate;
           this.workExperience.month_end = this.maxDate.substr(5, 2);
           this.workExperience.year_end = this.maxDate.substr(0, 4);
+
         }
         else {
           this.workExperience.is_current_job = false;
@@ -95,7 +96,11 @@ export class WorkExperienceOptComponent implements OnInit {
         // no se laza el evento ionchange al iniciar la vista, por eso se asgina los valores
         this.data.get('wexperienceData').get('year_start').setValue(this.data.get('wexperienceData').get('date_start').value.substr(0, 4));
         this.data.get('wexperienceData').get('month_start').setValue(this.data.get('wexperienceData').get('date_start').value.substr(5, 2));
+
+        this.data.get('wexperienceData').get('year_end').setValue(this.data.get('wexperienceData').get('date_end').value.substr(0, 4));
+        this.data.get('wexperienceData').get('month_end').setValue(this.data.get('wexperienceData').get('date_end').value.substr(5, 2));
         this.data.updateValueAndValidity();
+
       });
 
     } else {
