@@ -64,7 +64,7 @@
                                         </ion-text>
                                     </ion-label>
                                     <ion-datetime  done-text="Guardar"
-              cancel-text="Cancelar"  formControlName="birth_date" placeholder="yyyy-mm-dd" display-format="DD MMMM YYYY" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" min="1956-04-08" max="2003-04-08" > </ion-datetime>
+              cancel-text="Cancelar" max="{{maxYear}}" min="{{minYear}}" formControlName="birth_date" placeholder="yyyy-mm-dd" display-format="DD MMMM YYYY" month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre" min="1956-04-08" max="2003-04-08" > </ion-datetime>
                                 </ion-item>
                                 <ion-item>
                                     <ion-label position="stacked">

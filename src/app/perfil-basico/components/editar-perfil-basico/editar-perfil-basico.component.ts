@@ -31,8 +31,9 @@ export class EditarPerfilBasicoComponent implements OnInit {
   stateId: string;
   // --------------------
   updateData: FormGroup;
-  // ----------------------
-
+  // ---------- limite para la fecha de cumpleaños------------
+  maxYear: any;
+  minYear: any;
   // ----- Variables para los erroress
   first = false;
   firstSate = false;
@@ -49,6 +50,11 @@ export class EditarPerfilBasicoComponent implements OnInit {
   }
 
   ngOnInit() {
+    const date = moment();
+    const minYear = date.year() - 18;
+    this.maxYear = minYear;
+    this.minYear = date.year() - 65;
+
     this.disccService.seturl('/perfil-basico/editar-perfil-basico');
     getStorage('candidate').then(candidate => {
       this.candidate = candidate;

@@ -270,7 +270,7 @@ export class AcademicTrainingOptComponent implements OnInit {
         institution: new FormControl(institution, Validators.required),
         cv_id: new FormControl(education.cv_id),
         degree_id: new FormControl(education.degree_id, Validators.required),
-        institution_name: new FormControl(education.institution_name),
+        institution_name: new FormControl(education.institution_name, Validators.maxLength(175)),
         study_programme_id: new FormControl(education.study_programme_id, Validators.required),
         study_programme_name: new FormControl(education.study_programme_name),
         subject_area_id: new FormControl(education.subject_area_id),
@@ -281,6 +281,7 @@ export class AcademicTrainingOptComponent implements OnInit {
         year_end: new FormControl(dateEnd.year().toString()),
         organization_unit_id: new FormControl(organizationunitid, Validators.required),
       });
+      this.data.controls.institution_name.updateValueAndValidity();
       return;
     }
     this.data = new FormGroup({
@@ -307,7 +308,7 @@ export class AcademicTrainingOptComponent implements OnInit {
       institution: new FormControl(this.checkedinit, Validators.required),
       cv_id: new FormControl(idCandidate),
       degree_id: new FormControl('', Validators.required),
-      institution_name: new FormControl(),
+      institution_name: new FormControl('', Validators.maxLength(175)),
       study_programme_id: new FormControl('', Validators.required),
       study_programme_name: new FormControl(),
       subject_area_id: new FormControl(),
