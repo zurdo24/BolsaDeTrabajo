@@ -190,7 +190,35 @@ export class VacantComponent implements OnInit {
                 finalize(async () => {
                   await load.dismiss();
                   setTimeout(() => {
-                    this.navCtrl.navigateRoot('/vacants', { animated: true });
+
+                    // this.navCtrl.navigateRoot('/vacants', { animated: true });
+                    switch (this.from) {
+                      case 'c'://chat
+                        if (this.organization != null) {
+                          this.navCtrl.navigateRoot('/messages/chat/${this.organization.contact_id}', { animated: true });
+                        } else {
+                          this.navCtrl.navigateRoot('/messages', { animated: true });
+                        }
+                        break;
+                      case 'v'://buscar vacantes
+                          this.navCtrl.navigateRoot('/vacants', { animated: true });
+                        break;
+                      case 'o':
+                          this.navCtrl.navigateRoot('/opportunities', { animated: true });
+                        break;
+                      case 'p':
+                          this.navCtrl.navigateRoot('/postulations', { animated: true });
+                        break;
+                      default:
+                          this.navCtrl.navigateRoot('/vacants', { animated: true });
+
+                        break;
+                    }
+
+
+
+
+
                   }, 500);
                 })
               ).subscribe(() => {
@@ -212,9 +240,9 @@ export class VacantComponent implements OnInit {
 
   }
 
-  imprimir() {
-    this.addMessage.get('date_sent').setValue(this.getNowDate());
-  }
+  // imprimir() {
+  //   this.addMessage.get('date_sent').setValue(this.getNowDate());
+  // }
 
   initForm() {
     this.addMessage = new FormGroup({
@@ -231,57 +259,57 @@ export class VacantComponent implements OnInit {
     });
   }
 
-  getNowDate() {
-    var date = new Date(); //Fecha actual
-    var monthN = date.getMonth() + 1; //obteniendo mes
-    var dayN = date.getDate(); //obteniendo dia
-    var year = date.getFullYear(); //obteniendo año
-    var HH = date.getHours();
-    var MM = date.getMinutes();
-    var SS = date.getSeconds();
-    var day;
-    var month;
-    var HHH;
-    var MMM;
-    var SSS;
-    //horas
-    if (HH < 10)
-      HHH = '0' + HH.toString(); //agrega cero si el menor de 10
-    else
-      HHH = HH;
+  // getNowDate() {
+  //   var date = new Date(); //Fecha actual
+  //   var monthN = date.getMonth() + 1; //obteniendo mes
+  //   var dayN = date.getDate(); //obteniendo dia
+  //   var year = date.getFullYear(); //obteniendo año
+  //   var HH = date.getHours();
+  //   var MM = date.getMinutes();
+  //   var SS = date.getSeconds();
+  //   var day;
+  //   var month;
+  //   var HHH;
+  //   var MMM;
+  //   var SSS;
+  //   //horas
+  //   if (HH < 10)
+  //     HHH = '0' + HH.toString(); //agrega cero si el menor de 10
+  //   else
+  //     HHH = HH;
 
-    if (MM < 10)
-      MMM = '0' + MM.toString(); //agrega cero si el menor de 10
-    else
-      MMM = MM;
+  //   if (MM < 10)
+  //     MMM = '0' + MM.toString(); //agrega cero si el menor de 10
+  //   else
+  //     MMM = MM;
 
-    if (SS < 10)
-      SSS = '0' + SS.toString(); //agrega cero si el menor de 10
-    else
-      SSS = SS;
-
-
+  //   if (SS < 10)
+  //     SSS = '0' + SS.toString(); //agrega cero si el menor de 10
+  //   else
+  //     SSS = SS;
 
 
-    if (dayN < 10)
-      day = '0' + dayN; //agrega cero si el menor de 10
-    else
-      day = dayN;
 
-    if (monthN < 10)
-      month = '0' + monthN; //agrega cero si el menor de 10
-    else
-      month = monthN;
 
-    return year + '-' + month + '-' + day + ' ' + HHH + ':' + MMM + ':' + SSS;
-  }
+  //   if (dayN < 10)
+  //     day = '0' + dayN; //agrega cero si el menor de 10
+  //   else
+  //     day = dayN;
+
+  //   if (monthN < 10)
+  //     month = '0' + monthN; //agrega cero si el menor de 10
+  //   else
+  //     month = monthN;
+
+  //   return year + '-' + month + '-' + day + ' ' + HHH + ':' + MMM + ':' + SSS;
+  // }
 
 
 
   async presentToast(type: string) {
     switch (type) {
       case 'invitation':
-        var message = 'El contacto de esta vacante te ha enviado una invitacion';
+        var message = 'El contacto de esta vacante te ha enviado una invitación';
         break;
       case 'application':
         var message = 'Ya te encuentras postulado en esta vacante';

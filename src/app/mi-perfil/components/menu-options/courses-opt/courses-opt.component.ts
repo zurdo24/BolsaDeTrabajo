@@ -7,7 +7,7 @@ import { CourseModeService } from 'src/app/mi-perfil/services/course-mode.servic
 import { Course, CourseMode } from 'src/app/shared/interfaces';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
-import { NavController } from '@ionic/angular';
+import { NavController ,ToastController } from '@ionic/angular';
 import { getStorage } from 'src/app/shared/services/storage.service';
 
 @Component({
@@ -33,7 +33,7 @@ export class CoursesOptComponent implements OnInit {
   showcontent = true;
   constructor(private route: ActivatedRoute,  private uiService: UiService,
               private courseService: CourseService, private navCtrl: NavController,
-              private courseModeService: CourseModeService ) {
+              private courseModeService: CourseModeService,private toastController: ToastController ) {
                 this.initForm();
                }
 
@@ -80,6 +80,8 @@ export class CoursesOptComponent implements OnInit {
   async addCourse(){
     let header = '';
     let mssg = '';
+
+    // console.log(this.data.value)
     // console.log(this.data.get('hours').value)
     // console.log(this.data.get('hours').value.toString())
 
@@ -110,7 +112,7 @@ export class CoursesOptComponent implements OnInit {
         this.courseService.updateCourse(
           this.data.get('id').value,
             this.data.get('name').value,
-            this.data.get('hours').value.toString(),
+            this.data.get('hours').value,
             this.data.get('institution').value,
             this.data.get('mode').value,
             this.data.get('start').value,
@@ -130,7 +132,7 @@ export class CoursesOptComponent implements OnInit {
       this.courseService.addCourse(
         this.data.get('cv_id').value,
         this.data.get('name').value,
-        this.data.get('hours').value.toString(),
+        this.data.get('hours').value,
         this.data.get('institution').value,
         this.data.get('mode').value,
         this.data.get('start').value,
@@ -194,6 +196,18 @@ export class CoursesOptComponent implements OnInit {
     });
   }
 
+  validarHour(){
+    // console.log(this.data)
+    if (this.data.get('hours').value=='0' || this.data.get('hours').value=='00' || this.data.get('hours').value=='000'){
+      this.presentToast(this.data.get('hours').value)
+      this.data.controls.hours.setValue('')
+    }
+    else{
+      this.addCourse()
+    }
+
+  }
+
   initdataEdit(){
 
     this.data = new FormGroup({
@@ -207,5 +221,17 @@ export class CoursesOptComponent implements OnInit {
       end: new FormControl(this.course.end),
     });
   }
+
+  async presentToast(hour: string) {
+    
+    var message = 'El número de horas no puede ser '+hour;
+
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
 
 }

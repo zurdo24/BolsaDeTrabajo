@@ -48,7 +48,8 @@ const routes: Routes = [
   },
   {
     path: 'access',
-    loadChildren: () => import('./acceso/pages/access/access.module').then( m => m.AccessPageModule)
+    loadChildren: () => import('./acceso/pages/access/access.module').then( m => m.AccessPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'prueb',
