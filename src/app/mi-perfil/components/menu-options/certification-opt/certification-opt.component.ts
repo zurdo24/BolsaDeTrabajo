@@ -109,11 +109,12 @@ export class CertificationOptComponent implements OnInit {
       })
     ).subscribe(() => {});
   }
+  
   dataEdit(certification: Certification) {
     this.createCertication = new FormGroup({
       cv_id: new FormControl(certification.cv_id),
-      organization: new FormControl(certification.organization),
-      name: new FormControl(certification.name, Validators.required),
+      organization: new FormControl(certification.organization,Validators.maxLength(175)),
+      name: new FormControl(certification.name, [ Validators.required, Validators.maxLength(45)]),
       subject_area_id: new FormControl(certification.subject_area_id),
       date_received: new FormControl(certification.date_received),
       date_expire: new FormControl(certification.date_expire),
@@ -123,8 +124,8 @@ export class CertificationOptComponent implements OnInit {
   initForm() {
     this.createCertication = new FormGroup(  {
       cv_id: new FormControl(),
-      organization: new FormControl(),
-      name: new FormControl( '', Validators.required),
+      organization: new FormControl('',Validators.maxLength(175)),
+      name: new FormControl( '',[ Validators.required, Validators.maxLength(45)]),
       subject_area_id: new FormControl(),
       date_received: new FormControl(),
       date_expire: new FormControl(),

@@ -21,7 +21,16 @@
      <ion-textarea  (ionChange)="find($event)" value={{textFinder}}  placeholder="Ingrese su aptitud
      "  auto-grow=true></ion-textarea>
     </ion-item>
-  
+    
+    <div class="ion-padding-start">
+            <ion-text color="danger" *ngIf="addData.get('skill').hasError('maxlength')">
+          <small> Aptitud debería contener como máximo 175 letras.</small> 
+            </ion-text><br>
+          </div>
+
+
+
+
     <ion-list *ngIf="textFinder!=''">
       <ion-item *ngFor=" let i of skills| filtro : textFinder : 'skill'|slice:0:valend" (click)="asignar(i.skill,i.id)">
         {{i.skill}}
@@ -30,10 +39,40 @@
   
   
   </div>
+
+<!-- 
+  <ion-button  class="blue-btn" type="submit" 
+          [ngClass]="{ 'button-disabled': addData.invalid }"
+            (click)= "add(textFinder)" size="large">Aceptar</ion-button>     -->
 </ion-content>
     <!-- <ion-row  class="ion-align-items-end" fixed=true> -->
         <!-- <ion-col width-50 style="text-align: center"> -->
+          <!-- <div *ngIf="skills!=null"> -->
+          <!-- [ngClass]="{ 'button-disabled': addData.invalid }" -->
+            
           <ion-button  class="blue-btn" type="submit" 
-            (click)= "add(textFinder)" size="large">Aceptar</ion-button>    
+            (click)= "add(textFinder)" size="large">Aceptar</ion-button>     
+
+          <!-- </div> -->
       <!-- </ion-col> -->
     <!-- </ion-row> -->
+
+<!-- 
+    <ion-button
+  
+  [ngClass]="{ 'button-disabled': createCertication.invalid }"
+  class="blue-btn"
+  expand="block"
+  (click)="submit()"
+  size="large"
+  >{{ btnText }}</ion-button> -->
+<!--   <ion-button
+  *ngIf="showcontent && addData != undefined"
+  [ngClass]="{ 'button-disabled': addData.invalid }"
+  class="blue-btn"
+  type="submit"
+  expand="block"
+  (click)="validarHour()"
+  size="large"
+  >Aceptar</ion-button
+> -->

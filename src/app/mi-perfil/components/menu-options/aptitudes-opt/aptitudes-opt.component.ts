@@ -41,7 +41,7 @@ export class AptitudesOptComponent implements OnInit {
         // id : new FormControl(''),//no se usa
         cv_id: new FormControl(candidateId),
         skill_list_id: new FormControl(''),
-        skill: new FormControl('', [Validators.required]),
+        skill: new FormControl('', [ Validators.required, Validators.maxLength(175)]),
       });
     });
   }
@@ -65,7 +65,7 @@ export class AptitudesOptComponent implements OnInit {
   async add(text: string) {
 
 
-    if (text === '') {
+    if (text === '' || text.length>175) {
       return;
     }
     const mssg = `<img src="./assets/alerts/info.png" class="card-alert-img">`;

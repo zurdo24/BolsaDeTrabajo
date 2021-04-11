@@ -24,8 +24,13 @@
           </ion-item>
 
           <div class="ion-padding-start">
-            <ion-text color="danger" *ngIf="createCertication.get('name').invalid">
+            <ion-text color="danger" *ngIf="createCertication.get('name').hasError('required')">
               <small> Nombre de la certificación no puede estar vacío.</small> 
+            </ion-text><br>
+          </div>
+          <div class="ion-padding-start">
+            <ion-text color="danger" *ngIf="createCertication.get('name').hasError('maxlength')">
+          <small> El máximo de caracteres es de 45.</small> 
             </ion-text><br>
           </div>
         </ion-col>
@@ -40,6 +45,11 @@
               placeholder="Ingrese el nombre de la organización"
             ></ion-input>
           </ion-item>
+            <div class="ion-padding-start">
+              <ion-text color="danger" *ngIf="createCertication.get('organization').hasError('maxlength')">
+                <small> El máximo de caracteres es de 175.</small> 
+              </ion-text><br>
+            </div>
         </ion-col>
 
         <ion-col size="12">
