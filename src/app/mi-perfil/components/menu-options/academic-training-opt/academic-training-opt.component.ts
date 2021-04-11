@@ -27,6 +27,7 @@ export class AcademicTrainingOptComponent implements OnInit {
   // =====
   minDate: any;
   startDate: any;
+  minStartYear: any;
   endDate: any;
   // ============
   statEducation: number;
@@ -59,6 +60,9 @@ export class AcademicTrainingOptComponent implements OnInit {
     // }
   }
   async ngOnInit() {
+    const date = moment();
+    const minYear = date.year() - 50;
+    this.minStartYear = minYear;
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
     // ======== Servicios para llenar los objetos ========= //
     // llena el objeto degrees con todos los degrees - tabla degree
@@ -192,11 +196,6 @@ export class AcademicTrainingOptComponent implements OnInit {
   }
 
   async update() {
-    if (this.data.pristine) {
-      this.navCtrl.navigateRoot('/mi-perfil/home/academic-training', { animated: true });
-      return;
-    }
-
     let header = '';
     let mssg = '';
     if (this.isUpdate){
@@ -320,6 +319,9 @@ export class AcademicTrainingOptComponent implements OnInit {
       organization_unit_id: new FormControl(Validators.required),
     });
     const date = moment();
+    // const minYear = date.year() - 50;
+    // this.minStartYear = minYear;
+    // console.log(minDate);
     this.startDate = date;
     this.data.controls.year_start.setValue(date.year().toString());
     this.data.controls.month_start.setValue((date.month() + 1).toString());

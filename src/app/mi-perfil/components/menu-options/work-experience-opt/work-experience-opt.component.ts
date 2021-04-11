@@ -21,6 +21,7 @@ export class WorkExperienceOptComponent implements OnInit {
   now = new Date(); // calcula la fecha actual
   minDate: string; // pone los datos de las fechas en minimos
   maxDate: string;
+  minStartYear: any; // el año minimo
   workExperience: WorkExperience;
   lineBusiness: LineBusiness;
   noww = moment();
@@ -44,6 +45,9 @@ export class WorkExperienceOptComponent implements OnInit {
   }
 
   async ngOnInit() {
+    const date = moment();
+    const minYear = date.year() - 50;
+    this.minStartYear = minYear;
     document.getElementById('tabs').classList.add('hidden', 'scale-out-center');
     // recupera la id enviada como parametro (app-routing)
     this.id = this.route.snapshot.paramMap.get('id');

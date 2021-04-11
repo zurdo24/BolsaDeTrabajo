@@ -242,7 +242,7 @@
               <ion-datetime
               done-text="Guardar"
               cancel-text="Cancelar"
-              min="1970"
+              min="{{minStartYear}}"
               value = "{{startDate}}"
               (ionChange)=" onChangeDate($event, 'start')"
               month-names="Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiempre, Octubre, Noviembre, Diciembre"
