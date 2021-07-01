@@ -12,7 +12,7 @@ export class CertificationService {
   constructor(private http: HttpClient) { }
 
   getCertifications(id: string): Observable <object> {
-    return this.http.get<Certification>(`${this.URL}/api/certification/search/?id=${id}`);
+    return this.http.get<Certification>(`${this.URL}/api/certification/find-by-cv/?cvId=${id}`);
   }
   getCertificationByIdCertification(id: string) {
     return this.http.get<Certification>(`${this.URL}/api/certifications/${id}`);

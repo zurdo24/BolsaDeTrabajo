@@ -11,7 +11,7 @@ export class EducationService {
   URL = environment.url;
   constructor(private http: HttpClient) { }
   getEducation(id: string): Observable <object> {
-    return this.http.get<AcademicTraining[]>(`${this.URL}/api/education/search/?id=${id}`);
+    return this.http.get<AcademicTraining[]>(`${this.URL}/api/education/find-by-cv/?cvId=${id}`);
   }
   getEducationById(id: string) {
     return this.http.get<Education>(`${this.URL}/api/educations/${id}`);
@@ -27,7 +27,7 @@ export class EducationService {
   }
 
   getEducationVacants(id: string) {
-    return this.http.get<AcademicTraining[]>(`${this.URL}/api/education/get-form-academic/?id=${id}`);
+    return this.http.get<AcademicTraining[]>(`${this.URL}/api/education/form-academic-by-cv/?cvId=${id}`);
   }
 
 }

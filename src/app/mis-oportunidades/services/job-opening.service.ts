@@ -13,7 +13,7 @@ export class JobOpeningService {
 
   // retorna una lista de todos los trabajos con estado =1=open
   getJobsListOpen(){
-    return this.http.get<JobsOpening>(`${this.URL}/api/job-opening/jobs-list-open`);
+    return this.http.get<JobsOpening>(`${this.URL}/api/job-opening/jobs-open`);
   }
 
   getJobOpening(id: string){

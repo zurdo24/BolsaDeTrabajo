@@ -13,7 +13,7 @@ export class CourseService {
 
   // regresa una lista de los cursos de un usuario
   getCoursesComplete(id: string): Observable <object>{
-    return this.http.get<Course>(`${this.URL}/api/course/course-list/?id=${id}`);
+    return this.http.get<Course>(`${this.URL}/api/course/courses-by-cv/?cvId=${id}`);
   }
 
   // regresa un curso de un usuario

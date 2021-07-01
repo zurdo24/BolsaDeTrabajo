@@ -27,7 +27,7 @@ export class MessageService {
     // http://localhost:8080/api/message/get-chat/?s=86&g=105
     // regresa la conversacion entre el contacto y el usuario
     getChat( id: string, contact_id: string){
-      return this.http.get<Message>(`${this.URL}/api/message/get-chat/?s=${id}&g=${contact_id}`);
+      return this.http.get<Message>(`${this.URL}/api/message/chat/?fromUserId=${id}&toUserId=${contact_id}`);
     }
 
     // actualiza: coloca la fecha a un mensaje que tenga null en su columna date_read

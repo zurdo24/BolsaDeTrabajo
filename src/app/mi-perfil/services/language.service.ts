@@ -15,17 +15,17 @@ export class LanguageService {
   // http://localhost:8080/api/language/lang-complete/?id=86
   // regresa una lista de los lenguajes de un usuario con el nombre del idioma y el nivel
   getLanguagesComplete(id: string): Observable <object>{
-    return this.http.get<Language>(`${this.URL}/api/language/lang-complete/?id=${id}`);
+    return this.http.get<Language>(`${this.URL}/api/language/find-languages-by-cv/?cvId=${id}`);
   }
 
   // regresa 1 si el lenguaje existe y 0 en caso contrario
   getLanguageExist(cv_id: string, language: string){
-    return this.http.get<Language>(`${this.URL}/api/language/language-exist/?us=${cv_id}&lang=${language}`);
+    return this.http.get<Language>(`${this.URL}/api/language/exist/?cvId=${cv_id}&languageListId=${language}`);
   }
 
   // regresa una lista de los lenguajes de un usuario solo con los id del idioma y lenguajes
   getLanguages(id: string){
-    return this.http.get<Language>(`${this.URL}/api/language/language-list/?id=${id}`);
+    return this.http.get<Language>(`${this.URL}/api/language/find-by-cv/?cvId=${id}`);
   }
 
     // regresa un lenguaje de un usuario

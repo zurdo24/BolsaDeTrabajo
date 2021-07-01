@@ -12,6 +12,6 @@ export class OpeningLanguageService {
   
   // http://localhost:8080/api/opening-language/opening-languages/?id=6092
   getOpeningLanguage(id: string) {
-    return this.http.get<OpeningLanguage>(`${this.URL}/api/opening-language/opening-languages/?id=${id}`);
+    return this.http.get<OpeningLanguage>(`${this.URL}/api/opening-language/find-by-job-opening/?jobOpeningId=${id}`);
   }
 }

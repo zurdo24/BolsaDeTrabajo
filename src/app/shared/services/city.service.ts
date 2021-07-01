@@ -19,6 +19,6 @@ export class CityService {
 
   // regresa una lista de ciudades de acuerdo a la id de estado
   getCitiesByState(id: string) {
-    return this.http.get<City>(`${this.URL}/api/city/lists/?id=${id}`);
+    return this.http.get<City>(`${this.URL}/api/city/cities-by-state/?stateId=${id}`);
   }
 }

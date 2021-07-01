@@ -28,7 +28,7 @@ export class JobApplicationStatusLogService {
   // agrega un mensaje
   // http://localhost:8080/api/job-application-status-log/get-list/?id=86
   getContacts(id: string ) {
-    return this.http.get<contactsChat>(`${this.URL}/api/job-application-status-log/get-list/?id=${id}`);
+    return this.http.get<contactsChat>(`${this.URL}/api/job-application-status-log/find-contacts-by-cv/?cvId=${id}`);
   }
 
   // se utiliza en la pagina de  postulaciones

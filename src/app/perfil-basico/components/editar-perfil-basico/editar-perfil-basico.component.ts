@@ -43,9 +43,9 @@ export class EditarPerfilBasicoComponent implements OnInit {
   skeletonView = true;
   perfilBasico: PerfilBasicoPage;
   constructor(private countryService: CountryService, private cityService: CityService, private stateService: StateService,
-    private organizationUnitService: OrganizationUnitService,
-    private candidateService: CandidateService, private uiService: UiService,
-    private navCtrl: NavController, private disccService: DisconnectedService) {
+              private organizationUnitService: OrganizationUnitService,
+              private candidateService: CandidateService, private uiService: UiService,
+              private navCtrl: NavController, private disccService: DisconnectedService) {
     this.initForm();
   }
 
@@ -77,7 +77,7 @@ export class EditarPerfilBasicoComponent implements OnInit {
                 }, 500);
               })
             ).subscribe(cities => {
-              this.cities =  cities[0];
+              this.cities =  cities;
               setTimeout(() => {
                 this.dataEdit();
               }, 500);
@@ -211,7 +211,7 @@ export class EditarPerfilBasicoComponent implements OnInit {
     }
     // console.log( this.updateData.controls.city_id);
     this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
-        this.cities = cities[0];
+        this.cities = cities;
     });
   }
   onChangeCity(event) {
