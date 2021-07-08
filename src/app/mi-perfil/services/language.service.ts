@@ -47,7 +47,7 @@ export class LanguageService {
 
     // elimina un lenguaje
   deleteLanguage(id: string){
-    return this.http.delete<Language>(`${this.URL}/api/languages/${id}`);
+    return this.http.post<Language>(`${this.URL}/api/language/delete-language?id=${id}`, null);
   }
 
   // =========lista de lenguajes ============ //

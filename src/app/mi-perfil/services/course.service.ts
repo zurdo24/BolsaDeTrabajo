@@ -35,7 +35,7 @@ export class CourseService {
 
   // elimina un curso
   deleteCourse(id: string): Observable <object>{
-    return this.http.delete<Course>(`${this.URL}/api/courses/${id}`);
+    return this.http.post<any>(`${this.URL}/api/course/delete-course?id=${id}`, null);
   }
 
 }

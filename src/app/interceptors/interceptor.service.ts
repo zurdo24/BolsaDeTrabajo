@@ -53,13 +53,13 @@ export class InterceptorService implements HttpInterceptor {
           if (!request.headers.has('Content-Type')) {
             request = request.clone({
               setHeaders: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
               }
               // headers: request.headers.set('Content-Type', 'application/json')
             });
           }
           request = request.clone({
-            headers: request.headers.set('Accept', 'application/json')
+            headers: request.headers.set('Accept', 'application/json', )
           });
           return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {

@@ -60,7 +60,7 @@ export class WorkExperienceService {
   }
   // elimina una workexperience segun su id
   deleteWorkExperience(id: string): Observable <object>{
-    return this.http.delete<WorkExperience>(`${this.URL}/api/work-experiences/${id}`);
+    return this.http.post<any>(`${this.URL}/api/work-experience/delete-work-experience?id=${id}`, null);
   }
 
 }

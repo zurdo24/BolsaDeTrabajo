@@ -17,9 +17,9 @@ export class CandidateService {
     return this.http.get<Candidate>(`${this.URL}/api/candidates/${id}`);
   }
 
-  getPhoto(id: string){
-    return this.http.get<Candidate>(`${this.URL}/api/candidate/view-photo/?id=${id}`);
-  }
+  // getPhoto(id: string): Observable<Blob> {
+  //   return this.http.get<any>(`${this.URL}/api/candidate/view-photo/?id=${id}`, { responseType:  'blob'});
+  // }
 
   updateCandidate(id: string, data: any): Observable<object>{
     return this.http.put(`${this.URL}/api/candidates/${id}`, data);
@@ -43,5 +43,9 @@ export class CandidateService {
   }
   setUrl(url: string){
     this.URL = url;
+  }
+
+  getPhoto(id: string): Observable<Blob> {
+    return this.http.get(`${this.URL}/api/candidate/view-photo/?id=${id}`, { responseType: 'blob' });
   }
 }

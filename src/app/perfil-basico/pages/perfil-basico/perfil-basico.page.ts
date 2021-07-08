@@ -40,6 +40,8 @@ export class PerfilBasicoPage implements OnInit {
   user: User = {};
   cv: Cv = {};
   isConnected = false;
+
+  imageToShow: any;
   menucom = new MenuComponent(this.uiService, this.navCtrl);
   constructor(private cityService: CityService, private stateService: StateService, private countryService: CountryService,
               private organizationunitService: OrganizationUnitService, private cvService: CvService,
@@ -52,10 +54,11 @@ export class PerfilBasicoPage implements OnInit {
 
   ngOnInit() {
     getStorage('id').then( candidateId => {
-
       this.candService.setUrl(environment.url);
       this.userService.setUrl(environment.url);
-
+      this.candService.getPhoto(candidateId).subscribe( data => {
+        this.createImageFromBlob(data);
+      } );
       this.userService.getUser(candidateId).subscribe(user => {
         this.user = user;
         this.candService.getCandidate(candidateId).subscribe(candidate => {
@@ -141,6 +144,14 @@ export class PerfilBasicoPage implements OnInit {
     this.navCtrl.navigateRoot('/perfil-basico/editar-cv', { animated: true });
   }
 
-
+  createImageFromBlob(image: Blob) {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
+       this.imageToShow = reader.result;
+    }, false);
+    if (image) {
+       reader.readAsDataURL(image);
+    }
+ }
 
 }

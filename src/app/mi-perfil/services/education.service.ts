@@ -23,7 +23,7 @@ export class EducationService {
     return this.http.put(`${this.URL}/api/educations/${id}`, data);
   }
   DeleteEducation(id: string): Observable <object> {
-    return this.http.delete(`${this.URL}/api/educations/${id}`);
+    return this.http.post(`${this.URL}/api/education/delete-education?id=${id}`, null);
   }
 
   getEducationVacants(id: string) {

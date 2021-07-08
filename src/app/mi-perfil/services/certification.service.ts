@@ -22,7 +22,7 @@ export class CertificationService {
   }
 
   DeleteCertification(id: string) {
-    return this.http.delete(`${this.URL}/api/certifications/${id}`);
+    return this.http.post(`${this.URL}/api/certification/delete-certification?id=${id}`, null);
   }
 
   updateCertification(id: string, data: any) {
