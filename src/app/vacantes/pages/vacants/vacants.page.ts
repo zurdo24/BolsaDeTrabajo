@@ -50,7 +50,7 @@ export class VacantsPage implements OnInit {
         if (Object.keys(this.academicTraining).length > 0) {
           this.showVacants = true;
           this.jobOpeningService.getJobsListOpen().subscribe(jobs => {
-            // console.log(jobs)
+            console.log(jobs)
             this.jobsOpening = jobs;
             this.total = Object.keys(jobs).length;
           });

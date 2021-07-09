@@ -12,7 +12,7 @@ import { StateService } from 'src/app/shared/services/state.service';
 import { environment } from 'src/environments/environment';
 import { CandidateService } from '../../services/candidate.service';
 import { NavController } from '@ionic/angular';
-import { getStorage } from 'src/app/shared/services/storage.service';
+import { getStorage,setStorage } from 'src/app/shared/services/storage.service';
 import { DisconnectedService } from './../../../shared/services/disconnected.service';
 
 
@@ -46,23 +46,49 @@ export class PerfilBasicoPage implements OnInit {
   constructor(private cityService: CityService, private stateService: StateService, private countryService: CountryService,
               private organizationunitService: OrganizationUnitService, private cvService: CvService,
               private userService: UserService, private candService: CandidateService, private uiService: UiService,
-              private disccService: DisconnectedService, private navCtrl: NavController, private appComponent: AppComponent) { }
+              private disccService: DisconnectedService, private navCtrl: NavController, private appComponent: AppComponent) { 
+              }
 
   ionViewWillEnter(){
     this.disccService.seturl('/perfil-basico')
   }   
 
+
+  chargeImg(){
+ 
+        if (this.candidate.photo == null) {
+            this.imageToShow = './assets/image/' + this.candidate.sex + '.png';
+            setStorage('imageToShow', this.imageToShow);
+            // this.appComponent.setphotoRout(this.imageToShow);
+            // console.log("ESTE CANDIDATO NO TIENE IMAGEN")
+            this.appComponent.chargeIMG()
+
+          } else {
+            // this.photoRout = this.photoRoutbase + this.candidate.photo;
+            this.candService.getPhoto(this.candidate.user_id).subscribe( data => {
+              this.createImageFromBlob(data);
+              // setStorage('imageToShow', this.imageToShow);
+              // this.appComponent.setphotoRout(this.imageToShow);
+              // console.log("ESTE CANDIDATO SIII TIENE IMAGEN")
+              this.appComponent.chargeIMG()
+
+            })
+          }
+   
+  }
+
+
+
   ngOnInit() {
-    getStorage('id').then( candidateId => {
+    getStorage('candidate').then( candidate => {
       this.candService.setUrl(environment.url);
       this.userService.setUrl(environment.url);
-      this.candService.getPhoto(candidateId).subscribe( data => {
-        this.createImageFromBlob(data);
-      } );
-      this.userService.getUser(candidateId).subscribe(user => {
+
+      this.userService.getUser(candidate.user_id).subscribe(user => {
         this.user = user;
-        this.candService.getCandidate(candidateId).subscribe(candidate => {
+        this.candService.getCandidate(candidate.user_id).subscribe(candidate => {
           this.candidate = candidate;
+          this.chargeImg() //CARGAR IMAGEN
           this.appComponent.setCandidateInfo(candidate);
           this.translateInfo();
           // carga del curriculum
@@ -107,13 +133,13 @@ export class PerfilBasicoPage implements OnInit {
       }
     }
 
-    if (this.candidate.photo == null) {
-      this.photoRout = './assets/image/' + this.candidate.sex + '.png';
-      this.appComponent.setphotoRout(this.photoRout);
-    } else {
-      this.photoRout = this.photoRoutbase + this.candidate.photo;
-      this.appComponent.setphotoRout(this.photoRout);
-    }
+    // if (this.candidate.photo == null) {
+    //   this.photoRout = './assets/image/' + this.candidate.sex + '.png';
+    //   this.appComponent.setphotoRout(this.photoRout);
+    // } else {
+    //   this.photoRout = this.photoRoutbase + this.candidate.photo;
+    //   this.appComponent.setphotoRout(this.photoRout);
+    // }
 
     this.edad = this.calculateAge(this.candidate.birth_date).toString();
     this.organizationunitService.getOrganizationUnit(this.candidate.organization_unit_id).subscribe(organizationunit => {
@@ -146,8 +172,10 @@ export class PerfilBasicoPage implements OnInit {
 
   createImageFromBlob(image: Blob) {
     const reader = new FileReader();
+    // console.log("SE EJECUTA ESTO")
     reader.addEventListener('load', () => {
        this.imageToShow = reader.result;
+       setStorage('imageToShow', this.imageToShow);
     }, false);
     if (image) {
        reader.readAsDataURL(image);
