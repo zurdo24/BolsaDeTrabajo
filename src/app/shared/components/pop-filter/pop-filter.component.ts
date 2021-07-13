@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { PopoverController, NavParams } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators';
 import { StudyProgrammeService } from 'src/app/mi-perfil/services/study-programme.service';
 import { SubjectAreaService } from 'src/app/mi-perfil/services/subject-area.service';
 import { JobType, StudyPrograme, SubjectArea } from '../../interfaces';
+import { CityService } from '../../services/city.service';
 import { JobTypeService } from '../../services/job-type.service';
 import { UiService } from '../../services/ui.service';
 
@@ -24,7 +25,7 @@ export class PopFilterComponent implements OnInit {
               private subjectAreaService: SubjectAreaService,
               private studyProgrammeService: StudyProgrammeService,
               private popoverCtrl: PopoverController,
-              public navParams: NavParams, private uiService: UiService) {
+              private cityService: CityService, private uiService: UiService) {
                 this.initForm();
                }
 
@@ -57,15 +58,24 @@ export class PopFilterComponent implements OnInit {
         && this.findData.get('city_id').value === '' &&  this.findData.get('study_programme_id').value === ''
         && this.findData.get('subject_area_id').value === '' &&  this.findData.get('salary').value === ''
         ) {
-      console.log('entra');
       this.popoverCtrl.dismiss({
         data: 'error'
       });
     }
-    this.uiService.dataFilter.setValue(this.findData.value);
-    this.popoverCtrl.dismiss({
-      data: 'ok'
+
+    this.cityService.searchByName(this.findData.get('city_id').value).subscribe(city => {
+      if (city) {
+        this.findData.get('city_id').setValue(city.id);
+      } else {
+        this.findData.get('city_id').setValue('');
+      }
+      this.uiService.dataFilter.setValue(this.findData.value);
+      this.popoverCtrl.dismiss({
+        data: 'ok',
+        city: city.name
+      });
     });
+
   }
 
   cancel(){

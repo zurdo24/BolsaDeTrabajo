@@ -21,4 +21,7 @@ export class CityService {
   getCitiesByState(id: string) {
     return this.http.get<City>(`${this.URL}/api/city/cities-by-state/?stateId=${id}`);
   }
+  searchByName(name: string) {
+    return this.http.get<City>(`${this.URL}/api/city/search-name?text=${name}`);
+  }
 }

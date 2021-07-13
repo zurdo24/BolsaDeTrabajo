@@ -5,6 +5,7 @@ import { finalize } from 'rxjs/operators';
 import { EducationService } from 'src/app/mi-perfil/services/education.service';
 import { PopFilterComponent } from 'src/app/shared/components/pop-filter/pop-filter.component';
 import { Vacant } from 'src/app/shared/interfaces';
+import { DisconnectedService } from 'src/app/shared/services/disconnected.service';
 import { getStorage } from 'src/app/shared/services/storage.service';
 import { JobOpeningService } from '../../../mis-oportunidades/services/job-opening.service';
 import { UiService } from '../../../shared/services/ui.service';
@@ -29,7 +30,8 @@ export class VacanciesPage implements OnInit {
 
   habilitado = true;
   constructor(private jobOpeningService: JobOpeningService, private educationService: EducationService,
-              private navCtrl: NavController, private popoverCtrl: PopoverController, private uiService: UiService) {
+              private navCtrl: NavController, private popoverCtrl: PopoverController, private uiService: UiService,
+              private disccService: DisconnectedService) {
                 this.initForm();
               }
 
@@ -46,10 +48,13 @@ export class VacanciesPage implements OnInit {
     });
 
   }
+  ionViewWillEnter(){
+    this.disccService.seturl('/vacants');
+  }
   goSeeVacant(id: string) {
     this.jobOpeningService.setpageJobs(0);
     this.jobOpeningService.setPageJobsFilter(0);
-    this.navCtrl.navigateRoot('/vacants/vacant/v/' + id, {animated: true});
+    this.navCtrl.navigateForward('/vacants/vacant/v/' + id, {animated: true});
 
   }
   nextJobs(event?,  pull: boolean = false) {
@@ -118,6 +123,8 @@ export class VacanciesPage implements OnInit {
       return;
     }
     this.findData.setValue(this.uiService.dataFilter.value);
+    this.uiService.dataFilter.get('city_id').setValue(data.city);
+    // console.log(data);
     this.infinitScrollFilter = true;
     this.jobsOpening = [];
     this.showSkeleton = true;
