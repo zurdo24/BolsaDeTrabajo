@@ -14,7 +14,7 @@ import { DisconnectedService } from './../../../shared/services/disconnected.ser
 export class PostulationsPage implements OnInit {
   URL = environment.urlPhotos;
   logo = this.URL + '/btuady/public_html/';
-  applications: Applications;
+  applications: Applications[];
   open0 = false;
   color0 = 'gold';
   open1 = false;
@@ -32,6 +32,7 @@ export class PostulationsPage implements OnInit {
     getStorage('id').then( candidateId => {
       this.jobApplicationStatusLogService.getApplications(candidateId).subscribe(applications => {
         this.applications = applications;
+        console.log(applications);
         this.open0 = true;
         this.open1 = true;
         this.open2 = true;

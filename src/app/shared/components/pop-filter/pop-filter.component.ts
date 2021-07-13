@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PopoverController, NavParams } from '@ionic/angular';
+import { finalize } from 'rxjs/operators';
 import { StudyProgrammeService } from 'src/app/mi-perfil/services/study-programme.service';
 import { SubjectAreaService } from 'src/app/mi-perfil/services/subject-area.service';
 import { JobType, StudyPrograme, SubjectArea } from '../../interfaces';
 import { JobTypeService } from '../../services/job-type.service';
+import { UiService } from '../../services/ui.service';
 
 @Component({
   selector: 'app-pop-filter',
@@ -22,77 +24,64 @@ export class PopFilterComponent implements OnInit {
               private subjectAreaService: SubjectAreaService,
               private studyProgrammeService: StudyProgrammeService,
               private popoverCtrl: PopoverController,
-              public navParams: NavParams) {
+              public navParams: NavParams, private uiService: UiService) {
                 this.initForm();
                }
 
   ngOnInit() {
     this.jobTypeService.getJobsListType().subscribe( jobType => {
       this.jobType = jobType;
-    });
-    this.subjectAreaService.getSubjectAreas().subscribe( subjectArea => {
-      this.subjectArea = subjectArea;
-    });
-    this.studyProgrammeService.getallStudyProgramme().subscribe(studyPrograme => {
-      this.studyPrograme = studyPrograme;
-    });
-
-    this.findData = new FormGroup({
-      year_Experience: new FormControl(this.navParams.get('year_Experience')),
-      job_Type: new FormControl(this.navParams.get('job_Type')),
-      city: new FormControl(this.navParams.get('city')),
-      subject_Area: new FormControl(this.navParams.get('subject_Area')),
-      study_Programe: new FormControl(this.navParams.get('study_Programe')),
-      sueldo: new FormControl(this.navParams.get('sueldo'), [ Validators.pattern('^[0-9]*$')])
+      this.subjectAreaService.getSubjectAreas().subscribe( subjectArea => {
+        this.subjectArea = subjectArea;
+        this.studyProgrammeService.getallStudyProgramme().pipe(
+          finalize(async () => {
+            this.findData.setValue( this.uiService.dataFilter.value);
+            this.findData.updateValueAndValidity();
+          })
+        ).subscribe(studyPrograme => {
+          this.studyPrograme = studyPrograme;
+        });
+      });
     });
   }
 
   changeProgramme(event){
     this.studyProgrammeService.getStudyProgrammeBySubjectArea(event.detail.value).subscribe( studyPrograme => {
       this.studyPrograme = studyPrograme;
-      this.findData.get('study_Programe').setValue('');
+      this.findData.get('study_programme_id').setValue('');
     });
   }
 
   find(){
-    // console.log(this.findData.value)
+    if (this.findData.get('years_experience').value === '' &&  this.findData.get('job_type_id').value === ''
+        && this.findData.get('city_id').value === '' &&  this.findData.get('study_programme_id').value === ''
+        && this.findData.get('subject_area_id').value === '' &&  this.findData.get('salary').value === ''
+        ) {
+      console.log('entra');
+      this.popoverCtrl.dismiss({
+        data: 'error'
+      });
+    }
+    this.uiService.dataFilter.setValue(this.findData.value);
     this.popoverCtrl.dismiss({
-      year_Experience: this.findData.get('year_Experience').value,
-      job_Type: this.findData.get('job_Type').value,
-      city: this.findData.get('city').value,
-      subject_Area: this.findData.get('subject_Area').value,
-      study_Programe: this.findData.get('study_Programe').value,
-      sueldo: this.findData.get('sueldo').value,
+      data: 'ok'
     });
   }
 
   cancel(){
-    this.findData.get('year_Experience').setValue('');
-    this.findData.get('job_Type').setValue('');
-    this.findData.get('city').setValue('');
-    this.findData.get('subject_Area').setValue('');
-    this.findData.get('study_Programe').setValue('');
-    this.findData.get('sueldo').setValue('');
-
     this.popoverCtrl.dismiss({
-      // findData:this.findData
-      year_Experience: this.findData.get('year_Experience').value,
-      job_Type: this.findData.get('job_Type').value,
-      city: this.findData.get('city').value,
-      subject_Area: this.findData.get('subject_Area').value,
-      study_Programe: this.findData.get('study_Programe').value,
-      sueldo: this.findData.get('sueldo').value,
+      data: 'clean'
     });
   }
 
   initForm() {
     this.findData = new FormGroup({
-      year_Experience: new FormControl(''),
-      job_Type: new FormControl(''),
-      city: new FormControl(''),
-      subject_Area: new FormControl(''),
-      study_Programe: new FormControl(''),
-      sueldo: new FormControl('', [Validators.pattern('^[0-9]*$')])
+      years_experience: new FormControl(''),
+      job_type_id: new FormControl(''),
+      city_id: new FormControl(''),
+      study_programme_id: new FormControl(''),
+      subject_area_id: new FormControl(''),
+      salary: new FormControl('', [Validators.pattern('^[0-9]*$')])
     });
   }
 

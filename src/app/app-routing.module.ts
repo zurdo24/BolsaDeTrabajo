@@ -65,6 +65,11 @@ const routes: Routes = [
     path: 'sin-coneccion',
     loadChildren: () => import('./prueba/pages/sin-coneccion/sin-coneccion.module').then( m => m.SinConeccionPageModule)
   },
+  {
+    path: 'vacancies',
+    loadChildren: () => import('./vacancies/pages/vacancies/vacancies.module').then( m => m.VacanciesPageModule),
+    canActivate: [AuthGuard]
+  },
 
 
 ];

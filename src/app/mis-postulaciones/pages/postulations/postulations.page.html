@@ -68,7 +68,8 @@
         class="ion-card-vacante"
         (click)="goSeeVacant(i.id_vacant)"
       >
-        <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" class="img" />
+        <!-- <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" class="img" /> -->
+        <ion-img class="img" [src]="i.logo | imagen: i.contact_id "></ion-img>
         <ion-card-header>
           <ion-card-title>{{i.job_title}}</ion-card-title>
           <ion-card-subtitle>en {{i.commercial_name}}</ion-card-subtitle>

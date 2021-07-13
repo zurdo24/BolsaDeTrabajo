@@ -83,11 +83,11 @@ export class VacantComponent implements OnInit {
   getData() {
     // se hizo la funcion para obtener el logo debido a que en en la funcion que llama del php
     // verifica si existe el archivo en la carpeta y en la base de datos al mismo tiempo
-    this.organizationService.getLogo(this.job_opening.contact_id).subscribe(logo => {
-      if (logo != null) {
-        this.logo = this.URLphotos + '/btuady/public_html/' + logo;
-      }
-    });
+    // this.organizationService.getLogo(this.job_opening.contact_id).subscribe(logo => {
+    //   // if (logo != null) {
+    //   //   this.logo = this.URLphotos + '/btuady/public_html/' + logo;
+    //   // }
+    // });
 
     if (this.job_opening.subject_area_id != null) {
       this.subjectAreaService.getSubjectArea(this.job_opening.subject_area_id).subscribe(area => {
@@ -120,7 +120,7 @@ export class VacantComponent implements OnInit {
           }
           break;
         case 'v':
-          this.backbuttonhref = '/vacants';
+          this.backbuttonhref = '/vacancies';
           break;
         case 'o':
           this.backbuttonhref = '/opportunities';
@@ -129,7 +129,7 @@ export class VacantComponent implements OnInit {
           this.backbuttonhref = '/postulations';
           break;
         default:
-          this.navCtrl.navigateRoot('/vacants');
+          this.navCtrl.navigateRoot('/vacancies');
           break;
       }
       this.jobApplicationStatusLogService.getJobASLShow(this.addMessage.get('from_user_id').value, this.id).subscribe(jab => {
@@ -201,7 +201,7 @@ export class VacantComponent implements OnInit {
                         }
                         break;
                       case 'v'://buscar vacantes
-                          this.navCtrl.navigateRoot('/vacants', { animated: true });
+                          this.navCtrl.navigateRoot('/vacancies', { animated: true });
                         break;
                       case 'o':
                           this.navCtrl.navigateRoot('/opportunities', { animated: true });
@@ -210,7 +210,7 @@ export class VacantComponent implements OnInit {
                           this.navCtrl.navigateRoot('/postulations', { animated: true });
                         break;
                       default:
-                          this.navCtrl.navigateRoot('/vacants', { animated: true });
+                          this.navCtrl.navigateRoot('/vacancies', { animated: true });
 
                         break;
                     }

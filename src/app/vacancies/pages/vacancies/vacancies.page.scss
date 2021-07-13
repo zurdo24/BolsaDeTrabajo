@@ -1,0 +1,56 @@
+.ion-card-vacante{
+  --background: #FFFFFF;//fondo de todo el card
+      ion-img{
+      background:#FFFFFF;
+      width: 50%; 
+      height: 50%;
+      display:block;
+      margin:auto;
+      }
+
+  
+  ion-card-header{
+
+      --background: #0b284a;//color de fondo del header
+      ion-card-title{
+          color:#f6c84c;//color de letras de titulo
+      }   
+      ion-card-subtitle{
+          color:#f6c84c;//color de subtitulo
+      }
+  }
+  ion-card-content{
+      p{
+          b{
+              //color y tamaño de la letras de la palabra aptitud
+              color:#000000;
+              font-size: 15px !important;
+          }
+      }
+
+  }
+  --color:#0b284a;//color de letras aptitudes
+}
+.img-icon {
+    background:#FFFFFF;
+    width: 10%; 
+    height: 60%;
+    display:block;
+    margin:auto;
+}
+.ion-footer{
+  --bar-background: #FFFFFF;//fondo de todo el ion-footer
+  // --bar-background-active: #FF0000
+  // 
+}
+
+ion-searchbar {
+    --background: #042b59;
+    --border-radius: 13px;
+    --box-shadow: 2px;
+    --cancel-button-color: #042b59;
+    --clear-button-color: #042b59;
+    // --color: #042b59;
+    --icon-color: #0dfa04;
+    --placeholder-color: #042b59;
+}

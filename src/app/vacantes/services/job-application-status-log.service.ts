@@ -34,7 +34,7 @@ export class JobApplicationStatusLogService {
   // se utiliza en la pagina de  postulaciones
   // http://localhost:8080/api/job-application-status-log/get-applications/?id=86
   getApplications(id: string ) {
-    return this.http.get<contactsChat>(`${this.URL}/api/job-application-status-log/get-applications/?id=${id}`);
+    return this.http.get<contactsChat[]>(`${this.URL}/api/job-application-status-log/get-applications/?id=${id}`);
   }
 
 }

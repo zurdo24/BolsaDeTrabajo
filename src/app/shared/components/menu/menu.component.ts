@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
     },
     {
       title: 'Buscar Vacantes',
-      url: '/vacants',
+      url: '/vacancies',
       icon: 'search'
     },
     {

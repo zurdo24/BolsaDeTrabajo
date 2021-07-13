@@ -1,0 +1,33 @@
+<ion-header slot="top">
+  <app-header [title]="'Vacantes'" [backbutton]="false"></app-header>
+  <div>
+    <ion-toolbar  class="gold">
+      <ion-searchbar
+        mode="md"
+        animated
+        (ionChange)="search($event)"
+        color="light"
+        placeholder="nombre del trabajo"
+      >
+    </ion-searchbar>
+    </ion-toolbar>
+  </div>
+</ion-header>
+
+<div class="goldlow">
+  <ion-grid *ngIf="searching">
+    <ion-row>
+      <ion-col class="ion-text-center" >
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-list >
+    <ion-item class="goldlow" *ngFor="let jobs of jobsOpening" detail>
+      <ion-label> {{ jobs.job_title}} </ion-label>
+      <!-- <ion-img [src]="jobs.logo | imagen: jobs.contact_id "></ion-img> -->
+    </ion-item>
+  </ion-list>
+
+</div>

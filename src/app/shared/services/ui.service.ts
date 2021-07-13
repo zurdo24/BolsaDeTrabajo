@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActionSheetController, AlertController, LoadingController, NavController, Platform } from '@ionic/angular';
 
 @Injectable({
@@ -7,10 +8,13 @@ import { ActionSheetController, AlertController, LoadingController, NavControlle
 export class UiService {
   load: any;
   data: any;
+
+  // para guardar los datos del popover de los filtros
+  findData: FormGroup;
+
   constructor(private alertController: AlertController, private navCtrl: NavController,
               public actionSheetController: ActionSheetController, public platform: Platform,
-              public loadingController: LoadingController) { }
-
+              public loadingController: LoadingController) { this.initForm(); }
 
 // === mis opciones ============ //
   async presentLoading(message: string, cssClass: string, translucent: boolean) {
@@ -152,5 +156,24 @@ export class UiService {
 
     await alert.present();
     return alert;
+  }
+
+  get dataFilter(): FormGroup {
+    return this.findData;
+  }
+
+  set dataFilter( findData: FormGroup) {
+    this.findData = findData;
+  }
+
+  initForm() {
+    this.findData = new FormGroup({
+      years_experience: new FormControl(''),
+      job_type_id: new FormControl(''),
+      city_id: new FormControl(''),
+      study_programme_id: new FormControl(''),
+      subject_area_id: new FormControl(''),
+      salary: new FormControl('', [Validators.pattern('^[0-9]*$')])
+    });
   }
 }

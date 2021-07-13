@@ -7,7 +7,7 @@
 <form [formGroup]="findData">
 <ion-item>
     <ion-label>Años de experiencia</ion-label>
-    <ion-select placeholder="Select One" formControlName="year_Experience">
+    <ion-select interface="popover" placeholder="Select One" formControlName="years_experience">
       <ion-select-option value="" >0</ion-select-option>
       <ion-select-option *ngFor="let i of years" [value]="i">{{i}}</ion-select-option>
      </ion-select>
@@ -15,7 +15,7 @@
 
   <ion-item>
     <ion-label>Tipo de trabajo</ion-label>
-    <ion-select placeholder="Seleccionar" formControlName="job_Type">
+    <ion-select interface="popover" placeholder="Seleccionar" formControlName="job_type_id">
       <ion-select-option value="" >Cualquier tipo</ion-select-option>
       <ion-select-option *ngFor="let type of jobType " [value]="type.id">{{type.type}}</ion-select-option>
      </ion-select>
@@ -23,13 +23,13 @@
 
 <ion-item >
   <ion-label>Ciudad: </ion-label>
-    <ion-input placeholder="ejemplo: Mérida" formControlName="city"></ion-input>
+    <ion-input placeholder="ejemplo: Mérida" formControlName="city_id"></ion-input>
 </ion-item>
 
 
 <ion-item >
   <ion-label>Área de estudios</ion-label>
-  <ion-select placeholder="Seleccionar" formControlName="subject_Area" (ionChange)="changeProgramme($event)">
+  <ion-select interface="popover" placeholder="Seleccionar" formControlName="subject_area_id" (ionChange)="changeProgramme($event)">
     <ion-select-option value="" >Cualquier tipo</ion-select-option>
     <ion-select-option *ngFor="let subjet of subjectArea" [value]="subjet.id">{{subjet.name}}</ion-select-option>
   </ion-select>
@@ -37,7 +37,7 @@
 
 <ion-item>
   <ion-label>Plan de estudios</ion-label>
-  <ion-select placeholder="Seleccionar" formControlName="study_Programe" mode="md" interface="action-sheet"  >
+  <ion-select placeholder="Seleccionar" formControlName="study_programme_id" mode="md" interface="action-sheet"  >
       <ion-select-option value="" >Cualquier plan</ion-select-option>
       <ion-select-option *ngFor="let programe of studyPrograme" [value]="programe.id" ><p>{{programe.name}}</p></ion-select-option>
   </ion-select>
@@ -45,10 +45,10 @@
  
   <ion-item >
   <ion-label>Sueldo Mensual: </ion-label>
-    <ion-input placeholder="Cantidad igual o mayor" formControlName="sueldo"></ion-input>
+    <ion-input placeholder="Cantidad igual o mayor" formControlName="salary"></ion-input>
 </ion-item>
-<ion-item *ngIf="findData.get('sueldo').errors && findData.get('sueldo').dirty">
-      <p color="danger" ion-text *ngIf="findData.get('sueldo').hasError('pattern')">el dato debe de ser numerico</p>
+<ion-item *ngIf="findData.get('salary').errors && findData.get('salary').dirty">
+      <p color="danger" ion-text *ngIf="findData.get('salary').hasError('pattern')">el dato debe de ser numerico</p>
   </ion-item>
   
   <ion-row>

@@ -7,6 +7,7 @@ import { PopFilterComponent } from './components/pop-filter/pop-filter.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DisconnectedComponent } from './components/disconnected/disconnected.component';
+import { ImagenPipe } from './pipes/imagen.pipe';
 
 
 
@@ -15,7 +16,8 @@ import { DisconnectedComponent } from './components/disconnected/disconnected.co
     MenuComponent,
     HeaderComponent,
     PopFilterComponent,
-    DisconnectedComponent
+    DisconnectedComponent,
+    ImagenPipe
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { DisconnectedComponent } from './components/disconnected/disconnected.co
     MenuComponent,
     HeaderComponent,
     PopFilterComponent,
-    DisconnectedComponent
+    DisconnectedComponent,
+    ImagenPipe
   ]
 })
 export class SharedModule { }

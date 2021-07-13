@@ -2,8 +2,8 @@
 
 <ion-content class="ion-padding">
   <div *ngIf="show != false">
-		<img *ngIf="logo != null" src={{logo}} style="margin-left:auto;  margin-right:auto;  display:block;"  />
-	            
+		<!-- <img *ngIf="logo != null" src={{logo}} style="margin-left:auto;  margin-right:auto;  display:block;"  /> -->
+		<ion-img class="img-icon" [src]="organization.logo | imagen: job_opening.contact_id "></ion-img>       
 	    <h3 style="text-align: center;">
 	    	<b> {{job_opening.job_title}} </b>
 	    </h3>

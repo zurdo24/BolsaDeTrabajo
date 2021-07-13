@@ -1,29 +1,29 @@
+
 <ion-header slot="top">
   <app-header [title]="'Vacantes'" [backbutton]="false"></app-header>
-  <div *ngIf="jobsOpening!=null && showVacants != false">
-    <ion-toolbar  class="gold">
+  <div *ngIf="showVacants2 != false">
+    <ion-toolbar  class="gold" style="padding-left: 4%; padding-right: 4%; padding-top: 1%; padding-bottom: 1%;" >
       <ion-searchbar
         mode="md"
         animated
-        (ionChange)="find($event)"
+        (ionChange)="search($event)"
         color="light"
-        placeholder="nombre del trabajo"
-      >
-      </ion-searchbar
-      ><ion-icon
-        (click)="showpop($event)"
-        color="light"
-        name="options"
-        slot="end"
-        size="large"
-        >Filtros de búsqueda</ion-icon
-      >
+        placeholder="nombre del trabajo">
+    </ion-searchbar>
+    <ion-icon
+    (click)="showpop($event)"
+      color="light"
+      name="options"
+      slot="end"
+      size="large">
+    </ion-icon>
     </ion-toolbar>
   </div>
 </ion-header>
 
-<ion-content fullscreen class="ion-padding goldlow">
-  <div *ngIf="jobsOpening==null && showVacants == true">
+
+<ion-content class="ion-padding goldlow"> 
+  <div *ngIf="showSkeleton">
     <ion-card  *ngFor="let i of [1,1,1]" color="light">
       <ion-card-header>
         <h3 style="text-align: center">
@@ -57,7 +57,7 @@
   </div>
 
   <!-- //Para poder visualizar las vacantes disponibles debes completar el perfil y CV. -->
-  <div *ngIf="showVacants == false  ">
+  <div *ngIf="showVacants2 == false  ">
     <ion-card color="light">
       <ion-card-header>
         <ion-card-title>
@@ -71,46 +71,47 @@
     </ion-card>
   </div>
 
-  <div *ngIf="jobsOpening!=null && showVacants != false ">
+  <!-- === resultados de la busqueda -->
+  <ion-grid  *ngIf="searching">
+    <ion-row>
+      <ion-col class="ion-text-center" >
+        <ion-spinner name="crescent"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div class="transparent-bg">
+    <ion-item  (click)="goSeeVacant(jobs.id)" class="goldlow" *ngFor="let jobs of jobsOpeningSearch" button detail>
+      <ion-img class="img-icon" [src]="jobs.logo | imagen: jobs.contact_id "></ion-img>
+      <ion-label style="padding-left: 5%" > {{ jobs.job_title | titlecase}} </ion-label>
+      <!-- <ion-img [src]="jobs.logo | imagen: jobs.contact_id "></ion-img> -->
+    </ion-item>
+  </div>
+
+  <div *ngIf="showVacants">
     <ion-card
-      *ngFor="let i of jobsOpening | filtrosVacant : textFinder : findData.get('year_Experience').value : findData.get('job_Type').value :        findData.get('city').value : findData.get('study_Programe').value : findData.get('subject_Area').value : findData.get('sueldo').value|slice:0:end"
-      (click)="goSeeVacant(i.id)"
-      class="ion-card-vacante fade-in"
-    >
-      <ion-img [src]="i.contact_id | imagen "></ion-img>
+    *ngFor="let jobs of jobsOpening"
+    (click)="goSeeVacant(jobs.id)"
+    class="ion-card-vacante fade-in">
+      <ion-img [src]="jobs.logo | imagen: jobs.contact_id "></ion-img>
       <!-- <img  *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" /> -->
       <ion-card-header>
-        <ion-card-title>{{i.job_title}}</ion-card-title>
-        <ion-card-subtitle>en {{i.commercial_name}}</ion-card-subtitle>
+        <ion-card-title>{{jobs.job_title}}</ion-card-title>
+        <ion-card-subtitle>en {{jobs.commercial_name | titlecase}}</ion-card-subtitle>
       </ion-card-header>
       <ion-card-content>
-        <p *ngIf="fun(i.skills) != 0">
+        <p *ngIf="jobs.skills.length > 0">
           <b>Aptitudes: </b>
-          <ion-text *ngFor="let j of i.skills">
-            <ion-text *ngIf="islast(i.skills,j)==false">{{j.skill}}, </ion-text>
-            <ion-text *ngIf="islast(i.skills,j)==true">{{j.skill}}. </ion-text>
+          <ion-text *ngFor="let skill of jobs.skills">
+            <ion-text>{{skill.skill | titlecase}}, </ion-text>
           </ion-text>
         </p>
       </ion-card-content>
     </ion-card>
   </div>
-</ion-content>
 
-<ion-footer >
-  <div *ngIf="jobsOpening!=null"   >
-    <ion-range
-      color ="gold"
-      style="height: 60px"
-      min="0"
-      max="{{total}}"
-      pin
-      step="10"
-      class="ion-footer"
-      value="{{end}}"
-      (ionChange)="show($event)"
-    >
-      <ion-icon slot="start" size="small" name="documents-sharp"></ion-icon>
-      <ion-icon slot="end" name="documents-sharp" ></ion-icon>
-    </ion-range>
-  </div>
-</ion-footer>
+  <ion-infinite-scroll threshold="100px" [disabled]="!habilitado" (ionInfinite)=" (infinitScrollFilter == false) ? nextJobs($event): nextJobsFilter($event)">
+    <ion-infinite-scroll-content>
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
