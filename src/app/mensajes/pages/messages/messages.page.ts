@@ -13,12 +13,11 @@ import { DisconnectedService } from './../../../shared/services/disconnected.ser
   styleUrls: ['./messages.page.scss'],
 })
 export class MessagesPage implements OnInit {
-   
+
   chats: contactsChat;
 
   constructor(public jobApplicationStatusLogService: JobApplicationStatusLogService,
               private disccService: DisconnectedService, private navCtrl: NavController) { }
- 
   ionViewWillEnter(){
     this.disccService.seturl('/messages')
   }

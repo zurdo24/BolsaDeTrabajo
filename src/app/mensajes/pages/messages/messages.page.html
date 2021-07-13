@@ -4,9 +4,10 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <ion-item  *ngFor="let i of chats" (click)="gotoChat(i.contact_id,i.read)">
+  <ion-item  *ngFor="let i of chats" (click)="gotoChat(i.contact_id)">
     <ion-avatar slot="start">
-      <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" />
+      <!-- <img *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" /> -->
+      <ion-img class="img-icon" [src]="i.logo | imagen: i.contact_id "></ion-img>
     </ion-avatar>
     <!-- <ion-label><ion-text>{{i.commercial_name}}</ion-text></ion-label> -->
     <ion-text><b>{{i.commercial_name |titlecase }}  </b></ion-text>

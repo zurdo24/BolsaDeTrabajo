@@ -62,7 +62,14 @@ export class PopFilterComponent implements OnInit {
         data: 'error'
       });
     }
-
+    if (this.findData.get('city_id').value === '') {
+      this.uiService.dataFilter.setValue(this.findData.value);
+      this.popoverCtrl.dismiss({
+        data: 'ok',
+        city: ''
+      });
+      return;
+    }
     this.cityService.searchByName(this.findData.get('city_id').value).subscribe(city => {
       if (city) {
         this.findData.get('city_id').setValue(city.id);

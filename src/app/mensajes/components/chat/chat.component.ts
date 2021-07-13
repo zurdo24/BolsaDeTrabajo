@@ -34,12 +34,12 @@ export class ChatComponent implements OnInit {
       this.messages = chat;
       this.organizationService.getOrganization(this.contact_id).subscribe(org => {
         this.organization = org;
-        this.organizationService.getLogo(this.contact_id).subscribe(logo => {
-          // if (logo != null) {
-          //   this.logo = this.URL + '/btuady/public_html/' + logo;
-          // }
-          this.baja();
-        });
+        // this.organizationService.getLogo(this.contact_id).subscribe(logo => {
+        //   // if (logo != null) {
+        //   //   this.logo = this.URL + '/btuady/public_html/' + logo;
+        //   // }
+        // });
+        this.baja();
       });
       this.seeMessage();
     });
