@@ -15,8 +15,7 @@ import { DisconnectedService } from './../../../shared/services/disconnected.ser
   styleUrls: ['./vacants.page.scss'],
 })
 export class VacantsPage implements OnInit {
-  URL = environment.urlPhotos;
-  logo = this.URL + '/btuady/public_html/files/logo/organization/';
+ 
   jobsOpening: Vacant;
   findData: FormGroup;
   end = 10;

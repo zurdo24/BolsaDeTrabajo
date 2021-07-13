@@ -49,7 +49,7 @@ export class VacanciesPage implements OnInit {
 
   }
   ionViewWillEnter(){
-    this.disccService.seturl('/vacants');
+    this.disccService.seturl('/vacancies');
   }
   goSeeVacant(id: string) {
     this.jobOpeningService.setpageJobs(0);

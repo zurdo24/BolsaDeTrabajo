@@ -24,8 +24,7 @@ import { DisconnectedService } from './../../../shared/services/disconnected.ser
 })
 export class PerfilBasicoPage implements OnInit {
   val: string = null;
-  URL = environment.urlPhotos;
-  photoRoutbase: string = this.URL + '/btuady/public_html/files/photo/';
+   
   edad: string = null;
   ciudad: string = null;
   estado: string = null;

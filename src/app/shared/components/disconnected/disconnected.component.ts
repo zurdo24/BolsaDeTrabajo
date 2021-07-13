@@ -17,8 +17,6 @@ import { Candidate } from 'src/app/shared/interfaces';
 	styleUrls: ['./disconnected.component.scss'],
 })
 export class DisconnectedComponent implements OnInit {
-    URLp = environment.urlPhotos;
-	photoRoutbase: string = this.URLp + '/btuady/public_html/files/photo/';
 
 	URL = environment.url;
 	connectedDB = false;

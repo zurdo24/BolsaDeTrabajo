@@ -14,12 +14,12 @@ import { DisconnectedService } from './../../../shared/services/disconnected.ser
   styleUrls: ['./opportunities.page.scss'],
 })
 export class OpportunitiesPage implements OnInit {
-  URL = environment.urlPhotos;
+   
   Match: Match;
   ismatch = false;
   viewinfo = false;
   viewcard = false;
-  logo = this.URL + '/btuady/public_html/files/logo/organization/';
+   
   constructor( private cvService: CvService,
                private jobOpeningService: JobOpeningService,
                private navCtrl: NavController,

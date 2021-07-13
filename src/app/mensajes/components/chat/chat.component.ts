@@ -18,7 +18,7 @@ export class ChatComponent implements OnInit {
   cv_id: string;
   messages: Message;
   organization: Organization;
-  URL = environment.urlPhotos;
+  // URL = environment.urlPhotos;
   logo = null;
   newMessage = '';
 
@@ -35,9 +35,9 @@ export class ChatComponent implements OnInit {
       this.organizationService.getOrganization(this.contact_id).subscribe(org => {
         this.organization = org;
         this.organizationService.getLogo(this.contact_id).subscribe(logo => {
-          if (logo != null) {
-            this.logo = this.URL + '/btuady/public_html/' + logo;
-          }
+          // if (logo != null) {
+          //   this.logo = this.URL + '/btuady/public_html/' + logo;
+          // }
           this.baja();
         });
       });

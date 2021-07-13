@@ -12,8 +12,7 @@ import { DisconnectedService } from './../../../shared/services/disconnected.ser
   styleUrls: ['./postulations.page.scss'],
 })
 export class PostulationsPage implements OnInit {
-  URL = environment.urlPhotos;
-  logo = this.URL + '/btuady/public_html/';
+  
   applications: Applications[];
   open0 = false;
   color0 = 'gold';

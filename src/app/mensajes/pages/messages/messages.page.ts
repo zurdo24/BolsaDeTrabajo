@@ -13,8 +13,7 @@ import { DisconnectedService } from './../../../shared/services/disconnected.ser
   styleUrls: ['./messages.page.scss'],
 })
 export class MessagesPage implements OnInit {
-  URL = environment.urlPhotos;
-  logo = this.URL + '/btuady/public_html/';
+   
   chats: contactsChat;
 
   constructor(public jobApplicationStatusLogService: JobApplicationStatusLogService,

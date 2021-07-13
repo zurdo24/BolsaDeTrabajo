@@ -16,9 +16,7 @@ import { CandidateService } from './perfil-basico/services/candidate.service';
 })
 export class AppComponent {
   candidate: Candidate = {firstname: '', lastname: '', photo: ''};
-  URL = environment.urlPhotos;
-  photoRoutbase = this.URL + '/btuady/public_html/files/photo/';
-  photoRout = '';
+  
   img:any;
   confirm = false;
   candidateR: Candidate;

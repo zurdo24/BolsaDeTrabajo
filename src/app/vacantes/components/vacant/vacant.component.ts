@@ -47,7 +47,6 @@ export class VacantComponent implements OnInit {
   chipStatus: JobApplicationStatusLogs;
 
   show = false;
-  URLphotos = environment.urlPhotos;
   URL = environment.url;
   logo: string = null;
   canApplication = true;
@@ -110,6 +109,7 @@ export class VacantComponent implements OnInit {
 
     this.organizationService.getOrganization(this.job_opening.contact_id).subscribe(organization => {
       this.organization = organization;
+      console.log(this.organization)
       switch (this.from) {
         case 'c':
           if (this.organization != null) {
