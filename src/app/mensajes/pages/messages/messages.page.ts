@@ -19,14 +19,14 @@ export class MessagesPage implements OnInit {
   constructor(public jobApplicationStatusLogService: JobApplicationStatusLogService,
               private disccService: DisconnectedService, private navCtrl: NavController) { }
   ionViewWillEnter(){
-    this.disccService.seturl('/messages')
-  }
-  ngOnInit() {
+    this.disccService.seturl('/messages');
     getStorage('id').then( candidateId => {
       this.jobApplicationStatusLogService.getContacts(candidateId).subscribe(chats => {
         this.chats = chats;
       });
     });
+  }
+  ngOnInit() {
 
   }
   gotoChat(id: string){

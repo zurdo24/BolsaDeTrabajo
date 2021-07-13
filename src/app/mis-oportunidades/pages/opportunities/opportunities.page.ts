@@ -14,12 +14,11 @@ import { DisconnectedService } from './../../../shared/services/disconnected.ser
   styleUrls: ['./opportunities.page.scss'],
 })
 export class OpportunitiesPage implements OnInit {
-   
+
   Match: Match;
   ismatch = false;
   viewinfo = false;
   viewcard = false;
-   
   constructor( private cvService: CvService,
                private jobOpeningService: JobOpeningService,
                private navCtrl: NavController,
@@ -49,6 +48,7 @@ export class OpportunitiesPage implements OnInit {
             })
           ).subscribe(match => {
             this.Match = match;
+            console.log(match);
           });
           return;
         }

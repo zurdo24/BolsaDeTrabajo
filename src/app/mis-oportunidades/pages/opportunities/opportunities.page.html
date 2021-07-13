@@ -43,11 +43,12 @@
           *ngFor="let Match of Match"
           (click)=" goSeeVacant(Match.id)"
         >
-          <ion-img
+        <ion-img class="img" [src]="Match.logo | imagen: Match.contact_id "></ion-img>
+          <!-- <ion-img
             *ngIf="Match.logo != null"
             src="{{logo}}{{Match.logo}}"
             class="img"
-          ></ion-img>
+          ></ion-img> -->
           <ion-card-header>
             <ion-card-subtitle>
               <strong> Puntuación: {{ Match.score }} </strong>
