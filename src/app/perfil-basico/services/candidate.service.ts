@@ -22,7 +22,7 @@ export class CandidateService {
   // }
 
   updateCandidate(id: string, data: any): Observable<object>{
-    return this.http.put(`${this.URL}/api/candidates/${id}`, data);
+    return this.http.post(`${this.URL}/api/candidate/update-candidate?id=${id}`, data);
   }
 
   loadinformation(){

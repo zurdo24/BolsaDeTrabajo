@@ -16,6 +16,6 @@ export class StateService {
 
   // regresa una lista de estados que tienen la id del pais
   getStateByCountry(id: string) {
-    return this.http.get<State>(`${this.URL}/api/state/lists/?id=${id}`);
+    return this.http.get<State[]>(`${this.URL}/api/state/lists/?id=${id}`);
   }
 }

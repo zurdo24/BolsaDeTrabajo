@@ -16,7 +16,7 @@ export class UserService {
   }
 
   updateUser(id: string, data: any) {
-    return this.http.put(`${this.URL}/api/users/${id}`, data);
+    return this.http.put(`${this.URL}/api/user/update-user?id=${id}`, data);
   }
   setUrl(url: string){
     this.URL = url;

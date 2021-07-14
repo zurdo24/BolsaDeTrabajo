@@ -48,7 +48,7 @@ export class AccessPage implements OnInit {
       this.userData.controls.password_confirm.setValidators([
         Validators.required, this.passwordid.bind(this.userData)
       ]);
-      this.userData.updateValueAndValidity()
+      this.userData.updateValueAndValidity();
     });
   }
   public toggleTextPassword(): void {
@@ -77,7 +77,7 @@ export class AccessPage implements OnInit {
         }, 500);
       })
     ).subscribe( (user) => {
-      this.user = user;
+      this.user = user['data'];
       setStorage('user', this.user);
     });
   }

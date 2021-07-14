@@ -23,8 +23,8 @@ export class EditarPerfilBasicoComponent implements OnInit {
   // Datos necesarios
   candidate: Candidate;
   countries: Country;
-  cities: City;
-  states: State;
+  cities: City[];
+  states: State[];
   organizationUnit: OrganizationUnit;
   countryId = '';
   cityId: string;
@@ -35,9 +35,9 @@ export class EditarPerfilBasicoComponent implements OnInit {
   maxYear: any;
   minYear: any;
   // ----- Variables para los erroress
-  first = false;
-  firstSate = false;
-
+  first = true;
+  firstSate = true;
+  ChangeCountry = false;
   //
   load: any;
   skeletonView = true;
@@ -67,7 +67,8 @@ export class EditarPerfilBasicoComponent implements OnInit {
           this.countryId = state.country_id;
           // paraa inicializar el objeto del estado y ciudad
           this.stateService.getStateByCountry(this.countryId).subscribe(states => {
-            this.states = states[0];
+            this.states = states;
+            // console.log(states);
             this.cityService.getCitiesByState(this.stateId).pipe(
               finalize(async () => {
                 // Hide the loading spinner on success or error
@@ -137,10 +138,9 @@ export class EditarPerfilBasicoComponent implements OnInit {
           }, 500);
         })
       ).subscribe(candidate => {
-        this.candidate = candidate;
+        this.candidate = candidate['data'];
         setStorage('candidate', this.candidate);
-      });
-
+    });
   }
   // dataEdit
   dataEdit() {
@@ -181,37 +181,39 @@ export class EditarPerfilBasicoComponent implements OnInit {
 
   // *********************************************
   // Funciones que se lanzan cuando hay un cambio en el ion-select
-  onChangeCountry($event) {
-    if (this.first === false) {
-      this.first = true;
-      this.updateData.updateValueAndValidity();
+  onChangeCountry(event) {
+    if (this.first){
+      this.first = false;
+      return;
     } else {
-      this.updateData.controls.state_id.setValue('');
-      this.updateData.controls.city_id.setValue('');
-      this.updateData.updateValueAndValidity();
+      this.ChangeCountry = true;
     }
-    this.stateService.getStateByCountry($event.target.value).subscribe(states => {
-      this.states = states[0];
+    this.stateService.getStateByCountry(event.detail.value).subscribe(states => {
+      this.states = states;
+      console.log(states);
+
     });
-    this.cities = null;
+    this.cities = [];
+    this.updateData.controls.state_id.setValue('');
+    this.updateData.controls.city_id.setValue('');
+    this.updateData.updateValueAndValidity();
   }
-  onChangeState($event) {
-    if (this.firstSate === false) {
-      this.firstSate = true;
-      this.updateData.updateValueAndValidity();
-      // this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
-      //   this.cities = cities[0];
-      // });
-    } else {
+  onChangeState(event) {
+    if (this.firstSate) {
+      this.firstSate = false;
+      return;
+    }
+    if (this.ChangeCountry) {
       this.updateData.controls.city_id.setValue('');
       this.updateData.updateValueAndValidity();
-      // this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
-      //   this.cities = cities[0];
-      // });
+      this.cities = [];
+      this.ChangeCountry = false;
+      return;
     }
-    // console.log( this.updateData.controls.city_id);
-    this.cityService.getCitiesByState($event.target.value).subscribe(cities => {
-        this.cities = cities;
+    this.updateData.controls.city_id.setValue('');
+    this.updateData.updateValueAndValidity();
+    this.cityService.getCitiesByState(event.detail.value).subscribe(cities => {
+      this.cities = cities;
     });
   }
   onChangeCity(event) {

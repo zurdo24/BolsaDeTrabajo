@@ -59,7 +59,7 @@ export class InterceptorService implements HttpInterceptor {
             });
           }
           request = request.clone({
-            headers: request.headers.set('Accept', 'application/json', )
+            headers: request.headers.set('Accept', 'application/json',  )
           });
           return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
