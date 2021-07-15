@@ -18,7 +18,8 @@ export class CvService {
   updateCv(id: string, status: string, summary: string): Observable<object> {
     const data = { status, summary };
 
-    return this.http.put<Cv>(`${this.URL}/api/cvs/${id}`, data);
+    // http://localhost:8080/api/cv/update-cv/?id=86
+    return this.http.put<Cv>(`${this.URL}/api/cv/update-cv/?id=${id}`, data);
   }
 
   matchCv(id: string) {
