@@ -26,6 +26,6 @@ export class CertificationService {
   }
 
   updateCertification(id: string, data: any) {
-    return this.http.put(`${this.URL}/api/certifications/${id}`, data);
+    return this.http.post(`${this.URL}/api/certification/update-certification/?id=${id}`, data);
   }
 }

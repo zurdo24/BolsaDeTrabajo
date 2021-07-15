@@ -29,6 +29,7 @@ export class AcademicTrainingOptComponent implements OnInit {
   startDate: any;
   minStartYear: any;
   endDate: any;
+  endateBool = false;
   // ============
   statEducation: number;
   idParam: string;
@@ -42,7 +43,7 @@ export class AcademicTrainingOptComponent implements OnInit {
   data: FormGroup;
   title = '';
   btnText = '';
-  
+
   // mostrar contenido
   showcontent = true;
   constructor(private route: ActivatedRoute, private educationService: EducationService,
@@ -52,12 +53,6 @@ export class AcademicTrainingOptComponent implements OnInit {
               private subjectAreaService: SubjectAreaService, private navCtrl: NavController) {
     this.initForm(); // inicializa el formgroup
 
-    // if (this.now.getMonth() < 10) {
-    //   this.minDate = this.startDate = this.now.getFullYear() + '-0' + (this.now.getMonth() + 1) ;
-    // }
-    // else {
-    //   this.minDate = this.startDate = this.now.getFullYear() + '-' + (this.now.getMonth() + 1);
-    // }
   }
   async ngOnInit() {
     const date = moment();
@@ -106,12 +101,13 @@ export class AcademicTrainingOptComponent implements OnInit {
           this.checkedinit = '2';
           this.dataEdit('2', education, null);
         } else {
+          // console.log(education);
           this.checkedinit = '1';
           this.studyProgrammeService.getStufyProgramme(education.study_programme_id).subscribe(studyProgramme => {
             // tslint:disable-next-line: max-line-length
             this.studyProgrammeService.getStudyProgrammeByOrgDegree(studyProgramme.organization_unit_id, education.degree_id).subscribe(studyProgrammes => {
               this.studyProgrammes = studyProgrammes;
-              this.dataEdit('1', education, studyProgramme.organization_unit_id);
+              this.dataEdit('1', education, studyProgramme.organization_unit_id.toString());
             });
           });
         }
@@ -178,18 +174,19 @@ export class AcademicTrainingOptComponent implements OnInit {
   }
   degreeChange(event) {
     if (this.data.controls.degree_id.pristine) {
+      this.data.controls.degree_id.updateValueAndValidity();
       return;
     }
     this.data.controls.organization_unit_id.setValue('');
   }
   // Funciones que se lanzan cuando hay un cambio en el ion-select de grado de estudio
-  orgUnitUady($event, degreeSelect: string) {
+  orgUnitUady(event, degreeSelect: string) {
     if (this.data.controls.organization_unit_id.pristine) {
       return;
     }
     this.data.controls.study_programme_id.setValue('');
     // this.data.controls.study_programme_id.setValue('');
-    this.studyProgrammeService.getStudyProgrammeByOrgDegree($event.target.value, degreeSelect).pipe(
+    this.studyProgrammeService.getStudyProgrammeByOrgDegree(event.detail.value, degreeSelect).pipe(
     ).subscribe(studyProgrammes => {
       this.studyProgrammes = studyProgrammes;
     });
@@ -207,7 +204,6 @@ export class AcademicTrainingOptComponent implements OnInit {
     }
     const alert = await this.uiService.presentAlert('', header, mssg, 'alertCancel', 'alertButton', 'ios');
     const data = await alert.onDidDismiss();
-
     if (data.role === 'ok') {
       if (this.isUpdate) {
         const loading = await this.uiService.presentLoading('Guardando...', 'loading', false);
@@ -236,16 +232,18 @@ export class AcademicTrainingOptComponent implements OnInit {
   }
   // tslint:disable-next-line: max-line-length
   // status education -- se utiliza para mostrar u ocultar la fecha final. en caso de que sea uno se muestra la fecha de finalizacion en el html
-  statusEducation($event) {
-    this.statEducation = $event.target.value;
+  statusEducation(event) {
+    this.statEducation = event.detail.value;
     const date = moment();
     if (this.statEducation.toString().match('1')) {
+      this.endateBool = true;
       this.data.controls.year_end.setValidators(Validators.required);
       this.minDate = date.format('YYYY-MM-DD');
       this.endDate = date.format('YYYY-MM-DD');
       this.data.controls.year_end.setValue(date.year().toString());
       this.data.controls.month_end.setValue((date.month() + 1).toString());
     } else {
+      this.endateBool = false;
       this.data.controls.year_end.clearValidators();
       this.data.controls.year_end.updateValueAndValidity();
       this.data.controls.year_end.setValue(null);
@@ -258,30 +256,44 @@ export class AcademicTrainingOptComponent implements OnInit {
 
 
   dataEdit(institution: string, education: Education, organizationunitid: string) {
-    const dateStart = moment(education.start);
-    const dateEnd = moment(education.end);
-    const monthStart = dateStart.month() + 1;
-    const monthEnd = dateEnd.month() + 1;
-
+    let dateStart: any;
+    let monthStart: any;
+    let yearEnd: any;
+    let monthEnd: any;
+    let monthEndbol = false;
+    if (education.end != null) {
+      monthEndbol = true;
+      this.endateBool = true;
+      const dateEnd = moment(education.end);
+      monthEnd = dateEnd.month() + 1;
+      yearEnd = dateEnd.year();
+    } else {
+      this.endateBool = false;
+    }
+    dateStart = moment(education.start);
+    monthStart = dateStart.month() + 1;
+    // const monthStart = dateStart.month() + 1;
     this.startDate = education.start;
     this.endDate = education.end;
+    this.minDate = education.start;
     if (institution.match('1')) {
       this.data = new FormGroup({
         institution: new FormControl(institution, Validators.required),
         cv_id: new FormControl(education.cv_id),
-        degree_id: new FormControl(education.degree_id, Validators.required),
+        degree_id: new FormControl(education.degree_id.toString(), Validators.required),
         institution_name: new FormControl(education.institution_name, Validators.maxLength(175)),
         study_programme_id: new FormControl(education.study_programme_id, Validators.required),
         study_programme_name: new FormControl(education.study_programme_name),
         subject_area_id: new FormControl(education.subject_area_id),
-        status_education_id: new FormControl(education.status_education_id, Validators.required),
+        status_education_id: new FormControl(education.status_education_id.toString(), Validators.required),
         month_start: new FormControl(monthStart.toString()),
         year_start: new FormControl(dateStart.year().toString()),
-        month_end: new FormControl(monthEnd.toString()),
-        year_end: new FormControl(dateEnd.year().toString()),
+        month_end: new FormControl( (monthEndbol) ? monthEnd.toString() : null ),
+        year_end: new FormControl( (monthEndbol) ? yearEnd.toString() : null),
         organization_unit_id: new FormControl(organizationunitid, Validators.required),
       });
       this.data.controls.institution_name.updateValueAndValidity();
+      // this.data.updateValueAndValidity();
       return;
     }
     this.data = new FormGroup({
@@ -295,8 +307,8 @@ export class AcademicTrainingOptComponent implements OnInit {
       status_education_id: new FormControl(education.status_education_id, Validators.required),
       month_start: new FormControl(monthStart.toString()),
       year_start: new FormControl(dateStart.year().toString()),
-      month_end: new FormControl(monthEnd.toString()),
-      year_end: new FormControl(dateEnd.year().toString()),
+      month_end: new FormControl( (monthEndbol) ? monthEnd.toString() : null ),
+      year_end: new FormControl( (monthEndbol) ? yearEnd : null),
       organization_unit_id: new FormControl(organizationunitid),
     });
     // this.data.controls.year_start.setValidators(Validators.required);
