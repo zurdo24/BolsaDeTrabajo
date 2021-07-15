@@ -22,11 +22,6 @@ export class EducationService {
     return this.http.post(`${this.URL}/api/educations`, data);
   }
   updateEducation(id: string, data: any): Observable <object> {
-    // console.log(id,data);
-    // httpOptions.headers.append('Access-Control-Allow-Origin', '*');
-    // httpOptions.headers.append('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    // httpOptions.headers.append('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    // httpOptions.headers.append('Access-Control-Allow-Credentials', 'true');
     return this.http.post(`${this.URL}/api/education/update-education?id=${id}`, data );
   }
   DeleteEducation(id: string): Observable <object> {
