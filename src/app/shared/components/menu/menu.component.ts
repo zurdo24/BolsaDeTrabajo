@@ -60,9 +60,14 @@ export class MenuComponent implements OnInit {
       this.authService.setUrl(environment.url);
       getStorage('token').then( token => {
         this.authService.logout(token).subscribe( logout => {
+          console.log(logout)
           if ( logout.logout){
             localStorage.clear();
             this.navCtrl.navigateRoot('/login', { animated: true });
+          }
+          else{
+            this.uiService.presentAlert2('', 'Ha ocurrido un error al realizar esta petición', `<img src="./assets/alerts/war.png" class="card-alert-img">  `, 'alertCancel', 'alertButton', 'ios');
+            // const data = await alert.onDidDismiss();
           }
         });
       });
