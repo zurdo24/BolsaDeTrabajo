@@ -4,7 +4,7 @@ import { Candidate } from '../../interfaces';
 import { UiService } from '../../services/ui.service';
 import { NavController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
-import { getStorage } from '../../services/storage.service';
+import { clearStorage, getStorage } from '../../services/storage.service';
 
 @Component({
   selector: 'app-menu',
@@ -56,13 +56,13 @@ export class MenuComponent implements OnInit {
     const message = `<img src="./assets/alerts/info.png" class="card-alert-img">  `;
     const alert = await this.uiService.presentAlert('', '¿Desea cerrar su sesión?', message, 'alertCancel', 'alertButton', 'ios');
     const data = await alert.onDidDismiss();
+    // console.log(data);
     if (data.role === 'ok') {
       this.authService.setUrl(environment.url);
       getStorage('token').then( token => {
         this.authService.logout(token).subscribe( logout => {
-          console.log(logout)
           if ( logout.logout){
-            localStorage.clear();
+            clearStorage();
             this.navCtrl.navigateRoot('/login', { animated: true });
           }
           else{

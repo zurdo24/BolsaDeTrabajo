@@ -53,7 +53,7 @@ export class AcademicTrainingComponent implements OnInit {
     }
 
     if (data.role === 'delete') {
-      const aSheet2 = await this.uiService.presentActionSheet2('¿Desea Eliminar esta experiencia de trabajo de forma permanente?', 'Eliminar', 'delete', 'trash', 'delete-btn');
+      const aSheet2 = await this.uiService.presentActionSheet2('¿Desea eliminar esta formación académica de forma permanente?', 'Eliminar', 'delete', 'trash', 'delete-btn');
 
       const  data2 = await aSheet2.onDidDismiss();
       if (!data2.data){
