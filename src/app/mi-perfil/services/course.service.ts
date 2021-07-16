@@ -30,7 +30,7 @@ export class CourseService {
   // actualiza un curso
   updateCourse( id: string, name: string, hours: string, institution: string, mode: string, start: string, end: string) {
     const data = { name, hours, institution, mode, start, end };
-    return this.http.put<Course>(`${this.URL}/api/courses/${id}`, data);
+    return this.http.post<Course>(`${this.URL}/api/course/update-course/?id=${id}`, data);
   }
 
   // elimina un curso

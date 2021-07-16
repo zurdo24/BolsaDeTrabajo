@@ -42,7 +42,7 @@ export class LanguageService {
     // actualiza un lenguaje
   updateLanguage(id: string, language_list_id: string, level_list_id: string) {
     const data = { language_list_id, level_list_id };
-    return this.http.put<Language>(`${this.URL}/api/languages/${id}`, data);
+    return this.http.post<Language>(`${this.URL}/api/language/update-language/?id=${id}`, data);
   }
 
     // elimina un lenguaje
