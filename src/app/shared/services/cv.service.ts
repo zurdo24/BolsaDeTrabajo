@@ -19,7 +19,7 @@ export class CvService {
     const data = { status, summary };
 
     // http://localhost:8080/api/cv/update-cv/?id=86
-    return this.http.put<Cv>(`${this.URL}/api/cv/update-cv/?id=${id}`, data);
+    return this.http.post<Cv>(`${this.URL}/api/cv/update-cv/?id=${id}`, data);
   }
 
   matchCv(id: string) {

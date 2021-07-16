@@ -49,12 +49,12 @@ export class WorkExperienceService {
     if (iscurrentjob == true) {
       is_current_job = '1';
       const data = {company, line_business_id, job_title, month_start, year_start, is_current_job, description };
-      return this.http.post<WorkExperience>(`${this.URL}/api/work-experiences/update-work-experience/?id=${id}`, data);
+      return this.http.post<WorkExperience>(`${this.URL}/api/work-experience/update-work-experience/?id=${id}`, data);
     }
     else{
       is_current_job = '0';
       const data = { company, line_business_id, job_title, month_start, year_start, month_end, year_end, description };
-      return this.http.post <WorkExperience>(`${this.URL}/api/work-experiences/update-work-experience/?id=${id}`, data);
+      return this.http.post <WorkExperience>(`${this.URL}/api/work-experience/update-work-experience/?id=${id}`, data);
     }
 
   }
