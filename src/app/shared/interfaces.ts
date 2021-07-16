@@ -205,6 +205,7 @@ export interface Vacant {
   city_id?: string;
   subject_area_id?: string;
   commercial_name?: string;
+  skills?: Skill[];
   logo?: string;
   type?: string;
 }
@@ -253,6 +254,11 @@ export interface Organization {
 export interface OpeningSkill {
   opening_id?: string;
   skill_id?: string;
+  skill?: string;
+}
+
+export interface Skill {
+  id?: string;
   skill?: string;
 }
 

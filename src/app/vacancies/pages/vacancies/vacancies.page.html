@@ -12,7 +12,7 @@
     </ion-searchbar>
     <ion-icon
     (click)="showpop($event)"
-      color="light"
+      [color]="filterColor"
       name="options"
       slot="end"
       size="large">
@@ -104,14 +104,15 @@
       <ion-img [src]="jobs.logo | imagen: jobs.contact_id "></ion-img>
       <!-- <img  *ngIf="i.logo != null" src="{{logo}}{{i.logo}}" /> -->
       <ion-card-header>
-        <ion-card-title>{{jobs.job_title}}</ion-card-title>
+        <ion-card-title>{{jobs.job_title | titlecase}}</ion-card-title>
         <ion-card-subtitle>en {{jobs.commercial_name | titlecase}}</ion-card-subtitle>
       </ion-card-header>
-      <ion-card-content>
+      <ion-card-content style="padding-top: 3%" >
         <p *ngIf="jobs.skills.length > 0">
           <b>Aptitudes: </b>
-          <ion-text *ngFor="let skill of jobs.skills">
-            <ion-text>{{skill.skill | titlecase}}, </ion-text>
+          <ion-text *ngFor="let skill of jobs.skills; let iskill = index">
+            <ion-text *ngIf="!islast( jobs.skills,iskill)" >{{skill.skill | titlecase}}, </ion-text>
+            <ion-text *ngIf="islast( jobs.skills,iskill)" >{{skill.skill | titlecase}}. </ion-text>
           </ion-text>
         </p>
       </ion-card-content>

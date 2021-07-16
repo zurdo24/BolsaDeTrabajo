@@ -47,11 +47,14 @@
   <ion-label>Sueldo Mensual: </ion-label>
     <ion-input placeholder="Cantidad igual o mayor" formControlName="salary"></ion-input>
 </ion-item>
-<ion-item *ngIf="findData.get('salary').errors && findData.get('salary').dirty">
-      <p color="danger" ion-text *ngIf="findData.get('salary').hasError('pattern')">el dato debe de ser numerico</p>
-  </ion-item>
+<div *ngIf="findData.get('salary').errors && findData.get('salary').dirty">
+      <!-- <p color="danger" ion-text *ngIf="findData.get('salary').hasError('pattern')">el dato debe de ser numerico</p> -->
+      <ion-text class="ion-padding" color="danger" *ngIf="findData.get('salary').hasError('pattern')">
+        <small>el dato debe de ser numerico.</small>
+      </ion-text>
+  </div>
   
-  <ion-row>
+  <ion-row class="ion-padding" >
       <ion-col width-50 style="text-align: center">
         <ion-button  [ngClass]="{'button-disabled': findData.invalid}" class="blue-btn" type="submit" 
            (click)= "find()" size="large">Buscar</ion-button>		

@@ -5,7 +5,7 @@ import { finalize, sample } from 'rxjs/operators';
 import { EducationService } from 'src/app/mi-perfil/services/education.service';
 import { CandidateService } from 'src/app/perfil-basico/services/candidate.service';
 import { PopFilterComponent } from 'src/app/shared/components/pop-filter/pop-filter.component';
-import { Vacant } from 'src/app/shared/interfaces';
+import { Vacant, Skill } from 'src/app/shared/interfaces';
 import { CvService } from 'src/app/shared/services/cv.service';
 import { DisconnectedService } from 'src/app/shared/services/disconnected.service';
 import { getStorage } from 'src/app/shared/services/storage.service';
@@ -32,11 +32,11 @@ export class VacanciesPage implements OnInit {
   findData: FormGroup;
 
   habilitado = true;
-  
-  formAcademic=false;
-  cv=false;
-  photo=false;
 
+  formAcademic = false;
+  cv = false;
+  photo = false;
+  filterColor = 'light';
   constructor(private jobOpeningService: JobOpeningService, private educationService: EducationService,
               private navCtrl: NavController, private popoverCtrl: PopoverController, private uiService: UiService,
               private disccService: DisconnectedService, private cvService : CvService) {
@@ -45,25 +45,17 @@ export class VacanciesPage implements OnInit {
 
   ngOnInit() {
     getStorage('id').then(id => {
-
-      this.jobOpeningService.getCanViewJobs(id).subscribe(data=>{
-        // if (!data["educacion"])
-
-        this.formAcademic=!data["educacion"]
-        
-        this.photo=!data["photo"]
-        console.log(data["cv"])
-        if (data["cv"]=="Por favor llena el resumen de tu CV"){
-          this.cv=true
-        console.log("es igual")
-
+      this.jobOpeningService.getCanViewJobs(id).subscribe(data => {
+        this.formAcademic = !data['educacion'];
+        this.photo = !data['photo'];
+        if (data['cv'] === 'Por favor llena el resumen de tu CV'){
+          this.cv = true;
         }
 
-
-        if(this.formAcademic || this.cv || this.photo){
+        if (this.formAcademic || this.cv || this.photo){
           this.showVacants2 = false;
-          this.habilitado=false
-          this.showSkeleton=false
+          this.habilitado = false;
+          this.showSkeleton = false;
           return;
         }
         this.nextJobs();
@@ -116,7 +108,6 @@ export class VacanciesPage implements OnInit {
     this.searching = true;
     this.showVacants = false;
     this.jobOpeningService.searchJobOpen(text).subscribe(jobs => {
-      console.log(jobs);
       this.jobsOpeningSearch = jobs;
       this.searching = false;
     });
@@ -136,6 +127,7 @@ export class VacanciesPage implements OnInit {
       return;
     }
     if (data.data === 'clean') {
+      this.filterColor = 'light';
       this.jobsOpening = [];
       this.showSkeleton = true;
       this.habilitado = true;
@@ -147,6 +139,7 @@ export class VacanciesPage implements OnInit {
       this.infinitScrollFilter = false;
       return;
     }
+    this.filterColor = 'light';
     this.findData.setValue(this.uiService.dataFilter.value);
     this.uiService.dataFilter.get('city_id').setValue(data.city);
     // console.log(data);
@@ -189,13 +182,11 @@ export class VacanciesPage implements OnInit {
 
 
   // verifica si es el ultimo arreglo de la lista, estetica
-  islast(array: any, j: any) {
-    if (array[Object.keys(array).length - 1] === j) {
+  islast(skill: Skill[], iskill: number) {
+    if (skill.length - 1 === iskill) {
       return true;
     }
-    else {
-      return false;
-    }
+    return false;
   }
 
 
