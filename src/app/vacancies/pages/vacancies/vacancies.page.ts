@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavController, PopoverController } from '@ionic/angular';
-import { finalize } from 'rxjs/operators';
+import { finalize, sample } from 'rxjs/operators';
 import { EducationService } from 'src/app/mi-perfil/services/education.service';
+import { CandidateService } from 'src/app/perfil-basico/services/candidate.service';
 import { PopFilterComponent } from 'src/app/shared/components/pop-filter/pop-filter.component';
 import { Vacant } from 'src/app/shared/interfaces';
+import { CvService } from 'src/app/shared/services/cv.service';
 import { DisconnectedService } from 'src/app/shared/services/disconnected.service';
 import { getStorage } from 'src/app/shared/services/storage.service';
+// import { runInThisContext } from 'vm';
 import { JobOpeningService } from '../../../mis-oportunidades/services/job-opening.service';
 import { UiService } from '../../../shared/services/ui.service';
 
@@ -19,9 +22,9 @@ export class VacanciesPage implements OnInit {
   jobsOpening: Vacant[] = [];
   jobsOpeningSearch: Vacant[] = [];
 
-  searching = false;
-  showVacants = false;
-  showVacants2 = true;
+  searching = false; 
+  showVacants = false; //vacantes
+  showVacants2 = true; //falta informacion
 
   showSkeleton = true;
 
@@ -29,21 +32,43 @@ export class VacanciesPage implements OnInit {
   findData: FormGroup;
 
   habilitado = true;
+  
+  formAcademic=false;
+  cv=false;
+  photo=false;
+
   constructor(private jobOpeningService: JobOpeningService, private educationService: EducationService,
               private navCtrl: NavController, private popoverCtrl: PopoverController, private uiService: UiService,
-              private disccService: DisconnectedService) {
+              private disccService: DisconnectedService, private cvService : CvService) {
                 this.initForm();
               }
 
   ngOnInit() {
     getStorage('id').then(id => {
-      this.educationService.getEducationVacants(id).subscribe(academicTraining => {
-        if (academicTraining.length === 0 ) {
+
+      this.jobOpeningService.getCanViewJobs(id).subscribe(data=>{
+        // if (!data["educacion"])
+
+        this.formAcademic=!data["educacion"]
+        
+        this.photo=!data["photo"]
+        console.log(data["cv"])
+        if (data["cv"]=="Por favor llena el resumen de tu CV"){
+          this.cv=true
+        console.log("es igual")
+
+        }
+
+
+        if(this.formAcademic || this.cv || this.photo){
           this.showVacants2 = false;
+          this.habilitado=false
+          this.showSkeleton=false
           return;
         }
         this.nextJobs();
-      });
+
+      })
 
     });
 
@@ -160,4 +185,18 @@ export class VacanciesPage implements OnInit {
       salary: new FormControl('', [Validators.pattern('^[0-9]*$')])
     });
   }
+
+
+
+  // verifica si es el ultimo arreglo de la lista, estetica
+  islast(array: any, j: any) {
+    if (array[Object.keys(array).length - 1] === j) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+
 }

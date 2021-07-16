@@ -59,4 +59,11 @@ export class JobOpeningService {
     this.pageJobs = pageJobs;
   }
   // regresa los trabajos abiertos con base al criterio de busqueda
+
+  getCanViewJobs(id: string){
+    return this.http.get<any>(`${this.URL}/api/job-opening/can-view-jobs/?id=${id}`);
+  }
+
+
+
 }

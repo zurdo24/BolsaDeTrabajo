@@ -60,13 +60,21 @@
   <div *ngIf="showVacants2 == false  ">
     <ion-card color="light">
       <ion-card-header>
-        <ion-card-title>
+        <ion-card-title >
           Para poder visualizar las vacantes disponibles debes completar el
           perfil y CV.
         </ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        Agrega información sobre tu formación académica
+      <ion-card-content >
+        <ion-text *ngIf="photo">
+          Sube una foto a tu perfil. <br> 
+        </ion-text>
+        <ion-text *ngIf="cv">
+          Escribe un resumen en tu cv. <br> 
+        </ion-text>
+        <ion-text *ngIf="formAcademic">
+          Agrega información sobre tu formación académica.
+        </ion-text>
       </ion-card-content>
     </ion-card>
   </div>
